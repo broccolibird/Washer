@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, WasherActivity!</string>
+    <string name="app_name">Washer</string>
+    <string name="search_hint">Click here to search...</string>
+   
+	<string name="center">Dial goes in this pane</string>
+	
+	<string name="no_selection">Please make a selection.</string>
+	
+	<string name="customize">Customize Program</string>
+	
+	<string-array name="cycle_types">
+        <item>Delicate</item>
+        <item>White</item>
+        <item>Color</item>
+        <item>Dark</item>
+        <item>Permanent Press</item>
+        <item>Quick</item>
+        <item>Cotton</item>
+        <item>Sanitize</item>
+        <item>Steam</item>
+    </string-array>
+    
+	<string-array name="spin_speed">
+	    <item>Low</item>
+	    <item>Medium</item>
+	    <item>High</item>
+	    <item>Extra Spin</item>
+	</string-array>
+	
+	<string name="wash_settings">Wash Cycle Settings</string>
+	<string name="rinse_settings">Rinse Cycle Settings</string>
+	<string name="spin_settings">Spin Cycle Settings</string>
+	
+	<string name="help_string">Stuff about how to use Washer interface.</string>
+	
+</resources>

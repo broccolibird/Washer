@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="maintenance_types">
+        <item>Hoses</item>
+        <item>Leveling</item>
+        <item>Exterior Cleaning</item>
+        <item>Tub Cleaning</item>
+        <item>Dispensers</item>
+        <item>Service</item>
+    </string-array>
+    <string-array name="maintenance_info">
+        <item>Inspect the hoses and fittings. Make sure the hoses aren\'t cracked or blistered, the fittings aren\'t becoming corroded and no water is dripping. It\'s a good idea to replace the hoses and fittings as part of regular washing machine maintenance every 3 years or so, even if you don\'t see any problems.</item>
+        <item>Level the machine. Use a carpenter\'s level and adjust the machine\'s feet until the bubble indicates the machine is level. A washing machine that bangs around with every load needs to be leveled before it breaks down.</item>
+        <item>Keep the exterior of your washing machine clean. Soaps and bleaches usually won\'t damage the exterior of the machine, but stain removers and other chemicals you might store on top of the machine might</item>
+    	<item>Clean the tub. This should be done every three months. Set the washing machine on hot, and if there\'s a setting for extra dirty clothes, choose that. Let the tub fill with water, then add 3 cups of white distilled vinegar and a 1/2 cup of baking soda.  When the tub begins to drain, advance the cycle to spin. After the cycle ends, set the washing machine to cold and run another cycle.</item>
+    	<item>Flush your washing machine dispensers. If you can remove them, do so and soak them in hot water.  While they\'re soaking, clean out the gunk that collects around them and between the top of the machine and the tub.  If you can\'t remove the dispensers, pour hot water through them until they\'re clean for good maintenance.</item>	
+<item>Get a service call as part of your routine washing machine maintenance.\n\nCall 1(800)555-5555 for service.</item>
+    	
+    	</string-array>
+    <string name="maint_text">Washer Maintenance Menu</string>
+
+</resources>

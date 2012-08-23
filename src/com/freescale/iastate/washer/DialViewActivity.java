@@ -1,0 +1,118 @@
+package com.freescale.iastate.washer;
+
+import com.freescale.iastate.washer.dialmenu.DialMenu;
+import com.freescale.iastate.washer.dialmenu.DialModel;
+import com.freescale.iastate.washer.dialmenu.DialRadioGroup;
+import com.freescale.iastate.washer.dialmenu.DialView;
+import com.freescale.iastate.washer.util.MenuInterface;
+import com.freescale.iastate.washer.R;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+public class DialViewActivity extends Activity implements DialModel.Listener, MenuInterface{
+   
+	String[] menu_options;
+	DialRadioGroup rg;
+	RadioButton[] button;
+	DialView dial;
+	DialMenu dm;
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        // Obtain references for UI elements
+        LinearLayout left_buttons = (LinearLayout) findViewById(R.id.left_buttons);
+        LinearLayout right_buttons = (LinearLayout) findViewById(R.id.right_buttons);
+        RelativeLayout dial_pane = (RelativeLayout) findViewById(R.id.dial_pane);
+        //TextView tv = (TextView) findViewById(R.id.text);
+        
+        // Get list of menu options
+        //menu_options = getResources().getStringArray(R.array.spin_speed);
+        menu_options = getResources().getStringArray(R.array.cycle_types);
+        
+        // create dial menu
+        dm = new DialMenu(this, left_buttons, right_buttons, dial_pane, menu_options, null);
+
+        initIntents();
+        rootIntent.setHelpText(getText(R.string.main_help));
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actionbar, menu);
+		return true;
+	}
+	
+	/**
+	 * Create intents for the MenuInterface
+	 */
+	public void initIntents() {
+		rootIntent.homeIntent = new Intent(this, DialViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		rootIntent.stainIntent = new Intent(this, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		rootIntent.maintenanceIntent = new Intent(this, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		//rootIntent.settingsIntent =  new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		rootIntent.testIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		return rootIntent.onOptionsItemSelected(this, item);
+	}
+	
+	@Override
+	public void onDialPositionChanged(DialModel sender, int nicksChanged) {
+
+		//TextView tv = (TextView) findViewById(R.id.text);
+		dm.selectRadioButton(sender.getCurrentNick(), null);
+		
+	}
+
+	@Override
+	public void onDialPressed(DialModel sender){
+		String selection = dm.getSelectedOption();
+		
+		if(selection != null){
+			Intent startWash= new Intent(this, ProgressActivity.class);
+			startWash.putExtra("selection", dm.getSelectedOption());
+			
+			// TODO : Set values on this menu
+			startWash.putExtra("load_size", 3);
+			startWash.putExtra("soil_level", 2);
+			this.startActivity(startWash);
+		}else{
+			Toast.makeText(this, R.string.no_selection, Toast.LENGTH_SHORT)
+					.show();
+		}
+		
+	}
+	
+	public void customizeProgram(View v){
+		String selection = dm.getSelectedOption();
+		Intent customWash= new Intent(this, CustomProgramActivity.class);
+		if(selection != null){
+			customWash.putExtra("selection", dm.getSelectedOption());
+			
+		}
+		this.startActivity(customWash);
+	}
+
+}

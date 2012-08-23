@@ -1,0 +1,162 @@
+package com.freescale.iastate.washer.data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.freescale.iastate.washer.util.Cycle;
+import com.freescale.iastate.washer.util.Program;
+import com.freescale.iastate.washer.util.Rinse;
+import com.freescale.iastate.washer.util.Spin;
+import com.freescale.iastate.washer.util.Wash;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+public class WasherDataSource {
+
+	// Database fields
+	private SQLiteDatabase database;
+	private WasherDatabaseHandler dbHelper;
+	private String[] allColumns = { WasherDatabaseHandler.ID, 						//0
+			WasherDatabaseHandler.COL_NAME, WasherDatabaseHandler.COL_CUSTOM,				//1, 2
+			WasherDatabaseHandler.COL_DESCRIPTION, WasherDatabaseHandler.COL_WASHLENGTH,	//3, 4
+			WasherDatabaseHandler.COL_WASHTEMP, WasherDatabaseHandler.COL_WASHSTEAM,		//5, 6
+			WasherDatabaseHandler.COL_WASHAG, WasherDatabaseHandler.COL_SOAK,				//7, 8
+			WasherDatabaseHandler.COL_RINSELENGTH, WasherDatabaseHandler.COL_RINSETEMP,	//9, 10
+			WasherDatabaseHandler.COL_RINSESTEAM, WasherDatabaseHandler.COL_RINSEAG,		//11, 12
+			WasherDatabaseHandler.COL_SPINLENGTH, WasherDatabaseHandler.COL_SPINSPEED, 	//13, 14
+			WasherDatabaseHandler.COL_SPINSTEAM };									//15
+	
+	private static final String DEBUG_TAG = "WasherDataSource";
+	
+	public WasherDataSource(Context context) {
+		dbHelper = new WasherDatabaseHandler(context);
+	}
+
+	public void open() throws SQLException {
+		database = dbHelper.getWritableDatabase();
+	}
+
+	public void close() {
+		dbHelper.close();
+	}
+
+	public Program createProgram(Program program) {
+		Wash wash = (Wash) program.getWashCycle();
+		Rinse rinse = (Rinse) program.getRinseCycle();
+		Spin spin = (Spin) program.getSpinCycle();
+		
+		ContentValues values = new ContentValues();
+		values.put(WasherDatabaseHandler.COL_NAME, program.getName());
+		values.put(WasherDatabaseHandler.COL_CUSTOM, program.getCustom());
+		values.put(WasherDatabaseHandler.COL_DESCRIPTION, program.getDescription());
+		values.put(WasherDatabaseHandler.COL_WASHLENGTH, wash.getLength());
+		values.put(WasherDatabaseHandler.COL_WASHTEMP, wash.getTemp().getID());
+		values.put(WasherDatabaseHandler.COL_WASHSTEAM, wash.getSteam());
+		values.put(WasherDatabaseHandler.COL_WASHAG, wash.getAgitation().getID());
+		values.put(WasherDatabaseHandler.COL_SOAK, wash.getPresoakLength());
+		values.put(WasherDatabaseHandler.COL_RINSELENGTH, rinse.getLength());
+		values.put(WasherDatabaseHandler.COL_RINSETEMP, rinse.getTemp().getID());
+		values.put(WasherDatabaseHandler.COL_RINSESTEAM, rinse.getSteam());
+		values.put(WasherDatabaseHandler.COL_RINSEAG, rinse.getAgitation().getID());
+		values.put(WasherDatabaseHandler.COL_SPINLENGTH, spin.getLength());
+		values.put(WasherDatabaseHandler.COL_SPINSPEED, spin.getSpinSpeed().getID());
+		values.put(WasherDatabaseHandler.COL_SPINSTEAM, spin.getSteam());
+		
+		long insertId = database.insert(WasherDatabaseHandler.TABLE_PROGRAMS, null,
+				values);
+		String return_columns[] = {WasherDatabaseHandler.COL_NAME, WasherDatabaseHandler.COL_CUSTOM};
+		Cursor cursor = database.query(WasherDatabaseHandler.TABLE_PROGRAMS,
+				return_columns, WasherDatabaseHandler.ID + " = " + insertId, null,
+				null, null, null);
+		cursor.moveToFirst();
+		Program newProgram = cursorToProgram(cursor);
+		cursor.close();
+		return newProgram;
+	}
+
+	public void deleteProgram(Program program) {
+		long id = program.getId();
+		System.out.println("program deleted with id: " + id);
+		database.delete(WasherDatabaseHandler.TABLE_PROGRAMS, WasherDatabaseHandler.ID
+				+ " = " + id, null);
+	}
+
+	public List<Program> getAllPrograms() {
+		List<Program> programs = new ArrayList<Program>();
+
+		Cursor cursor = database.query(WasherDatabaseHandler.TABLE_PROGRAMS,
+				allColumns, null, null, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Program program = cursorToProgram(cursor);
+			programs.add(program);
+			cursor.moveToNext();
+		}
+		// Make sure to close the cursor
+		cursor.close();
+		return programs;
+	}
+		
+	public Program nameToProgram(String name){
+		
+		Cursor cursor = database.query(WasherDatabaseHandler.TABLE_PROGRAMS,
+				allColumns, WasherDatabaseHandler.COL_NAME + " = '" + name + "'", null,
+				null, null, null);
+		
+		boolean isEntry = cursor.moveToFirst();
+		
+		if(isEntry)
+			return cursorToProgram(cursor);
+		else
+			return null;
+	}
+
+	private Program cursorToProgram(Cursor cursor) {
+		
+		int washSteamInt = cursor.getInt(6);
+		Boolean washSteam = (washSteamInt == 1) ? true : false;
+		
+		Wash wash = new Wash(cursor.getInt(4),  //length
+				Cycle.Temperature.values()[cursor.getInt(5)], //temperature
+				Cycle.Level.values()[cursor.getInt(7)],	//agitation
+				cursor.getInt(8), //presoakLength
+				washSteam);					
+		Log.i(DEBUG_TAG, wash.toString());
+		
+		int rinseSteamInt = cursor.getInt(11);
+		Boolean rinseSteam = (rinseSteamInt == 1) ? true : false;
+		
+		Rinse rinse = new Rinse(cursor.getInt(9), //length
+				Cycle.Temperature.values()[cursor.getInt(10)], //temperature
+				Cycle.Level.values()[cursor.getInt(12)], //agitation 
+				rinseSteam); //steam
+		Log.i(DEBUG_TAG, rinse.toString());
+		
+		int spinSteamInt = cursor.getInt(15);
+		Boolean spinSteam = (spinSteamInt == 1) ? true : false;
+
+		int spin_length = cursor.getInt(13);
+		int spin_speed = cursor.getInt(14);
+		Spin spin = new Spin(spin_length, // length
+				Cycle.Level.values()[spin_speed], // spin_speed
+				spinSteam); //steam
+				
+		Program program = new Program(cursor.getLong(0), cursor.getString(1), 
+				cursor.getString(3), wash, rinse, spin);
+		return program;
+	}
+
+	public SQLiteDatabase getDatabase(){
+		return database;
+	}
+	
+	public WasherDatabaseHandler getDBHelper(){
+		return dbHelper;
+	}
+}

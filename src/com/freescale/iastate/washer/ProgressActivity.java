@@ -1,0 +1,170 @@
+package com.freescale.iastate.washer;
+
+import com.freescale.iastate.washer.data.DatabaseInfo;
+import com.freescale.iastate.washer.data.ProgramDataSource;
+import com.freescale.iastate.washer.util.MenuInterface;
+import com.freescale.iastate.washer.util.Program;
+import com.freescale.iastate.washer.util.Rinse;
+import com.freescale.iastate.washer.util.Spin;
+import com.freescale.iastate.washer.util.Wash;
+import com.freescale.iastate.washer.R;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+public class ProgressActivity extends Activity implements MenuInterface{
+
+	private ProgramDataSource datasource;
+	private String selection;
+	private int index;
+	private Program program = null;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.progress);
+		
+		ActionBar actionBar = getActionBar();
+		
+		// Unpackage intent to retrieve user selection
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		selection = bundle.getString("selection");
+		if(selection != null){
+			createDatabase();
+			
+			// Retrieve selected program from database
+			program = datasource.nameToProgram(selection);
+			datasource.close();
+			program.setSoilLevel(bundle.getInt("soil_level"));
+			program.setLoadSize(bundle.getInt("load_size"));
+		}else{
+			program = bundle.getParcelable("program");
+			selection = program.getName();
+		}
+	
+		updateProgramView(program);
+		createCountdown();
+		
+		rootIntent.setHelpText(getText(R.string.progress_help));
+	}
+	
+	/**
+	 * Displays information about the program currently running
+	 * 
+	 * @param program - program to be shown
+	 */
+	public void updateProgramView(Program program){
+		TextView program_name = (TextView) findViewById(R.id.programName);
+		program_name.setText(selection);
+		
+		TextView program_desc = (TextView) findViewById(R.id.programDescription);
+		TextView program_length = (TextView) findViewById(R.id.programLength);
+		TextView load_size = (TextView) findViewById(R.id.loadSize);
+		TextView soil_level = (TextView) findViewById(R.id.soilLevel);
+		
+		program_desc.setText(program.getDescription());
+		program_length.setText("" + program.getLength());
+		load_size.setText("Load Size: " + program.getLoadSize().getLabel());
+		soil_level.setText("Soil Level: " + program.getSoilLevel().getLabel());
+    
+		TextView presoak = (TextView) findViewById(R.id.presoakLength);
+		TextView wash_length = (TextView) findViewById(R.id.washLength);		
+		TextView wash_temp = (TextView) findViewById(R.id.washTemperature);
+		TextView wash_ag = (TextView) findViewById(R.id.washAgitation);
+		TextView wash_steam = (TextView) findViewById(R.id.washSteam);
+		
+		Wash wash = (Wash) program.getWashCycle();
+		presoak.setText("Presoak length: " + wash.getPresoakLength());
+		wash_length.setText("Length: " + wash.getLength());
+		wash_temp.setText("Temperature: " + wash.getTemp());
+		wash_ag.setText("Agitation: " + wash.getAgitation());
+		wash_steam.setText("Steam: " + wash.getSteam());
+		
+		TextView rinse_length = (TextView) findViewById(R.id.rinseLength);
+		TextView rinse_temp = (TextView) findViewById(R.id.rinseTemperature);
+		TextView rinse_ag = (TextView) findViewById(R.id.rinseAgitation);
+		TextView rinse_steam = (TextView) findViewById(R.id.rinseSteam);
+		
+		Rinse rinse = (Rinse) program.getRinseCycle();
+		rinse_length.setText("Length: " + rinse.getLength());
+		rinse_temp.setText("Temperature: " + rinse.getTemp().getLabel());
+		rinse_ag.setText("Agitation: " + rinse.getAgitation().getLabel());
+		rinse_steam.setText("Steam: " + rinse.getSteam());
+		
+
+		TextView spin_length = (TextView) findViewById(R.id.spinLength);
+		TextView spin_speed = (TextView) findViewById(R.id.spinSpeed);
+		TextView spin_steam = (TextView) findViewById(R.id.spinSteam);
+		
+		Spin spin = (Spin) program.getSpinCycle();
+		spin_length.setText("Length: " + spin.getLength());
+		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
+		spin_steam.setText("Steam: " + spin.getSteam());
+	}
+		
+	private void createDatabase(){
+		datasource = new ProgramDataSource(this);
+		datasource.open();
+		//DatabaseInfo.populateDatabase(datasource.getDBHelper(), datasource.getDatabase());
+	}
+	
+	private void createCountdown(){
+		int program_length = program.getLength();
+		
+		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
+		
+		new CountDownTimer(minutesToMillis(program_length), 1000) {
+
+		     @Override
+			public void onTick(long millisUntilFinished) {
+		         program_timer.setText(millisToTimeString(millisUntilFinished));
+		     }
+
+		     @Override
+			public void onFinish() {
+		         program_timer.setText("program done!");
+		     }
+		  }.start();
+	}
+	
+	private String millisToTimeString(long millis){
+		long total_seconds = millis / 1000;
+		
+		long minutes = total_seconds / 60;
+		long seconds = total_seconds % 60;
+		
+		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
+		
+		return minutes + ":" + second_string;
+	}
+	
+	private int minutesToMillis(int minutes){
+		return 1000 * (minutes * 60);
+	}
+		
+	@Override
+	protected void onDestroy() {
+	    super.onDestroy();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actionbar, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return rootIntent.onOptionsItemSelected(this, item);
+	}
+}

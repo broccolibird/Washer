@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stainview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    <fragment android:name="com.freescale.iastate.washer.stain.StainListFragment"
+        android:id="@+id/stainlist"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
+    <fragment android:name="com.freescale.iastate.washer.stain.StainViewFragment"
+        android:id="@+id/stainviewfrag"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
+
+</LinearLayout>

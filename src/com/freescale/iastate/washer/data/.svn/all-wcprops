@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/freescale/!svn/ver/80/Washer/src/com/freescale/iastate/washer/data
+END
+DatabaseInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/freescale/!svn/ver/61/Washer/src/com/freescale/iastate/washer/data/DatabaseInfo.java
+END
+WasherDataSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/freescale/!svn/ver/80/Washer/src/com/freescale/iastate/washer/data/WasherDataSource.java
+END
+WasherDatabaseHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/freescale/!svn/ver/68/Washer/src/com/freescale/iastate/washer/data/WasherDatabaseHandler.java
+END

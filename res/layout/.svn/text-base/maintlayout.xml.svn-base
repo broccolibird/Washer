@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+	    android:paddingRight="20dp"
+	    android:paddingBottom="20dp"
+	    android:paddingTop="20dp"
+	    android:background="#000000">
+	    	<FrameLayout
+	    		android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:orientation="vertical"
+		        android:gravity="center_horizontal"
+		        android:paddingLeft="2dp"
+		    	android:paddingRight="2dp"
+		    	android:paddingBottom="2dp"
+		    	android:paddingTop="2dp"
+		    	android:background="#33B5E5">
+				    <ListView
+				        android:id="@+id/maintenanceListView"
+				        android:layout_width="fill_parent"
+				        android:layout_height="fill_parent"
+				        android:background="#000000">
+				    </ListView>
+			</FrameLayout>
+	</FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+	    android:paddingRight="20dp"
+	    android:paddingBottom="20dp"
+	    android:paddingTop="20dp"
+	    android:background="#000000">
+	    	<FrameLayout
+	    		android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:orientation="vertical"
+		        android:gravity="center_horizontal"
+		        android:paddingLeft="2dp"
+		    	android:paddingRight="2dp"
+		    	android:paddingBottom="2dp"
+		    	android:paddingTop="2dp"
+		    	android:background="#33B5E5">
+				    <TextView
+				        android:id="@+id/maintenanceTextView"
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:text="@string/maintenance_help" 
+				        android:background="#000000"/>
+			</FrameLayout>
+	</FrameLayout>
+
+</LinearLayout>

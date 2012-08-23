@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/freescale/!svn/ver/118/Washer/src/com/freescale/iastate/washer/util
+END
+Cycle.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/freescale/!svn/ver/106/Washer/src/com/freescale/iastate/washer/util/Cycle.java
+END
+Rinse.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/freescale/!svn/ver/106/Washer/src/com/freescale/iastate/washer/util/Rinse.java
+END
+StainTreatment.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/freescale/!svn/ver/42/Washer/src/com/freescale/iastate/washer/util/StainTreatment.java
+END
+Wash.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/freescale/!svn/ver/106/Washer/src/com/freescale/iastate/washer/util/Wash.java
+END
+MenuInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/freescale/!svn/ver/118/Washer/src/com/freescale/iastate/washer/util/MenuInterface.java
+END
+Program.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/freescale/!svn/ver/118/Washer/src/com/freescale/iastate/washer/util/Program.java
+END
+Spin.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/freescale/!svn/ver/106/Washer/src/com/freescale/iastate/washer/util/Spin.java
+END

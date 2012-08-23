@@ -1,0 +1,138 @@
+package com.freescale.iastate.washer.data;
+
+import com.freescale.iastate.washer.util.Program;
+import com.freescale.iastate.washer.util.Rinse;
+import com.freescale.iastate.washer.util.Spin;
+import com.freescale.iastate.washer.util.Wash;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+public class WasherDatabaseHandler extends SQLiteOpenHelper{
+
+    private static final String DEBUG_TAG = "WasherDatabase";
+    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "washer_data";
+    private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
+
+    //Stain Database Values
+/*  public static final String TABLE_STAINS = "stains";
+    public static final String ID = "_id";
+    public static final String COL_TYPE = "type";
+    public static final String COL_FABRIC = "fabric";
+    public static final String COL_DIRECTIONS = "directions";
+    public static final String COL_WASH = "wash"; */
+    
+    
+    // Programs table
+    public static final String TABLE_PROGRAMS = "programs";
+    public static final String ID = "_id";
+    public static final String COL_NAME = "name";
+    public static final String COL_CUSTOM = "custom";
+    public static final String COL_DESCRIPTION = "description";
+    // Programs table - Wash Cycle
+    public static final String COL_WASHLENGTH = "wash_length";
+    public static final String COL_WASHTEMP = "wash_temperature";
+    public static final String COL_WASHSTEAM = "wash_steam";
+    public static final String COL_WASHAG = "wash_agitation";
+    public static final String COL_SOAK = "presoak_length";
+    // Programs table - Rinse Cycle
+    public static final String COL_RINSELENGTH = "rinse_length";
+    public static final String COL_RINSETEMP = "rinse_temperature";
+    public static final String COL_RINSESTEAM = "rinse_steam"; 
+    public static final String COL_RINSEAG = "rinse_agitation";
+    // Programs table - Spin Cycle
+    public static final String COL_SPINLENGTH = "spin_length";
+    public static final String COL_SPINSPEED = "spin_speed";
+    public static final String COL_SPINSTEAM = "spin_steam";
+    
+	
+    /*private static final String CREATE_TABLE_STAINS = "CREATE TABLE "
+            + TABLE_STAINS + " (" + ID + " integer PRIMARY KEY AUTOINCREMENT, " 
+    		+ COL_TYPE + " text NOT NULL, " + COL_FABRIC + " text, " 
+            + COL_DIRECTIONS + " text NOT NULL, " + COL_WASH + " integer);";*/
+    
+    private static final String CREATE_TABLE_PROGRAMS = "CREATE TABLE "
+            + TABLE_PROGRAMS + "(" + ID + " INTEGER PRIMARY KEY, " 
+    		+ COL_NAME + " TEXT, " + COL_CUSTOM + " INTEGER, " 
+            + COL_DESCRIPTION + " TEXT, " + COL_WASHLENGTH + " INTEGER, "
+            + COL_WASHTEMP + " INTEGER, " + COL_WASHSTEAM + " INTEGER, "
+            + COL_WASHAG + " INTEGER, " + COL_SOAK + " INTEGER, "
+            + COL_RINSELENGTH + " INTEGER, " + COL_RINSETEMP + " INTEGER, "
+            + COL_RINSESTEAM + " INTEGER, " + COL_RINSEAG + " INTEGER, " 
+            + COL_SPINLENGTH + " INTEGER, " + COL_SPINSPEED + " INTEGER, " 
+            + COL_SPINSTEAM + " INTEGER)";
+    
+	public WasherDatabaseHandler(Context context) {
+		super(context, DB_NAME, null, DB_VERSION);
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+        //db.execSQL(CREATE_TABLE_STAINS);
+        
+        db.execSQL(CREATE_TABLE_PROGRAMS);
+        
+        
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w(DEBUG_TAG, "Upgrading database. Existing contents will be lost. ["
+                + oldVersion + "]->[" + newVersion + "]");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROGRAMS);
+        onCreate(db);
+		
+	}
+    
+    public void addProgram(SQLiteDatabase db, Program program){
+    	Wash wash = (Wash) program.getWashCycle();
+    	Rinse rinse = (Rinse) program.getRinseCycle();
+    	Spin spin = (Spin) program.getSpinCycle();
+    	
+    	db.execSQL("insert into programs (name, custom, description, wash_length, wash_temperature, "
+    			+ "wash_steam, wash_agitation, presoak_length, rinse_length, rinse_temperature, "
+    			+ "rinse_steam, rinse_agitation, spin_length, spin_speed, spin_steam) values "
+    			+ "('" + program.getName() + "', '" + program.getCustom() + "', '" 
+    			+ program.getDescription() + "', '" + wash.getLength() + "', '" + wash.getTemp().getID() + "', '"
+        		+ wash.getSteamInt() + "', '" + wash.getAgitation().getID() + "', '" 
+    			+ wash.getPresoakLength() + "', '" + rinse.getLength() + "', '" + rinse.getTemp().getID() + "', '"
+    			+ rinse.getSteamInt() + "', '" + rinse.getAgitation().getID() + "', '" 
+    			+ spin.getLength() + "', '" + spin.getSpinSpeed().getID() + "', '" + spin.getSteamInt() + "');");
+    }
+    
+    /*private void addStain(SQLiteDatabase db, StainTreatment stain){
+    	db.execSQL("insert into stains (type, fabric, directions, wash) values ('" + stain.getType() + "', '" 
+    			+ stain.getFabric() + "', " + stain.getDirections() + "', " + stain.getWash() + "');");
+    }*/
+    
+    /*
+     * Check if the database already exist to avoid re-copying the file each time you open the application.
+     * @return true if it exists, false if it doesn't
+     */
+    /*private boolean checkDataBase(){
+    	 
+    	SQLiteDatabase checkDB = null;
+ 
+    	try{
+    		String myPath = DB_PATH + DB_NAME;
+    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+ 
+    	}catch(SQLiteException e){
+ 
+    		//database does't exist yet.
+ 
+    	}
+ 
+    	if(checkDB != null){
+ 
+    		checkDB.close();
+ 
+    	}
+ 
+    	return checkDB != null ? true : false;
+    }*/
+    
+}

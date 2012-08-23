@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/freescale/!svn/ver/119/Washer/res/values
+END
+help_strings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/freescale/!svn/ver/119/Washer/res/values/help_strings.xml
+END
+maintstrings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/freescale/!svn/ver/66/Washer/res/values/maintstrings.xml
+END
+stainstrings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/freescale/!svn/ver/102/Washer/res/values/stainstrings.xml
+END
+strings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/freescale/!svn/ver/70/Washer/res/values/strings.xml
+END

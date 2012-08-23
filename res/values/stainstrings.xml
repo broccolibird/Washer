@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="stain_type">
+        <item >Antiperspirant/deodorant</item>
+        <item >Blood</item>
+        <item >Coffee</item>
+        <item >Grass</item>
+        <item >Fruit juice</item>
+        <item >Ink</item>
+        <item >Lipstick</item>
+        <item >Sauce, mustard, ketchup</item>
+        <item >Salt</item>
+        <item >Toothpaste</item>
+        <item >Wine</item>
+    </string-array>
+    
+    <string-array name="stain_info">
+        <item >Soak the stain in white vinegar for 30 minutes. Then, launder the shirt in the warmest possible water for the type of fabric using an enzyme detergent like Wisk or Tide. Another alternative is to rub a little bit of liquid detergent on the stain, leave it for about 10 minutes, and wash the garment normally afterward. Next time, wait for the antiperspirant to dry before dressing.</item>
+        <item >If the stain is fresh, soak the garment in cold water with a sprinkle of ammonia for 20 minutes. If the stain has already set, dampen it with warm water, then apply some unseasoned (this is important) meat tenderizer, making a paste over the stain. Cover this with a paper towel and make sure it stays moist. The next day, rinse off the paste with water mixed with a little bit of ammonia and wash normally.</item>
+        <item >If you can wash the item right away, regular laundry will work just fine. Also, you can pre-treat the stain with liquid bleach (use color-safe bleach for colored clothes) as an extra measure. If that doesn\'t work and the fabric is white, mix one part of peroxide with six parts of water and rub it on the stain.</item>
+        <item >If you have stain remover, rub some delicately onto the stain and leave it for five minutes. Using bleach (color-safe bleach if the garment isn\'t white) and detergent, launder normally in hot water. Another solution is to sponge some ethanol or methanol on the stain, then to remove it with warm soapy water, and finally to mix one part glycerin with two parts water and cover the stain with it until it softens.</item>
+        <item >After soaking the fabric in cool water, rub a bar of soap on the stain. Then, before it can dry, launder the item with detergent and bleach (once again, use color-safe bleach if it isn\'t white) in the hottest possible water.</item>
+        <item >Apply rubbing alcohol to the stain and then rub in some detergent. If the stain is still there after a normal wash, do it all over again. Alternatively, you can put hairspray on the stain and rub it in with a dry cloth before washing normally.</item>
+        <item >Lipstick is just like the women who wear it: It can be stubborn. However, there are solutions if it doesn\'t go away with normal washing. You can dab the stain with either a stain remover, rubbing alcohol, ammonia, or hairspray. Then, just rinse it off with warm water.</item>
+        <item >Pre-treat the stain with color-safe bleach and wash with detergent in warm or hot water. If the stain is still there, treat it with stain remover and wash again.</item>
+        <item >In most cases, regular laundering will remove salt stains from clothes. However, for men\'s shoes, you must mix one tablespoon of white vinegar with one cup of water. Using a clean rag, dip into the solution and scrub the stains from the shoes. Once dry, they\'ll look like new.</item>
+        <item >If scrubbing it out with warm water doesn\'t work, mix three tablespoons of ammonia with one cup of water and dab the stain with this mixture and a paper towel. You can also combine one tablespoon of clear dish liquid and one cup of water, rub the stain with the mixture and use clear water to rinse. If the toothpaste is the whitening kind, you must work extremely fast if you don\'t want the peroxide it contains to leave a permanent white stain.</item>
+        <item >For red wine, pour salt onto the stain if it\'s still fresh, but don\'t rub it in. Rinse it off with warm water after two minutes. Also, you can pour white wine on the stain to keep it from setting. For a white wine stain, use carbonated soda water after blotting up as much as the wine as possible. If the stain has dried, mix up one part glycerin with two parts water and rub it onto the stain before washing normally.</item>
+    </string-array>
+    
+    
+</resources>
