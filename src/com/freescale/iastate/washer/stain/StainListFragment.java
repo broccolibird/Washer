@@ -42,7 +42,7 @@ public class StainListFragment extends ListFragment {
 		
 		source = new StainDataSource(context);
 		source.open();
-		cursor = source.getAllStains(columns);
+		cursor = source.getAllStains(StainDataSource.allColumns);
 		getActivity().startManagingCursor(cursor);
 		
 		int textLocations[] = {R.id.text1, R.id.text2 }; 
