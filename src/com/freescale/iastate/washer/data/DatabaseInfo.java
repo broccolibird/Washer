@@ -1,13 +1,21 @@
 package com.freescale.iastate.washer.data;
 
-import android.database.sqlite.SQLiteDatabase;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.database.sqlite.SQLiteDatabase;
+import au.com.bytecode.opencsv.CSVReader;
+
+import com.freescale.iastate.washer.util.Cycle.Level;
+import com.freescale.iastate.washer.util.Cycle.Temperature;
 import com.freescale.iastate.washer.util.Program;
 import com.freescale.iastate.washer.util.Rinse;
 import com.freescale.iastate.washer.util.Spin;
 import com.freescale.iastate.washer.util.Stain;
 import com.freescale.iastate.washer.util.Wash;
-import com.freescale.iastate.washer.util.Cycle.*;
 
 public class DatabaseInfo {
 
@@ -71,24 +79,31 @@ public class DatabaseInfo {
 		wd.addProgram( db, steam);
 	}
 	
-	public static void populateStainTable(WasherDatabaseHandler wd, SQLiteDatabase db){
+	public static void populateStainTable(Context context, WasherDatabaseHandler wd, SQLiteDatabase db){
 
-		String supplies[] = {"supply1", "supply2", "supply3"};
-		String steps[] = {"step1", "step2", "step3"}; 
+		AssetManager assetManager = context.getAssets();
+		Stain stain;
 		
-		Stain stain = new Stain("type1", "fabric1", supplies[0],
-				steps[0], "notes1", "disclaimer1",
-				"source1", "http://source_url1.html");
-		wd.addStain(db, stain);
-		
-		stain = new Stain("type2", "fabric2", supplies[1],
-				steps[1], "notes2", "disclaimer2",
-				"source2", "http://source_url2.html");
-		wd.addStain(db, stain);
-		
-		stain = new Stain("type3", "fabric3", supplies[2],
-				steps[2], "notes3", "disclaimer3",
-				"source3", "http://source_url3.html");
-		wd.addStain(db, stain);
+		try {
+			InputStream csvStream = assetManager.open("Stains.csv");
+			InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
+			CSVReader csvReader = new CSVReader(csvStreamReader);
+			String[] line;
+			
+			csvReader.readNext();
+			
+			while ((line = csvReader.readNext()) != null) {
+				if(line.length == 9 ) {
+					stain = new Stain(line[1], line[2], 
+							line[3], line[4], line[5], line[6], 
+							line[7], line[8]);
+					wd.addStain(db, stain);
+					if(line[0].equals("31"))
+						break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

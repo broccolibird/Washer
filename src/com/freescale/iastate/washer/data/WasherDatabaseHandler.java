@@ -15,12 +15,14 @@ import android.util.Log;
 public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     private static final String DB_NAME = "washer_data";
     private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
+    private Context context;
     
 	public WasherDatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
+		this.context = context;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(StainDataSource.CREATE_TABLE_STAINS);
         
         DatabaseInfo.populateProgramTable(this, db);
-        DatabaseInfo.populateStainTable(this, db);
+        DatabaseInfo.populateStainTable(context, this, db);
 	}
 
 	@Override
@@ -69,6 +71,8 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
     	values.put(StainDataSource.COL_SOURCE, stain.getSource());
     	values.put(StainDataSource.COL_SOURCEURL, stain.getSourceURL());
 
+    	 Log.w(DEBUG_TAG, "Adding stain to stains database: " + stain.getType());
+    	 
     	db.insert(StainDataSource.TABLE_STAINS, null, values);
     }
     
