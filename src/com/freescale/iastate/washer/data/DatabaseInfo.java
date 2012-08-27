@@ -76,18 +76,18 @@ public class DatabaseInfo {
 		String supplies[] = {"supply1", "supply2", "supply3"};
 		String steps[] = {"step1", "step2", "step3"}; 
 		
-		Stain stain = new Stain("type1", "fabric1", supplies,
-				steps, "notes1", "disclaimer1",
+		Stain stain = new Stain("type1", "fabric1", supplies[0],
+				steps[0], "notes1", "disclaimer1",
 				"source1", "http://source_url1.html");
 		wd.addStain(db, stain);
 		
-		stain = new Stain("type2", "fabric2", supplies,
-				steps, "notes2", "disclaimer2",
+		stain = new Stain("type2", "fabric2", supplies[1],
+				steps[1], "notes2", "disclaimer2",
 				"source2", "http://source_url2.html");
 		wd.addStain(db, stain);
 		
-		stain = new Stain("type3", "fabric3", supplies,
-				steps, "notes3", "disclaimer3",
+		stain = new Stain("type3", "fabric3", supplies[2],
+				steps[2], "notes3", "disclaimer3",
 				"source3", "http://source_url3.html");
 		wd.addStain(db, stain);
 	}

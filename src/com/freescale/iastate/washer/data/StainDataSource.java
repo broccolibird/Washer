@@ -32,7 +32,7 @@ public class StainDataSource {
     		+ COL_TYPE + " TEXT, " + COL_FABRIC + " TEXT, " 
             + COL_SUPPLIES + " TEXT, " + COL_STEPS + " TEXT, "
             + COL_NOTES + " TEXT, " + COL_DISCLAIMER + " TEXT, "
-            + COL_SOURCE + " TEXT, " + COL_SOURCEURL+ " TEXT)";
+            + COL_SOURCE + " TEXT, " + COL_SOURCEURL+ " TEXT);";
     
     public StainDataSource(Context context) {
     	dbHelper = new WasherDatabaseHandler(context);
@@ -84,14 +84,16 @@ public class StainDataSource {
     	String type = cursor.getString(0);
     	String fabric = cursor.getString(1);
     	String supplies = cursor.getString(2);
-    	String steps = cursor.getString(3);
+/*    	String steps = cursor.getString(3);
     	String notes = cursor.getString(4);
     	String disclaimer = cursor.getString(5);
     	String source = cursor.getString(6);
     	String source_url = cursor.getString(7);
     	
     	Stain stain = new Stain(type, fabric, supplies,
-    			steps, notes, disclaimer, source, source_url);
+    			steps, notes, disclaimer, source, source_url);*/
+    	Stain stain = new Stain(type, fabric, supplies,
+    			"steps", "notes", "disclaimer", "source", "http:////source_url.com");
     	
 		return stain;
 	

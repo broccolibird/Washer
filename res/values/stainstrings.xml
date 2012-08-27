@@ -28,5 +28,11 @@
         <item >For red wine, pour salt onto the stain if it\'s still fresh, but don\'t rub it in. Rinse it off with warm water after two minutes. Also, you can pour white wine on the stain to keep it from setting. For a white wine stain, use carbonated soda water after blotting up as much as the wine as possible. If the stain has dried, mix up one part glycerin with two parts water and rub it onto the stain before washing normally.</item>
     </string-array>
     
-    
+    <string name="stain_type">Stain Type: </string>
+    <string name="stain_fabric">Fabric: </string>
+    <string name="stain_supplies">Supplies: </string>
+    <string name="stain_steps">Steps: </string>
+    <string name="stain_notes">Notes: </string>
+    <string name="stain_disclaimer">Disclaimer: </string>
+	<string name="stain_source">Source: </string>
 </resources>

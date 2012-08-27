@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,8 @@ public class StainListFragment extends ListFragment {
 			StainDataSource.COL_FABRIC, StainDataSource.ID};
 	private Context context;
 	private OnStainSelectedListener stainSelectListener;
-	
+	private StainDataSource source;
+	private Cursor cursor;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
@@ -38,13 +40,14 @@ public class StainListFragment extends ListFragment {
 
 		context = getActivity().getApplicationContext();
 		
-		StainDataSource source = new StainDataSource(context);
+		source = new StainDataSource(context);
 		source.open();
-		Cursor data = source.getAllStains(columns);
+		cursor = source.getAllStains(columns);
+		getActivity().startManagingCursor(cursor);
 		
 		int textLocations[] = {R.id.text1, R.id.text2 }; 
 		adapter = new SimpleCursorAdapter(context,
-				R.layout.stainlistitem, data, columns, textLocations);
+				R.layout.stainlistitem, cursor, columns, textLocations);
 		
 		setListAdapter(adapter);
 	}
@@ -61,9 +64,13 @@ public class StainListFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int pos, long id) {
-		Cursor cursor = (Cursor) adapter.getItem(pos);
+		//Toast.makeText(context, test.toString(), Toast.LENGTH_SHORT).show(); 
+		Cursor cursor = adapter.getCursor();
+		cursor.moveToPosition(pos);
+		//(SQLiteCursor) getListView().getItemAtPosition(pos);
+		//SQLiteCursor cursor = (SQLiteCursor) adapter.getItem(pos);
 		Stain stain = StainDataSource.cursorToStain(cursor);
-		stainSelectListener.onStainSelected(stain);
+		stainSelectListener.onStainSelected(stain); 
 	}
 	
 	public interface OnStainSelectedListener {
