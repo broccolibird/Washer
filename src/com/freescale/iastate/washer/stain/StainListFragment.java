@@ -40,13 +40,19 @@ public class StainListFragment extends ListFragment {
 		
 		source = new StainDataSource(context);
 		source.open();
-		cursor = source.getAllStains(StainDataSource.allColumns);
-		getActivity().startManagingCursor(cursor);
 		
-		int textLocations[] = {R.id.text1, R.id.text2 }; 
+		Bundle extras = getActivity().getIntent().getExtras();
+		if( extras != null) {
+			String fabric = extras.getString("query");	
+			cursor = source.getStainByFabric(fabric);
+		} else {
+			cursor = source.getAllStains();
+		}
+		
+		getActivity().startManagingCursor(cursor);
+		int textLocations[] = {R.id.text1, R.id.text2 };
 		adapter = new SimpleCursorAdapter(context,
 				R.layout.stainlistitem, cursor, columns, textLocations);
-		
 		setListAdapter(adapter);
 	}
 	

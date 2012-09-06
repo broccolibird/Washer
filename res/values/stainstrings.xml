@@ -11,7 +11,7 @@
 	<string name="button_all">View All Stains</string>
 	<string name="button_byStain">View by Stain Type</string>
 	<string name="label_fabric">View by Fabric Type</string>
-	<string name="button_fabric">Washable Fabric</string>
+	<string name="button_washable">Washable Fabric</string>
 	<string name="button_carpet">Carpet</string>
 	<string name="button_upholstery">Upholstery</string>
 </resources>

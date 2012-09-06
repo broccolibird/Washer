@@ -27,6 +27,10 @@ public class StainDataSource {
     public static final String COL_SOURCEURL = "source_url";
     //public static final String COL_WASH = "wash"; 
     
+    public static String FABRIC_WASHABLE = "Washable fabrics";
+    public static String FABRIC_CARPET = "Carpet";
+    public static String FABRIC_UPHOLSTERY = "Upholstery";
+
     public static final String CREATE_TABLE_STAINS = "CREATE TABLE "
             + TABLE_STAINS + "(" + ID + " INTEGER PRIMARY KEY, " 
     		+ COL_TYPE + " TEXT, " + COL_FABRIC + " TEXT, " 
@@ -64,9 +68,13 @@ public class StainDataSource {
     	database.insert(TABLE_STAINS, null, values);
     }
     
-    public Cursor getAllStains(String columns[]) {
-
-    	return database.query(TABLE_STAINS, columns, null, null, null, null, null);
+    public Cursor getAllStains() {
+    	return database.query(TABLE_STAINS, StainDataSource.allColumns, null, null, null, null, null);
+    }
+    
+    public Cursor getStainByFabric(String fabric) {
+    	return database.query(TABLE_STAINS, StainDataSource.allColumns,
+    			COL_FABRIC+"='"+fabric+"'", null, null, null, null);
     }
     
     public Stain getStain(int id){
