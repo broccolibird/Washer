@@ -68,7 +68,7 @@ public class DialViewActivity extends Activity implements DialModel.Listener, Me
 		
 		//rootIntent.settingsIntent =  new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		
-		rootIntent.testIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//rootIntent.testIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		
 	}
 	

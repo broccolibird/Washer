@@ -4,7 +4,6 @@
     <item android:id="@+id/stain" android:title="Stain Guide" android:showAsAction="always"></item>
     <item android:id="@+id/maintenance" android:title="Maintenance" android:showAsAction="always"></item>
     <item android:id="@+id/settings" android:title="Settings" android:showAsAction="always"></item>
-    <item android:id="@+id/test" android:title="Test" android:showAsAction="always"></item>
     
 
 </menu>

@@ -43,9 +43,6 @@ public interface MenuInterface {
 			case R.id.settings:		
 				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
 				return true;
-			case R.id.test:
-				act.startActivity(testIntent);
-				return true;
 			default:
 				return act.onOptionsItemSelected(item);
 			}
