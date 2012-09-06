@@ -5,6 +5,7 @@ import com.freescale.iastate.washer.util.MenuInterface;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,29 +28,6 @@ public class StainMenuActivity extends Activity implements MenuInterface {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		ListView maintList = (ListView) findViewById(R.id.stainListView);
-
-		Resources res = getResources();
-
-		// Maintenance string arrays are stored in res/maintenance.xml
-		String[] maintTypes = res.getStringArray(R.array.stain_type);
-		final String[] maintData = res.getStringArray(R.array.stain_info);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, maintTypes);
-
-		maintList.setAdapter(adapter);
-		
-		//sets the textview on the right to the maintenance string element corresponding to the same position selected from the list
-		maintList.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				TextView maintText = (TextView) findViewById(R.id.stainTextView);
-				maintText.setTextSize(18);
-				maintText.setText(maintData[position]);
-			}
-		});
-		rootIntent.setHelpText(getText(R.string.stain_help));
 	}
 
 	@Override
@@ -62,5 +40,10 @@ public class StainMenuActivity extends Activity implements MenuInterface {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return rootIntent.onOptionsItemSelected(this, item);
+	}
+	
+	public void viewAllStains(View view) {
+		Intent intent = new Intent(this, StainViewActivity.class);
+		this.startActivity(intent);
 	}
 }

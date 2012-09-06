@@ -29,8 +29,8 @@
             android:name="com.freescale.iastate.washer.StainMenuActivity"/>
         <activity
             android:name="com.freescale.iastate.washer.StainViewActivity"/>
-        <activity android:name="MaintenanceActivity"></activity>
-        <activity android:name="SearchActivity"></activity>
+        <activity android:name="MaintenanceActivity"/>
+        <activity android:name="SearchActivity"/>
    </application>
     
  </manifest>

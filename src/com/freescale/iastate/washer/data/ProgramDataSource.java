@@ -64,7 +64,7 @@ public class ProgramDataSource {
             + COL_RINSELENGTH + " INTEGER, " + COL_RINSETEMP + " INTEGER, "
             + COL_RINSESTEAM + " INTEGER, " + COL_RINSEAG + " INTEGER, " 
             + COL_SPINLENGTH + " INTEGER, " + COL_SPINSPEED + " INTEGER, " 
-            + COL_SPINSTEAM + " INTEGER)";
+            + COL_SPINSTEAM + " INTEGER);";
 	
 	
 	

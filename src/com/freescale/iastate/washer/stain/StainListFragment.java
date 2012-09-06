@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 public class StainListFragment extends ListFragment {
 
@@ -64,11 +62,8 @@ public class StainListFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int pos, long id) {
-		//Toast.makeText(context, test.toString(), Toast.LENGTH_SHORT).show(); 
 		Cursor cursor = adapter.getCursor();
 		cursor.moveToPosition(pos);
-		//(SQLiteCursor) getListView().getItemAtPosition(pos);
-		//SQLiteCursor cursor = (SQLiteCursor) adapter.getItem(pos);
 		Stain stain = StainDataSource.cursorToStain(cursor);
 		stainSelectListener.onStainSelected(stain); 
 	}

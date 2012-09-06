@@ -1,7 +1,6 @@
 package com.freescale.iastate.washer.util;
 
 import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.R.id;
 
 import android.app.Activity;
 import android.content.Intent;
