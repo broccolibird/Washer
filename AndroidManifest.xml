@@ -12,7 +12,7 @@
         android:label="@string/app_name" 
         android:debuggable="true">
         <activity
-            android:name="com.freescale.iastate.washer.DialViewActivity"
+            android:name="com.freescale.iastate.washer.WasherActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
