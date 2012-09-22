@@ -26,7 +26,10 @@ public class WasherActivity  extends Activity {
 	private int rbHeight = 0;
 	
 	DialRadioGroup rg;
+	int numButtons = 8;
 	RadioButton button[];
+	int startAngle[];
+	int endAngle[];
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,8 +80,8 @@ public class WasherActivity  extends Activity {
 						dial.setImageMatrix(matrix);
 						
 						
-						// Place buttons
-						button = new RadioButton[8];
+						// create buttons
+						button = new RadioButton[numButtons];
 				        
 				        button[0] = (RadioButton) findViewById(R.id.radiobutton0);
 				        button[1] = (RadioButton) findViewById(R.id.radiobutton1);
@@ -90,25 +93,84 @@ public class WasherActivity  extends Activity {
 				        button[7] = (RadioButton) findViewById(R.id.radiobutton7);
 				        
 				        rbHeight = button[0].getHeight();
+				        
+				        // add buttons to radio group
 				        rg = new DialRadioGroup();
+				        for(int i = 0; i < numButtons; i++) {
+				        	rg.addRadioButton(button[i]);
+				        }
 				        
-				        RelativeLayout layout = (RelativeLayout) findViewById(R.id.diallayout);
+//				        RelativeLayout layout = (RelativeLayout) findViewById(R.id.diallayout);
 				        
-				        int margin = (dialHeight-4*rbHeight)/3;
+				        int yMargin = (dialHeight-4*rbHeight)/3;
+				        int xMargin = -dialHeight/4+10; 
 				        
-				        //Create first half of buttons and add to left panel
+				        // place buttons
+				        // right side, going counter-clockwise
 						int i;
 						LayoutParams params;
-				        for(i = 0; i < 8; i++){
-				        	params = (LayoutParams) button[i].getLayoutParams();
-				            if( i != 3 && i != 7) {
-				            	params.setMargins(0, 0, 0, margin);
-				            } else {
-				            	params.setMargins(0, 0, 0, 0);
-				            }
-				            button[i].setLayoutParams(params);
-					        rg.addRadioButton(button[i]);
-				        }    
+						params = (LayoutParams) button[0].getLayoutParams();
+						params.setMargins(xMargin, 0, 0, yMargin); //left, top, right, bottom
+						
+						button[0].setLayoutParams(params);
+						
+						params = (LayoutParams) button[1].getLayoutParams();
+						params.setMargins(0, 0, 0, yMargin); 
+						button[1].setLayoutParams(params);
+						
+						params = (LayoutParams) button[2].getLayoutParams();
+						params.setMargins(0, 0, 0, yMargin); 
+						button[2].setLayoutParams(params);
+						
+						params = (LayoutParams) button[3].getLayoutParams();
+						params.setMargins(xMargin, 0, 0, 0); 
+						button[3].setLayoutParams(params);
+						
+						// right side, starting at the top
+						params = (LayoutParams) button[4].getLayoutParams();
+						params.setMargins(0, 0, xMargin, 0); 
+						button[4].setLayoutParams(params);
+						
+						params = (LayoutParams) button[5].getLayoutParams();
+						params.setMargins(0, 0, 0, yMargin); 
+						button[5].setLayoutParams(params);
+						
+						params = (LayoutParams) button[6].getLayoutParams();
+						params.setMargins(0, 0, 0, yMargin); 
+						button[6].setLayoutParams(params);
+						
+						params = (LayoutParams) button[7].getLayoutParams();
+						params.setMargins(0, 0, xMargin, yMargin); 
+						button[7].setLayoutParams(params);
+				        
+						// set angles corresponding to each button
+				        startAngle = new int[numButtons];
+				        endAngle = new int[numButtons];
+				        
+				        startAngle[0] = 20;
+				        endAngle[0] = 35;
+				        
+				        startAngle[1] = 75;
+				        endAngle[1] = 80;
+				        
+				        startAngle[2] = 110;
+				        endAngle[2] = 125;
+				        
+				        startAngle[3] = 145;
+				        endAngle[3] = 160;
+				        
+				        startAngle[7] = -endAngle[0];
+				        endAngle[7] = -startAngle[0];
+				        
+				        startAngle[6] = -endAngle[1];
+				        endAngle[6] = -startAngle[1];
+				        
+				        startAngle[5] = -endAngle[2];
+				        endAngle[5] =  -startAngle[2];
+				        
+				        startAngle[4] = -endAngle[3];
+				        endAngle[4] = -startAngle[3];
+				        
 				        
 					}
 					
@@ -120,8 +182,23 @@ public class WasherActivity  extends Activity {
 	}
 	
 	private void rotateDial(float degrees) {
+		double startAngle = getCurrentDialAngle();
+		
 		matrix.postRotate(degrees, dialWidth / 2, dialHeight / 2);
 		dial.setImageMatrix(matrix);
+		
+		double endAngle = getCurrentDialAngle();
+		
+		selectButton(startAngle, endAngle);
+			
+	}
+	
+	private void selectButton(double angle1, double angle2) {
+		for(int i=0; i < numButtons; i++) {
+			if(angle2 > startAngle[i] && angle2 < endAngle[i]) {
+				button[i].setChecked(true);
+			} 
+		}
 	}
 	
 	private double getAngle(double xTouch, double yTouch) {
@@ -129,6 +206,12 @@ public class WasherActivity  extends Activity {
 		double y = dialHeight - yTouch - (dialHeight / 2d);
 		
 		return Math.atan2(y, x) * 180 / Math.PI;
+	}
+	
+	private double getCurrentDialAngle() {
+		float[] values = new float[9];
+		matrix.getValues(values);
+		return Math.atan2(values[3], values[4]) * 180 / Math.PI;
 	}
 	
 	private class DialTouchListener implements OnTouchListener {
@@ -140,12 +223,16 @@ public class WasherActivity  extends Activity {
 			switch (event.getAction()) {
 			
 				case MotionEvent.ACTION_DOWN:
+					// sets the start angle of the user's finger press
+					// (not the angle of the dial)
 					startAngle = getAngle(event.getX(), event.getY());
 					break;
 					
 				case MotionEvent.ACTION_MOVE:
+					// sets the current angle of the user's finger press
+					// (not the angle of the dial)
 					double currentAngle = getAngle(event.getX(), event.getY());
-					rotateDial((float) (startAngle - currentAngle));
+					rotateDial((float)(startAngle - currentAngle));
 					startAngle = currentAngle;
 					break;
 			}

@@ -6,8 +6,7 @@ import android.widget.TextView;
 
 public class DialRadioGroup implements RadioButton.OnCheckedChangeListener {  
 	 
-	private CompoundButton checkedButton = null;  
-//	private DialMenu dm;
+	private CompoundButton checkedButton = null;
 	
 	/**
 	 * Create a new DialRadio Group
@@ -41,8 +40,6 @@ public class DialRadioGroup implements RadioButton.OnCheckedChangeListener {
 			checkedButton = buttonView;
 			checkedButton.setChecked(true);
 			
-//			dm.setSelectedOption((String) checkedButton.getText());
-			//tv.setText(checkedButton.getText());
 		}     
 	 } 
 	 
