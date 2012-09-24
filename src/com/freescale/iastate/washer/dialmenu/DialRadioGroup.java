@@ -2,20 +2,11 @@ package com.freescale.iastate.washer.dialmenu;
 
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 public class DialRadioGroup implements RadioButton.OnCheckedChangeListener {  
 	 
 	private CompoundButton checkedButton = null;
 	
-	/**
-	 * Create a new DialRadio Group
-	 * 
-	 * @param dm - DialMenu
-	 * @param tv - TextView
-	 */
-	public DialRadioGroup(){
-	}
 	
 	/**
 	 * Add radio button to group

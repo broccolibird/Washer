@@ -4,60 +4,9 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" 
     android:baselineAligned="false">
-    <LinearLayout 
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-    	android:baselineAligned="false"
-    	android:layout_centerVertical="true">
-		<RelativeLayout
-	    	android:id="@+id/left_pane"
-	    	android:background="#000000"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:layout_weight="1"
-	    	android:gravity="center_vertical">
-		    	<LinearLayout 	
-		    	    android:id="@+id/left_buttons"
-		    	    android:layout_width="wrap_content"
-	    			android:layout_height="wrap_content"
-	    			android:layout_alignParentRight="true"
-	    			android:orientation="vertical"
-	    			android:background="#000000">
-		    	</LinearLayout>
-		</RelativeLayout>
-		<RelativeLayout
-		    android:id="@+id/dial_pane"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:orientation="horizontal"
-	    	android:layout_weight="1.15"
-	    	android:gravity="center">
-		</RelativeLayout>
-		<RelativeLayout
-	    	android:id="@+id/right_pane"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:layout_weight="1"
-	    	android:gravity="center_vertical">
-		    	<LinearLayout 	
-		    	    android:id="@+id/right_buttons"
-		    	    android:layout_width="wrap_content"
-	    			android:layout_height="wrap_content"
-	    			android:orientation="vertical"
-	    			android:layout_alignParentLeft="true"
-	    			android:layout_centerVertical="true"
-	    			>
-		    	</LinearLayout>
-		</RelativeLayout>
-	</LinearLayout>
-	<Button
-   	    android:id="@+id/customize"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignParentRight="true"
-   	    android:layout_alignParentBottom="true"
-   	    android:text="@string/customize"
-   	    android:onClick="customizeProgram"/>
+    <fragment android:name="com.freescale.iastate.washer.dialmenu.DialFragment"
+        android:id="@+id/dialfragment"
+        android:layout_height="match_parent"
+        android:layout_width="fill_parent"/>
 	    
 </RelativeLayout>

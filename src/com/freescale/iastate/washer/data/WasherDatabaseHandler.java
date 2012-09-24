@@ -15,7 +15,7 @@ import android.util.Log;
 public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 10;
     private static final String DB_NAME = "washer_data";
     private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
     
