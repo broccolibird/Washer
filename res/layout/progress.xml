@@ -8,167 +8,167 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+        android:background="#000000"
+        android:paddingBottom="20dp"
         android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:paddingBottom="20dp"
-	    android:paddingTop="20dp"
-	    android:background="#000000">
-	    
-	    <LinearLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:orientation="vertical"
-	        android:gravity="center_horizontal"
-	        android:paddingLeft="2dp"
-	    	android:paddingRight="2dp"
-	    	android:paddingBottom="2dp"
-	    	android:paddingTop="2dp"
-	    	android:background="#33B5E5" >
-	
-	        <TextView
-	            android:id="@+id/programTimer"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textSize="0.8in"
-	            android:background="#000000"/>
-	    </LinearLayout>
-	</FrameLayout>
+        android:paddingRight="20dp"
+        android:paddingTop="20dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#33B5E5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp" >
+
+            <fragment
+                android:id="@+id/programTimer"
+                android:name="com.freescale.iastate.washer.progress.TimerFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+        android:background="#000000"
+        android:paddingBottom="20dp"
         android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:paddingBottom="20dp"
-	    android:paddingTop="20dp"
-	    android:background="#000000">
-	    <ScrollView
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:foregroundGravity="center"
-	        android:paddingLeft="2dp"
-	    	android:paddingRight="2dp"
-	    	android:paddingBottom="2dp"
-	    	android:paddingTop="2dp"
-	    	android:background="#33B5E5">
-	        <LinearLayout
-		        android:id="@+id/linearLayout2"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="vertical" 
-		        android:background="#000000">
-		
-		        <TextView
-		            android:id="@+id/programName"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:textAppearance="?android:attr/textAppearanceLarge" />
-		
-		        <TextView
-		            android:id="@+id/programDescription"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/programLength"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/loadSize"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/soilLevel"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washSettings"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="@string/wash_settings"
-		            android:textAppearance="?android:attr/textAppearanceMedium" />
-		
-		        <TextView
-		            android:id="@+id/presoakLength"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washLength"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washTemperature"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washAgitation"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/rinseSettings"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="@string/rinse_settings"
-		            android:textAppearance="?android:attr/textAppearanceMedium" />
-		
-		        <TextView
-		            android:id="@+id/rinseLength"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/rinseTemperature"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            />
-		
-		        <TextView
-		            android:id="@+id/rinseAgitation"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/rinseSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/spinSettings"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="@string/spin_settings"
-		            android:textAppearance="?android:attr/textAppearanceMedium" />
-		
-		        <TextView
-		            android:id="@+id/spinLength"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/spinSpeed"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/spinSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		    </LinearLayout>
-		</ScrollView>
-	</FrameLayout>
+        android:paddingRight="20dp"
+        android:paddingTop="20dp" >
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#33B5E5"
+            android:foregroundGravity="center"
+            android:paddingBottom="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/programName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/programDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/programLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/loadSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/soilLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/washSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wash_settings"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/presoakLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/washLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/washTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/washAgitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/washSteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rinseSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rinse_settings"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/rinseLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rinseTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rinseAgitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rinseSteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/spinSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spin_settings"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/spinLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/spinSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/spinSteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
 
 </LinearLayout>

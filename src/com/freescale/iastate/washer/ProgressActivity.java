@@ -2,6 +2,7 @@ package com.freescale.iastate.washer;
 
 import com.freescale.iastate.washer.data.DatabaseInfo;
 import com.freescale.iastate.washer.data.ProgramDataSource;
+import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
 import com.freescale.iastate.washer.util.Rinse;
@@ -52,7 +53,10 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		}
 	
 		updateProgramView(program);
-		createCountdown();
+		
+		TimerFragment timer = (TimerFragment) getFragmentManager().findFragmentById(R.id.programTimer);
+		timer.createCountdown(program.getLength());
+		//createCountdown();
 		
 		rootIntent.setHelpText(getText(R.string.progress_help));
 	}
@@ -117,39 +121,39 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		//DatabaseInfo.populateDatabase(datasource.getDBHelper(), datasource.getDatabase());
 	}
 	
-	private void createCountdown(){
-		int program_length = program.getLength();
-		
-		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
-		
-		new CountDownTimer(minutesToMillis(program_length), 1000) {
-
-		     @Override
-			public void onTick(long millisUntilFinished) {
-		         program_timer.setText(millisToTimeString(millisUntilFinished));
-		     }
-
-		     @Override
-			public void onFinish() {
-		         program_timer.setText("program done!");
-		     }
-		  }.start();
-	}
-	
-	private String millisToTimeString(long millis){
-		long total_seconds = millis / 1000;
-		
-		long minutes = total_seconds / 60;
-		long seconds = total_seconds % 60;
-		
-		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
-		
-		return minutes + ":" + second_string;
-	}
-	
-	private int minutesToMillis(int minutes){
-		return 1000 * (minutes * 60);
-	}
+//	private void createCountdown(){
+//		int program_length = program.getLength();
+//		
+//		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
+//		
+//		new CountDownTimer(minutesToMillis(program_length), 1000) {
+//
+//		     @Override
+//			public void onTick(long millisUntilFinished) {
+//		         program_timer.setText(millisToTimeString(millisUntilFinished));
+//		     }
+//
+//		     @Override
+//			public void onFinish() {
+//		         program_timer.setText("program done!");
+//		     }
+//		  }.start();
+//	}
+//	
+//	private String millisToTimeString(long millis){
+//		long total_seconds = millis / 1000;
+//		
+//		long minutes = total_seconds / 60;
+//		long seconds = total_seconds % 60;
+//		
+//		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
+//		
+//		return minutes + ":" + second_string;
+//	}
+//	
+//	private int minutesToMillis(int minutes){
+//		return 1000 * (minutes * 60);
+//	}
 		
 	@Override
 	protected void onDestroy() {
