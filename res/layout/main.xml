@@ -6,7 +6,7 @@
     android:baselineAligned="false">
     <fragment android:name="com.freescale.iastate.washer.dialmenu.DialFragment"
         android:id="@+id/dialfragment"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_width="fill_parent"/>
 	    
 </RelativeLayout>
