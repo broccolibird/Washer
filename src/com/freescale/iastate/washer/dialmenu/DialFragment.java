@@ -1,6 +1,7 @@
 package com.freescale.iastate.washer.dialmenu;
 
 import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.WasherActivity;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -15,10 +16,11 @@ import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class DialFragment extends Fragment {
-
+	
 	private ImageView dial;
 	private static Bitmap imageOriginal, imageScaled;
 	private static Matrix matrix;
@@ -227,9 +229,20 @@ public class DialFragment extends Fragment {
 		return Math.atan2(values[3], values[4]) * 180 / Math.PI;
 	}
 	
+	private boolean isInCenter(double xTouch, double yTouch) {
+		double quarterHeight = dialHeight/4.0;
+		
+		if(xTouch > quarterHeight && xTouch < 3*quarterHeight &&
+				yTouch > quarterHeight && yTouch < 3*quarterHeight) {
+			return true;
+		}
+		return false;
+	}
+	
 	private class DialTouchListener implements OnTouchListener {
 
 		private double startAngle;
+		private boolean startInCenter;
 		
 		public boolean onTouch(View v, MotionEvent event) {
 
@@ -238,7 +251,12 @@ public class DialFragment extends Fragment {
 				case MotionEvent.ACTION_DOWN:
 					// sets the start angle of the user's finger press
 					// (not the angle of the dial)
-					startAngle = getAngle(event.getX(), event.getY());
+					double x = event.getX();
+					double y = event.getY();
+					
+					startInCenter = isInCenter(x, y);
+					
+					startAngle = getAngle(x, y);
 					break;
 					
 				case MotionEvent.ACTION_MOVE:
@@ -247,6 +265,13 @@ public class DialFragment extends Fragment {
 					double currentAngle = getAngle(event.getX(), event.getY());
 					rotateDial((float)(startAngle - currentAngle));
 					startAngle = currentAngle;
+					break;
+					
+				case MotionEvent.ACTION_UP:
+					if(startInCenter && isInCenter(event.getX(), event.getY())) {
+						((WasherActivity) getActivity())
+							.startWash((String)rg.getCheckedRadioButton().getText());
+					}
 					break;
 			}
 			
