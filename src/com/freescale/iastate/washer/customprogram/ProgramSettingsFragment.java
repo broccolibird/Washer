@@ -43,7 +43,7 @@ public class ProgramSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         
 		act = (CustomProgramActivity) getActivity();
-		View v = inflater.inflate(R.layout.dial, container, false);
+		View v = inflater.inflate(R.layout.customwash, container, false);
 		v = setupLayout(v);
 		setWash();
 		
