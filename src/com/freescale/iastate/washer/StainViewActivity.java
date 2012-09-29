@@ -11,11 +11,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class StainViewActivity extends Activity implements OnStainSelectedListener, MenuInterface {
 
 	private StainViewFragment stainView;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

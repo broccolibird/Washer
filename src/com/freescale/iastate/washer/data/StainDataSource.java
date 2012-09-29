@@ -15,7 +15,7 @@ public class StainDataSource {
 	private WasherDatabaseHandler dbHelper;
 	
     //Stain Database Values
-    public static final String TABLE_STAINS = "stains";
+    public static final String TABLE = "stains";
     public static final String ID = "_id";
     public static final String COL_TYPE = "type";
     public static final String COL_FABRIC = "fabric";
@@ -31,8 +31,8 @@ public class StainDataSource {
     public static String FABRIC_CARPET = "Carpet";
     public static String FABRIC_UPHOLSTERY = "Upholstery";
 
-    public static final String CREATE_TABLE_STAINS = "CREATE TABLE "
-            + TABLE_STAINS + "(" + ID + " INTEGER PRIMARY KEY, " 
+    public static final String CREATE_TABLE = "CREATE TABLE "
+            + TABLE + "(" + ID + " INTEGER PRIMARY KEY, " 
     		+ COL_TYPE + " TEXT, " + COL_FABRIC + " TEXT, " 
             + COL_SUPPLIES + " TEXT, " + COL_STEPS + " TEXT, "
             + COL_NOTES + " TEXT, " + COL_DISCLAIMER + " TEXT, "
@@ -65,21 +65,21 @@ public class StainDataSource {
     	values.put(COL_SOURCE, stain.getSource());
     	values.put(COL_SOURCEURL, stain.getSourceURL());
 
-    	database.insert(TABLE_STAINS, null, values);
+    	database.insert(TABLE, null, values);
     }
     
     public Cursor getAllStains() {
-    	return database.query(TABLE_STAINS, StainDataSource.allColumns, null, null, null, null, null);
+    	return database.query(TABLE, allColumns, null, null, null, null, null);
     }
     
     public Cursor getStainByFabric(String fabric) {
-    	return database.query(TABLE_STAINS, StainDataSource.allColumns,
+    	return database.query(TABLE, allColumns,
     			COL_FABRIC+"='"+fabric+"'", null, null, null, null);
     }
     
     public Stain getStain(int id){
 		
-		Cursor cursor = database.query(TABLE_STAINS,
+		Cursor cursor = database.query(TABLE,
 				null, ID + " = '" + id + "'", null,
 				null, null, null);
 		

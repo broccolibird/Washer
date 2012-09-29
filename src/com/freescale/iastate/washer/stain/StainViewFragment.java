@@ -17,11 +17,6 @@ public class StainViewFragment extends Fragment {
 		return inflater.inflate(R.layout.stain, container, false);
 	}
 	
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-	}
-	
 	public void updateStain(Stain stain) {
 		if(stain != null) {
 			if(stain.getType() != null) {

@@ -11,6 +11,7 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.freescale.iastate.washer.util.Cycle.Level;
 import com.freescale.iastate.washer.util.Cycle.Temperature;
+import com.freescale.iastate.washer.util.MaintenanceItem;
 import com.freescale.iastate.washer.util.Program;
 import com.freescale.iastate.washer.util.Rinse;
 import com.freescale.iastate.washer.util.Spin;
@@ -83,11 +84,12 @@ public class DatabaseInfo {
 
 		AssetManager assetManager = context.getAssets();
 		Stain stain;
+		CSVReader csvReader = null;
 		
 		try {
 			InputStream csvStream = assetManager.open("Stains.csv");
 			InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
-			CSVReader csvReader = new CSVReader(csvStreamReader);
+			csvReader = new CSVReader(csvStreamReader);
 			String[] line;
 			
 			csvReader.readNext();
@@ -105,5 +107,47 @@ public class DatabaseInfo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		if(csvReader != null)
+			try {
+				csvReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	public static void populateMaintenanceTable(Context context, WasherDatabaseHandler wd, SQLiteDatabase db){
+
+		AssetManager assetManager = context.getAssets();
+		MaintenanceItem mi;
+		CSVReader csvReader = null;
+		
+		try {
+			InputStream csvStream = assetManager.open("Maintenance.csv");
+			InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
+			csvReader = new CSVReader(csvStreamReader);
+			String[] line;
+			
+			csvReader.readNext();
+			
+			while ((line = csvReader.readNext()) != null) {
+				if(line.length == 6 ) {
+					mi = new MaintenanceItem(line[1], line[2], 
+							line[3], line[4], line[5]);
+					wd.addMaintenanceItem(db, mi);
+					if(line[0].equals("31"))
+						break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		if(csvReader != null)
+			try {
+				csvReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 }

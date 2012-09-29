@@ -1,22 +1,23 @@
 package com.freescale.iastate.washer.data;
 
-import com.freescale.iastate.washer.util.Program;
-import com.freescale.iastate.washer.util.Rinse;
-import com.freescale.iastate.washer.util.Spin;
-import com.freescale.iastate.washer.util.Stain;
-import com.freescale.iastate.washer.util.Wash;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.freescale.iastate.washer.util.MaintenanceItem;
+import com.freescale.iastate.washer.util.Program;
+import com.freescale.iastate.washer.util.Rinse;
+import com.freescale.iastate.washer.util.Spin;
+import com.freescale.iastate.washer.util.Stain;
+import com.freescale.iastate.washer.util.Wash;
+
 public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
 
-    private static final int DB_VERSION = 10;
+    private static final int DB_VERSION = 11;
     
     private static final String DB_NAME = "washer_data";
     private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
@@ -30,10 +31,13 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {        
         db.execSQL(ProgramDataSource.CREATE_TABLE_PROGRAMS);
-        db.execSQL(StainDataSource.CREATE_TABLE_STAINS);
+        db.execSQL(StainDataSource.CREATE_TABLE);
+        db.execSQL(MaintenanceDataSource.CREATE_TABLE);
         
         DatabaseInfo.populateProgramTable(this, db);
+        DatabaseInfo.populateMaintenanceTable(context, this, db);
         DatabaseInfo.populateStainTable(context, this, db);
+        
 	}
 
 	@Override
@@ -41,7 +45,8 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
         Log.w(DEBUG_TAG, "Upgrading database. Existing contents will be lost. ["
                 + oldVersion + "]->[" + newVersion + "]");
         db.execSQL("DROP TABLE IF EXISTS " + ProgramDataSource.TABLE_PROGRAMS);
-        db.execSQL("DROP TABLE IF EXISTS " + StainDataSource.TABLE_STAINS);
+        db.execSQL("DROP TABLE IF EXISTS " + StainDataSource.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + MaintenanceDataSource.TABLE);
         onCreate(db);
 		
 	}
@@ -75,39 +80,23 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     	 Log.w(DEBUG_TAG, "Adding stain to stains database: " + stain.getType());
     	 
-    	db.insert(StainDataSource.TABLE_STAINS, null, values);
+    	db.insert(StainDataSource.TABLE, null, values);
     }
     
-    /*private void addStain(SQLiteDatabase db, StainTreatment stain){
-    	db.execSQL("insert into stains (type, fabric, directions, wash) values ('" + stain.getType() + "', '" 
-    			+ stain.getFabric() + "', " + stain.getDirections() + "', " + stain.getWash() + "');");
-    }*/
-    
-    /*
-     * Check if the database already exist to avoid re-copying the file each time you open the application.
-     * @return true if it exists, false if it doesn't
-     */
-    /*private boolean checkDataBase(){
+    public void addMaintenanceItem(SQLiteDatabase db, MaintenanceItem mi) {
+    	ContentValues values = new ContentValues();
+    	values.put(MaintenanceDataSource.COL_TYPE, mi.type);
+    	values.put(MaintenanceDataSource.COL_TITLE, mi.title);
+    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionString());
+    	values.put(MaintenanceDataSource.COL_SOURCE, mi.source);
+    	values.put(MaintenanceDataSource.COL_SOURCEURL, mi.source_url);
+
+    	 Log.w(DEBUG_TAG, "Adding maintenance item to maintenance database: " + mi.type);
     	 
-    	SQLiteDatabase checkDB = null;
- 
-    	try{
-    		String myPath = DB_PATH + DB_NAME;
-    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
- 
-    	}catch(SQLiteException e){
- 
-    		//database does't exist yet.
- 
-    	}
- 
-    	if(checkDB != null){
- 
-    		checkDB.close();
- 
-    	}
- 
-    	return checkDB != null ? true : false;
-    }*/
+    	db.insert(MaintenanceDataSource.TABLE, null, values);
+    }
+    
+    
+   
     
 }
