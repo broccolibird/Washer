@@ -17,7 +17,7 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
 
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 17;
     
     private static final String DB_NAME = "washer_data";
     private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";

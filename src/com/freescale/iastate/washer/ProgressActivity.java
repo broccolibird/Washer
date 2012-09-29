@@ -39,7 +39,8 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		Bundle bundle = intent.getExtras();
 		selection = bundle.getString("selection");
 		if(selection != null){
-			createDatabase();
+			datasource = new ProgramDataSource(this);
+			datasource.open();
 			
 			// Retrieve selected program from database
 			program = datasource.nameToProgram(selection);
@@ -109,12 +110,6 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		spin_length.setText("Length: " + spin.getLength());
 		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
 		spin_steam.setText("Steam: " + spin.getSteam());
-	}
-		
-	private void createDatabase(){
-		datasource = new ProgramDataSource(this);
-		datasource.open();
-		//DatabaseInfo.populateDatabase(datasource.getDBHelper(), datasource.getDatabase());
 	}
 	
 	private void createCountdown(){

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freescale.iastate.washer.R;
@@ -31,11 +32,21 @@ public class MaintenanceViewFragment extends Fragment{
 				((TextView)getView().findViewById(R.id.title)).setText("");
 			}
 			
-			if(mi.getDescriptionString() != null) {
-				((TextView)getView().findViewById(R.id.descrip)).setText(mi.getDescriptionString());
-			} else {
-				((TextView)getView().findViewById(R.id.descrip)).setText("");
-			}
+			LinearLayout descriptionList = (LinearLayout) getView().findViewById(R.id.descriplist);
+			descriptionList.removeAllViews();
+			descriptionList.invalidate();
+			
+			if(mi.description != null) {
+				int descripLength = mi.description.length;
+				
+				for(int i = 0; i < descripLength; i++) {
+					TextView newTV = new TextView(getActivity());
+					newTV.setText(mi.description[i]);
+					((LinearLayout)getView().findViewById(R.id.descriplist)).addView(newTV);
+					
+				}
+			} 
+			
 			
 			if(mi.source != null) {
 				((TextView)getView().findViewById(R.id.source)).setText(mi.source);

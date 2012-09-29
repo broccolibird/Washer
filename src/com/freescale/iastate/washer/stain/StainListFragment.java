@@ -54,6 +54,8 @@ public class StainListFragment extends ListFragment {
 		adapter = new SimpleCursorAdapter(context,
 				R.layout.stainlistitem, cursor, columns, textLocations);
 		setListAdapter(adapter);
+		
+		source.close();
 	}
 	
 	@Override

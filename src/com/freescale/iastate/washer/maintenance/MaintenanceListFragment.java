@@ -21,7 +21,6 @@ public class MaintenanceListFragment extends ListFragment {
 	private CursorAdapter adapter;
 	private String columns[] = {MaintenanceDataSource.COL_TYPE, 
 			MaintenanceDataSource.COL_TITLE, MaintenanceDataSource.ID};
-	private Context context;
 	private OnMaintenanceItemSelectedListener maintenanceSelectListener;
 	private MaintenanceDataSource source;
 	private Cursor cursor;
@@ -36,11 +35,16 @@ public class MaintenanceListFragment extends ListFragment {
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		context = getActivity().getApplicationContext();
 		
-		source = new MaintenanceDataSource(context);
+	}
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		
+		source = new MaintenanceDataSource(getActivity().getApplicationContext());
 		source.open();
+//		source.updateMaintenanceTableData(getActivity().getApplicationContext());
 		
 		Bundle extras = getActivity().getIntent().getExtras();
 		if( extras != null) {
@@ -52,9 +56,19 @@ public class MaintenanceListFragment extends ListFragment {
 		
 		getActivity().startManagingCursor(cursor);
 		int textLocations[] = {R.id.text1, R.id.text2 };
-		adapter = new SimpleCursorAdapter(context,
+		adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),
 				R.layout.stainlistitem, cursor, columns, textLocations);
 		setListAdapter(adapter);
+		
+		
+	}
+	
+	public void onStop() {
+		super.onStop();
+		
+		cursor.close();
+		source.close();
+		
 	}
 	
 	@Override
