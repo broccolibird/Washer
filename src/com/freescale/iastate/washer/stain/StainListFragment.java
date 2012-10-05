@@ -6,7 +6,6 @@ import com.freescale.iastate.washer.util.Stain;
 
 import android.app.Activity;
 import android.app.ListFragment;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ public class StainListFragment extends ListFragment {
 	private CursorAdapter adapter;
 	private String columns[] = {StainDataSource.COL_TYPE, 
 			StainDataSource.COL_FABRIC, StainDataSource.ID};
-	private Context context;
 	private OnStainSelectedListener stainSelectListener;
 	private StainDataSource source;
 	private Cursor cursor;
@@ -32,13 +30,11 @@ public class StainListFragment extends ListFragment {
 
 	}
 	
-	@Override 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		context = getActivity().getApplicationContext();
+	@Override
+	public void onStart() {
+		super.onStart();
 		
-		source = new StainDataSource(context);
+		source = new StainDataSource(getActivity().getApplicationContext());
 		source.open();
 		
 		Bundle extras = getActivity().getIntent().getExtras();
@@ -51,11 +47,18 @@ public class StainListFragment extends ListFragment {
 		
 		getActivity().startManagingCursor(cursor);
 		int textLocations[] = {R.id.text1, R.id.text2 };
-		adapter = new SimpleCursorAdapter(context,
+		adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),
 				R.layout.stainlistitem, cursor, columns, textLocations);
 		setListAdapter(adapter);
 		
+	}
+	
+	public void onStop() {
+		super.onStop();
+		
+		cursor.close();
 		source.close();
+		
 	}
 	
 	@Override
