@@ -11,4 +11,12 @@
         android:background="#000000"
         android:textSize="0.8in" />
 
+    <ProgressBar
+        android:id="@+id/progbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ProgressBar>
+
 </LinearLayout>
