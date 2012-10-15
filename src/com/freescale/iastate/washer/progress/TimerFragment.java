@@ -8,9 +8,18 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class TimerFragment extends Fragment{
+	private long millisLeft;
+	private long totalMillis;
+	
+	public interface percentDoneListener{
+		public void percentDoneUpdated(int percent);
+	}
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
@@ -21,12 +30,18 @@ public class TimerFragment extends Fragment{
 	public void createCountdown(int minutes){
 		
 		final TextView program_timer = (TextView) getView().findViewById(R.id.timer);
+		final ProgressBar prog_bar = (ProgressBar) getView().findViewById(R.id.progbar);
+		totalMillis = minutesToMillis(minutes);
+		
+		
 		
 		new CountDownTimer(minutesToMillis(minutes), 1000) {
 
 		     @Override
 			public void onTick(long millisUntilFinished) {
 		         program_timer.setText(millisToTimeString(millisUntilFinished));
+		         millisLeft = millisUntilFinished;
+		         prog_bar.setProgress(percentComplete());
 		     }
 
 		     @Override
@@ -49,5 +64,9 @@ public class TimerFragment extends Fragment{
 	
 	private int minutesToMillis(int minutes){
 		return 1000 * (minutes * 60);
+	}
+	
+	public int percentComplete(){
+		return (int) Math.round(100-(((float)millisLeft/(float)totalMillis)*100.0));
 	}
 }
