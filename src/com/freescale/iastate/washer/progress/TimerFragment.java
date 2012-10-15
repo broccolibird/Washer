@@ -30,6 +30,8 @@ public class TimerFragment extends Fragment{
 	public void createCountdown(int minutes){
 		
 		final TextView program_timer = (TextView) getView().findViewById(R.id.timer);
+		final CustomProgressBar reg_bar = (CustomProgressBar) getView().findViewById(R.id.regularprogressbar);
+		final CustomProgressBar mini_bar = (CustomProgressBar) getView().findViewById(R.id.miniprogressbar);
 		final ProgressBar prog_bar = (ProgressBar) getView().findViewById(R.id.progbar);
 		totalMillis = minutesToMillis(minutes);
 		
@@ -42,6 +44,8 @@ public class TimerFragment extends Fragment{
 		         program_timer.setText(millisToTimeString(millisUntilFinished));
 		         millisLeft = millisUntilFinished;
 		         prog_bar.setProgress(percentComplete());
+		         reg_bar.setProgress(percentComplete());
+		         mini_bar.setProgress(percentComplete());
 		     }
 
 		     @Override

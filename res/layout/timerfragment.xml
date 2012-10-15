@@ -12,12 +12,26 @@
         android:textSize="0.8in" />
 
     <ProgressBar
-        android:id="@+id/progbar"
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/progbar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:progressDrawable="@drawable/customprogress" >
     </ProgressBar>
+
+    <com.freescale.iastate.washer.progress.CustomProgressBar
+        android:id="@+id/miniprogressbar"
+        style="@style/Widget.ProgressBar.MiniProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip" />
+
+    <com.freescale.iastate.washer.progress.CustomProgressBar
+        android:id="@+id/regularprogressbar"
+        style="@style/Widget.ProgressBar.RegularProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip" />
 
 </LinearLayout>
