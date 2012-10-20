@@ -54,6 +54,7 @@ public class StainDataSource {
     	dbHelper.close();
     }
     
+    
     public void addStain(Stain stain) {
     	ContentValues values = new ContentValues();
     	values.put(COL_TYPE, stain.getType());
@@ -93,14 +94,14 @@ public class StainDataSource {
     
     public static Stain cursorToStain(Cursor cursor) {
         
-    	String type = cursor.getString(0);
-    	String fabric = cursor.getString(1);
-    	String supplies = cursor.getString(2);
-    	String steps = cursor.getString(3);
-    	String notes = cursor.getString(4);
-    	String disclaimer = cursor.getString(5);
-    	String source = cursor.getString(6);
-    	String source_url = cursor.getString(7);
+    	String type = cursor.getString(1);
+    	String fabric = cursor.getString(2);
+    	String supplies = cursor.getString(3);
+    	String steps = cursor.getString(4);
+    	String notes = cursor.getString(5);
+    	String disclaimer = cursor.getString(6);
+    	String source = cursor.getString(7);
+    	String source_url = cursor.getString(8);
     	
     	Stain stain = new Stain(type, fabric, supplies,
     			steps, notes, disclaimer, source, source_url);

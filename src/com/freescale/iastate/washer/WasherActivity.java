@@ -1,7 +1,10 @@
 package com.freescale.iastate.washer;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.freescale.iastate.washer.data.WasherDatabaseHandler;
 import com.freescale.iastate.washer.dialmenu.DialFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
 
@@ -65,6 +69,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 	}
 	
 	public void startWash(String selection) {
+		//SQLiteDatabase.deleteDatabase(new File(WasherDatabaseHandler.DB_PATH+"/"+WasherDatabaseHandler.DB_NAME));
 		if( selection == null ) {
 			Toast.makeText(this, R.string.no_selection, Toast.LENGTH_SHORT).show();
 		} else {

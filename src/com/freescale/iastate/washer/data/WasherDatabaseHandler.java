@@ -1,9 +1,13 @@
 package com.freescale.iastate.washer.data;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.freescale.iastate.washer.util.MaintenanceItem;
@@ -12,45 +16,21 @@ import com.freescale.iastate.washer.util.Rinse;
 import com.freescale.iastate.washer.util.Spin;
 import com.freescale.iastate.washer.util.Stain;
 import com.freescale.iastate.washer.util.Wash;
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-public class WasherDatabaseHandler extends SQLiteOpenHelper{
+public class WasherDatabaseHandler extends SQLiteAssetHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
 
-    private static final int DB_VERSION = 17;
-    private static final String DB_NAME = "washer_data";
-    private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
-    private Context context;
+    private static final int DB_VERSION = 1;
+    public static final String DB_NAME = "washer_data";
+    public static String DB_PATH = "/data/data/com.freescale.iastate.washer/databases/";
     
 	public WasherDatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
-		this.context = context;
 	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {        
-        db.execSQL(ProgramDataSource.CREATE_TABLE_PROGRAMS);
-        db.execSQL(StainDataSource.CREATE_TABLE);
-        db.execSQL(MaintenanceDataSource.CREATE_TABLE);
-        
-        DatabaseInfo.populateProgramTable(this, db);
-        DatabaseInfo.populateMaintenanceTable(context, this, db);
-        DatabaseInfo.populateStainTable(context, this, db);
-        
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(DEBUG_TAG, "Upgrading database. Existing contents will be lost. ["
-                + oldVersion + "]->[" + newVersion + "]");
-        db.execSQL("DROP TABLE IF EXISTS " + ProgramDataSource.TABLE_PROGRAMS);
-        db.execSQL("DROP TABLE IF EXISTS " + StainDataSource.TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + MaintenanceDataSource.TABLE);
-        onCreate(db);
-		
-	}
-    
-    public void addProgram(SQLiteDatabase db, Program program){
+	
+	public void addProgram(SQLiteDatabase db, Program program){
     	Wash wash = (Wash) program.getWashCycle();
     	Rinse rinse = (Rinse) program.getRinseCycle();
     	Spin spin = (Spin) program.getSpinCycle();

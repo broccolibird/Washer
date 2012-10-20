@@ -1,6 +1,5 @@
 package com.freescale.iastate.washer;
 
-import com.freescale.iastate.washer.data.DatabaseInfo;
 import com.freescale.iastate.washer.data.ProgramDataSource;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;

@@ -1,12 +1,11 @@
 package com.freescale.iastate.washer.stain;
 
-import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.data.StainDataSource;
-import com.freescale.iastate.washer.util.Stain;
+import java.io.File;
 
 import android.app.Activity;
 import android.app.ListFragment;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.data.StainDataSource;
+import com.freescale.iastate.washer.data.WasherDatabaseHandler;
+import com.freescale.iastate.washer.util.Stain;
 
 public class StainListFragment extends ListFragment {
 

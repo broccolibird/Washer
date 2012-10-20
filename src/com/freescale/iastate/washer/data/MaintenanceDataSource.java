@@ -96,10 +96,4 @@ public class MaintenanceDataSource {
 		return mi;
 	
     }
-    
-    public void updateMaintenanceTableData(Context context) {
-		database.execSQL("DROP TABLE IF EXISTS " + MaintenanceDataSource.TABLE);
-		database.execSQL(MaintenanceDataSource.CREATE_TABLE);
-		DatabaseInfo.populateMaintenanceTable(context, dbHelper, database);
-	}
 }
