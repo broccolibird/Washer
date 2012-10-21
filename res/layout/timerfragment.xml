@@ -20,18 +20,4 @@
         android:progressDrawable="@drawable/customprogress" >
     </ProgressBar>
 
-    <com.freescale.iastate.washer.progress.CustomProgressBar
-        android:id="@+id/miniprogressbar"
-        style="@style/Widget.ProgressBar.MiniProgressBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dip" />
-
-    <com.freescale.iastate.washer.progress.CustomProgressBar
-        android:id="@+id/regularprogressbar"
-        style="@style/Widget.ProgressBar.RegularProgressBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dip" />
-
 </LinearLayout>
