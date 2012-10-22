@@ -19,6 +19,8 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,6 +38,16 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		
 		ActionBar actionBar = getActionBar();
 		
+		
+		final Button cancelButton = (Button) findViewById(R.id.buttonCancelWash);
+		cancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+				
+			}
+		});
 		
 		// Unpackage intent to retrieve user selection
 		Intent intent = getIntent();

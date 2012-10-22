@@ -33,6 +33,14 @@
                 android:layout_gravity="center_horizontal"
                 android:progressDrawable="@drawable/customprogress" >
             </ProgressBar>
+
+            <Button
+                android:id="@+id/buttonCancelWash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Cancel Wash" />
+
         </LinearLayout>
     
 
