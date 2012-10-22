@@ -5,71 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:paddingBottom="20dp"
-	    android:paddingTop="20dp"
-	    android:background="#000000">
-	    	<FrameLayout
-	    		android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"
-		        android:orientation="vertical"
-		        android:gravity="center_horizontal"
-		        android:paddingLeft="2dp"
-		    	android:paddingRight="2dp"
-		    	android:paddingBottom="2dp"
-		    	android:paddingTop="2dp"
-		    	android:background="#33B5E5">
-		    	<LinearLayout
-			            android:layout_width="fill_parent"
-			            android:layout_height="fill_parent"
-			            android:orientation="vertical"
-			            android:background="#000000">
-			        <fragment android:name="com.freescale.iastate.washer.stain.StainListFragment"
-        				android:id="@+id/stainlist"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"/>
-			    </LinearLayout>
-	   		</FrameLayout> 
-    </FrameLayout>
+    <fragment android:name="com.freescale.iastate.washer.stain.StainListFragment"
+		android:id="@+id/stainlist"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"/>
 
-
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="20dp"
-	    android:paddingRight="20dp"
-	    android:paddingBottom="20dp"
-	    android:paddingTop="20dp"
-	    android:background="#000000">
-	    	<FrameLayout
-	    		android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"
-		        android:orientation="vertical"
-		        android:gravity="center_horizontal"
-		        android:paddingLeft="2dp"
-		    	android:paddingRight="2dp"
-		    	android:paddingBottom="2dp"
-		    	android:paddingTop="2dp"
-		    	android:background="#33B5E5">
-			        <LinearLayout
-			            android:layout_width="fill_parent"
-			            android:layout_height="fill_parent"
-			            android:orientation="vertical"
-			            android:background="#000000">
-					    <fragment android:name="com.freescale.iastate.washer.stain.StainViewFragment"
-	        				android:id="@+id/stainviewfrag"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-				    </LinearLayout>
-			</FrameLayout>
-	</FrameLayout>
-				    
+	<fragment android:name="com.freescale.iastate.washer.stain.StainViewFragment"
+		android:id="@+id/stainviewfrag"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"/>
+					    
 
 </LinearLayout>

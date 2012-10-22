@@ -1,50 +1,36 @@
 package com.freescale.iastate.washer.data;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.freescale.iastate.washer.util.MaintenanceItem;
 import com.freescale.iastate.washer.util.Program;
 import com.freescale.iastate.washer.util.Rinse;
 import com.freescale.iastate.washer.util.Spin;
 import com.freescale.iastate.washer.util.Stain;
 import com.freescale.iastate.washer.util.Wash;
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-public class WasherDatabaseHandler extends SQLiteOpenHelper{
+public class WasherDatabaseHandler extends SQLiteAssetHelper{
 
     private static final String DEBUG_TAG = "WasherDatabase";
-    private static final int DB_VERSION = 5;
-    private static final String DB_NAME = "washer_data";
-    private static String DB_PATH = "/data/data/com.freescale.iastate.washer.data/databases/";
-    private Context context;
+
+    private static final int DB_VERSION = 1;
+    public static final String DB_NAME = "washer_data";
+    public static String DB_PATH = "/data/data/com.freescale.iastate.washer/databases/";
     
 	public WasherDatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
-		this.context = context;
 	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {        
-        db.execSQL(ProgramDataSource.CREATE_TABLE_PROGRAMS);
-        db.execSQL(StainDataSource.CREATE_TABLE_STAINS);
-        
-        DatabaseInfo.populateProgramTable(this, db);
-        DatabaseInfo.populateStainTable(context, this, db);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(DEBUG_TAG, "Upgrading database. Existing contents will be lost. ["
-                + oldVersion + "]->[" + newVersion + "]");
-        db.execSQL("DROP TABLE IF EXISTS " + ProgramDataSource.TABLE_PROGRAMS);
-        db.execSQL("DROP TABLE IF EXISTS " + StainDataSource.TABLE_STAINS);
-        onCreate(db);
-		
-	}
-    
-    public void addProgram(SQLiteDatabase db, Program program){
+	
+	public void addProgram(SQLiteDatabase db, Program program){
     	Wash wash = (Wash) program.getWashCycle();
     	Rinse rinse = (Rinse) program.getRinseCycle();
     	Spin spin = (Spin) program.getSpinCycle();
@@ -73,39 +59,23 @@ public class WasherDatabaseHandler extends SQLiteOpenHelper{
 
     	 Log.w(DEBUG_TAG, "Adding stain to stains database: " + stain.getType());
     	 
-    	db.insert(StainDataSource.TABLE_STAINS, null, values);
+    	db.insert(StainDataSource.TABLE, null, values);
     }
     
-    /*private void addStain(SQLiteDatabase db, StainTreatment stain){
-    	db.execSQL("insert into stains (type, fabric, directions, wash) values ('" + stain.getType() + "', '" 
-    			+ stain.getFabric() + "', " + stain.getDirections() + "', " + stain.getWash() + "');");
-    }*/
-    
-    /*
-     * Check if the database already exist to avoid re-copying the file each time you open the application.
-     * @return true if it exists, false if it doesn't
-     */
-    /*private boolean checkDataBase(){
+    public void addMaintenanceItem(SQLiteDatabase db, MaintenanceItem mi) {
+    	ContentValues values = new ContentValues();
+    	values.put(MaintenanceDataSource.COL_TYPE, mi.type);
+    	values.put(MaintenanceDataSource.COL_TITLE, mi.title);
+    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionString());
+    	values.put(MaintenanceDataSource.COL_SOURCE, mi.source);
+    	values.put(MaintenanceDataSource.COL_SOURCEURL, mi.source_url);
+
+    	 Log.w(DEBUG_TAG, "Adding maintenance item to maintenance database: " + mi.type);
     	 
-    	SQLiteDatabase checkDB = null;
- 
-    	try{
-    		String myPath = DB_PATH + DB_NAME;
-    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
- 
-    	}catch(SQLiteException e){
- 
-    		//database does't exist yet.
- 
-    	}
- 
-    	if(checkDB != null){
- 
-    		checkDB.close();
- 
-    	}
- 
-    	return checkDB != null ? true : false;
-    }*/
+    	db.insert(MaintenanceDataSource.TABLE, null, values);
+    }
+    
+    
+   
     
 }

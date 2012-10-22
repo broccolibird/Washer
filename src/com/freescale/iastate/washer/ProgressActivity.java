@@ -1,6 +1,5 @@
 package com.freescale.iastate.washer;
 
-import com.freescale.iastate.washer.data.DatabaseInfo;
 import com.freescale.iastate.washer.data.ProgramDataSource;
 import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
@@ -54,7 +53,8 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		Bundle bundle = intent.getExtras();
 		selection = bundle.getString("selection");
 		if(selection != null){
-			createDatabase();
+			datasource = new ProgramDataSource(this);
+			datasource.open();
 			
 			// Retrieve selected program from database
 			program = datasource.nameToProgram(selection);
@@ -127,12 +127,6 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		spin_length.setText("Length: " + spin.getLength());
 		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
 		spin_steam.setText("Steam: " + spin.getSteam());
-	}
-		
-	private void createDatabase(){
-		datasource = new ProgramDataSource(this);
-		datasource.open();
-		//DatabaseInfo.populateDatabase(datasource.getDBHelper(), datasource.getDatabase());
 	}
 	
 //	private void createCountdown(){
