@@ -7,10 +7,13 @@ import com.freescale.iastate.washer.util.Stain;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class StainViewActivity extends Activity implements OnStainSelectedListener, MenuInterface {
 
@@ -26,6 +29,7 @@ public class StainViewActivity extends Activity implements OnStainSelectedListen
 		
 		stainView = ((StainViewFragment)getFragmentManager().findFragmentById(R.id.stainviewfrag));
 		stainView.setNoStainSelected();
+		
 	}
 
 	@Override

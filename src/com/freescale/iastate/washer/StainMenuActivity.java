@@ -1,17 +1,20 @@
 package com.freescale.iastate.washer;
 
 
-import com.freescale.iastate.washer.data.StainDataSource;
-import com.freescale.iastate.washer.util.MenuInterface;
-
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
+
+import com.freescale.iastate.washer.data.StainDataSource;
+import com.freescale.iastate.washer.util.MenuInterface;
 
 public class StainMenuActivity extends Activity implements MenuInterface {
 	
@@ -23,6 +26,12 @@ public class StainMenuActivity extends Activity implements MenuInterface {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
+		// Get the SearchView and set the searchable configuration
+	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+	    SearchView searchView = (SearchView) findViewById(R.id.searchView);
+	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+	    searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+	    searchView.setSubmitButtonEnabled(true);
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class StainMenuActivity extends Activity implements MenuInterface {
 			fabric = StainDataSource.FABRIC_UPHOLSTERY;
 		}
 		
-		intent.putExtra("query", fabric);
+		intent.putExtra("fabric", fabric);
 		this.startActivity(intent);
 	}
 	

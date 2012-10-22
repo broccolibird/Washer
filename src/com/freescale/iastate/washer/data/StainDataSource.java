@@ -78,6 +78,10 @@ public class StainDataSource {
     			COL_FABRIC+"='"+fabric+"'", null, null, null, null);
     }
     
+    public Cursor searchForStains(String request) {
+    	return database.query(TABLE, allColumns, COL_TYPE+" LIKE '%"+request+"%'", null, null, null, null);
+    }
+    
     public Stain getStain(int id){
 		
 		Cursor cursor = database.query(TABLE,
@@ -105,8 +109,6 @@ public class StainDataSource {
     	
     	Stain stain = new Stain(type, fabric, supplies,
     			steps, notes, disclaimer, source, source_url);
-//    	Stain stain = new Stain(type, fabric, supplies,
-//    			"steps", "notes", "disclaimer", "source", "http:////source_url.com");
     	
 		return stain;
 	

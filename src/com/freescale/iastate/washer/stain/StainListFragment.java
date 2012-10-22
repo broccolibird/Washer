@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.freescale.iastate.washer.R;
 import com.freescale.iastate.washer.data.StainDataSource;
@@ -41,9 +44,13 @@ public class StainListFragment extends ListFragment {
 		source = new StainDataSource(getActivity().getApplicationContext());
 		source.open();
 		
-		Bundle extras = getActivity().getIntent().getExtras();
-		if( extras != null) {
-			String fabric = extras.getString("query");	
+		Intent intent = getActivity().getIntent();
+		Bundle extras = intent.getExtras();
+		if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			cursor = source.searchForStains(query);
+		}else if( extras != null) {
+			String fabric = extras.getString("fabric");
 			cursor = source.getStainByFabric(fabric);
 		} else {
 			cursor = source.getAllStains();
