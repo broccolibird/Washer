@@ -19,9 +19,10 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class ProgressActivity extends Activity implements MenuInterface{
+public class ProgressActivity extends Activity implements MenuInterface, TimerFragment.PercentDoneListener{
 
 	private ProgramDataSource datasource;
 	private String selection;
@@ -34,6 +35,7 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		setContentView(R.layout.progress);
 		
 		ActionBar actionBar = getActionBar();
+		
 		
 		// Unpackage intent to retrieve user selection
 		Intent intent = getIntent();
@@ -170,5 +172,12 @@ public class ProgressActivity extends Activity implements MenuInterface{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return rootIntent.onOptionsItemSelected(this, item);
+	}
+
+	@Override
+	public void percentDoneUpdated(int percent) {
+		ProgressBar prog_bar = (ProgressBar) findViewById(R.id.progbar);
+		prog_bar.setProgress(percent);
+		
 	}
 }
