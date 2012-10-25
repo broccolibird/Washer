@@ -6,8 +6,6 @@ import android.util.Log;
 
 import com.freescale.iastate.washer.util.Cycle.Level;
 import com.freescale.iastate.washer.util.Cycle.Size;
-import com.freescale.iastate.washer.util.Cycle.Temperature;
-import com.freescale.iastate.washer.util.Wash.Dispenser;
 
 public class Program implements Parcelable{
 	
