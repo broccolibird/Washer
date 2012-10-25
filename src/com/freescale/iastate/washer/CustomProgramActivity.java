@@ -152,15 +152,6 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 		
 	}
 
-	public void setWashAg(Level wash_ag) {
-		program.getWashCycle().setAgitation(wash_ag);
-		
-	}
-	
-	public void setWashSteam(boolean wash_steam){
-		program.getWashCycle().setSteam(wash_steam);
-	}
-
 	public void setPresoak(boolean presoak) {
 		if(presoak)
 			program.getWashCycle().setPresoakLength(5);
@@ -172,14 +163,6 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 		return program.getWashCycle().getTemp();
 	}
 	
-	public Level getWashAg() {
-		return program.getWashCycle().getAgitation();
-	}
-
-	public boolean getWashSteam() {
-		return program.getWashCycle().getSteam();
-	}
-
 	public boolean getPresoak() {
 		int presoak_time = program.getWashCycle().getPresoakLength();
 		
@@ -193,31 +176,10 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 		return program.getRinseCycle().getTemp();
 	}
 	
-	public void setRinseSteam(boolean rinse_steam) {
-		program.getRinseCycle().setSteam(rinse_steam);
-		
-	}
-
-	public Level getRinseAg() {
-		return program.getRinseCycle().getAgitation();
-	}
-
-	public boolean getRinseSteam() {
-		return program.getRinseCycle().getSteam();
-	}
 
 	public void setRinseTemp(Temperature rinse_temp) {
 		program.getRinseCycle().setTemp(rinse_temp);
 		
-	}
-
-	public void setRinseAg(Level rinse_ag) {
-		program.getRinseCycle().setAgitation(rinse_ag);
-		
-	}
-
-	public boolean getSpinSteam() {
-		return program.getSpinCycle().getSteam();
 	}
 
 	public Level getSpinSpeed() {
@@ -226,11 +188,6 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 
 	public void setSpinSpeed(Level spin_speed) {
 		program.getSpinCycle().setSpinSpeed(spin_speed);
-		
-	}
-
-	public void setSpinSteam(boolean spin_steam) {
-		program.getSpinCycle().setSteam(spin_steam);
 		
 	}
 

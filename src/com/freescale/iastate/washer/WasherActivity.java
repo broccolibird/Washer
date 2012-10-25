@@ -69,7 +69,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 	}
 	
 	public void startWash(String selection) {
-		//SQLiteDatabase.deleteDatabase(new File(WasherDatabaseHandler.DB_PATH+"/"+WasherDatabaseHandler.DB_NAME));
+//		SQLiteDatabase.deleteDatabase(new File(WasherDatabaseHandler.DB_PATH+"/"+WasherDatabaseHandler.DB_NAME));
 		if( selection == null ) {
 			Toast.makeText(this, R.string.no_selection, Toast.LENGTH_SHORT).show();
 		} else {

@@ -32,39 +32,32 @@ public class ProgramDataSource {
     // Programs table - Wash Cycle
     public static final String COL_WASHLENGTH = "wash_length";
     public static final String COL_WASHTEMP = "wash_temperature";
-    public static final String COL_WASHSTEAM = "wash_steam";
-    public static final String COL_WASHAG = "wash_agitation";
+    public static final String COL_STEAM = "steam";
+    public static final String COL_AGITATION = "agitation";
     public static final String COL_SOAK = "presoak_length";
     // Programs table - Rinse Cycle
     public static final String COL_RINSELENGTH = "rinse_length";
     public static final String COL_RINSETEMP = "rinse_temperature";
-    public static final String COL_RINSESTEAM = "rinse_steam"; 
-    public static final String COL_RINSEAG = "rinse_agitation";
     // Programs table - Spin Cycle
     public static final String COL_SPINLENGTH = "spin_length";
     public static final String COL_SPINSPEED = "spin_speed";
-    public static final String COL_SPINSTEAM = "spin_steam";
     
-	private String[] allColumns = { ID, 						//0
+	private String[] allColumns = { ID, 		//0
 			COL_NAME, COL_CUSTOM,				//1, 2
 			COL_DESCRIPTION, COL_WASHLENGTH,	//3, 4
-			COL_WASHTEMP, COL_WASHSTEAM,		//5, 6
-			COL_WASHAG, COL_SOAK,				//7, 8
-			COL_RINSELENGTH, COL_RINSETEMP,	//9, 10
-			COL_RINSESTEAM, COL_RINSEAG,		//11, 12
-			COL_SPINLENGTH, COL_SPINSPEED, 	//13, 14
-			COL_SPINSTEAM };									//15
+			COL_WASHTEMP, COL_STEAM, 			//5, 6
+			COL_AGITATION, COL_SOAK,			//7, 8
+			COL_RINSELENGTH, COL_RINSETEMP,		//9, 10
+			COL_SPINLENGTH, COL_SPINSPEED };	//11, 12
 	
 	public static final String CREATE_TABLE_PROGRAMS = "CREATE TABLE "
             + TABLE_PROGRAMS + "(" + ID + " INTEGER PRIMARY KEY, " 
     		+ COL_NAME + " TEXT, " + COL_CUSTOM + " INTEGER, " 
             + COL_DESCRIPTION + " TEXT, " + COL_WASHLENGTH + " INTEGER, "
-            + COL_WASHTEMP + " INTEGER, " + COL_WASHSTEAM + " INTEGER, "
-            + COL_WASHAG + " INTEGER, " + COL_SOAK + " INTEGER, "
+            + COL_WASHTEMP + " INTEGER, " + COL_STEAM + "INTEGER, " 
+            + COL_AGITATION + "INTEGER, "+ COL_SOAK + " INTEGER, "
             + COL_RINSELENGTH + " INTEGER, " + COL_RINSETEMP + " INTEGER, "
-            + COL_RINSESTEAM + " INTEGER, " + COL_RINSEAG + " INTEGER, " 
-            + COL_SPINLENGTH + " INTEGER, " + COL_SPINSPEED + " INTEGER, " 
-            + COL_SPINSTEAM + " INTEGER);";
+            + COL_SPINLENGTH + " INTEGER, " + COL_SPINSPEED + " INTEGER);";
 	
 	
 	
@@ -89,12 +82,13 @@ public class ProgramDataSource {
     			+ "wash_steam, wash_agitation, presoak_length, rinse_length, rinse_temperature, "
     			+ "rinse_steam, rinse_agitation, spin_length, spin_speed, spin_steam) values "
     			+ "('" + program.getName() + "', '" + program.getCustom() + "', '" 
-    			+ program.getDescription() + "', '" + wash.getLength() + "', '" + wash.getTemp().getID() + "', '"
-        		+ wash.getSteamInt() + "', '" + wash.getAgitation().getID() + "', '" 
-    			+ wash.getPresoakLength() + "', '" + rinse.getLength() + "', '" + rinse.getTemp().getID() + "', '"
-    			+ rinse.getSteamInt() + "', '" + rinse.getAgitation().getID() + "', '" 
-    			+ spin.getLength() + "', '" + spin.getSpinSpeed().getID() + "', '" + spin.getSteamInt() + "');");
+    			+ program.getDescription() + "', '"	+ wash.getLength() + "', '" 
+    			+ wash.getTemp().getID() + "', '" + program.getSteam() + "', '"
+    			+ program.getAgitation() + "', '" + wash.getPresoakLength() + "', '" 
+    			+ rinse.getLength() + "', '" + rinse.getTemp().getID() + "', '" 
+    			+ spin.getLength() + "', '" + spin.getSpinSpeed().getID() + "');");
     }
+
     
 	public Program createProgram(Program program) {
 		Wash wash = (Wash) program.getWashCycle();
@@ -107,16 +101,13 @@ public class ProgramDataSource {
 		values.put(COL_DESCRIPTION, program.getDescription());
 		values.put(COL_WASHLENGTH, wash.getLength());
 		values.put(COL_WASHTEMP, wash.getTemp().getID());
-		values.put(COL_WASHSTEAM, wash.getSteam());
-		values.put(COL_WASHAG, wash.getAgitation().getID());
+		values.put(COL_STEAM, program.getSteam());
+		values.put(COL_AGITATION, program.getAgitation().getID());
 		values.put(COL_SOAK, wash.getPresoakLength());
 		values.put(COL_RINSELENGTH, rinse.getLength());
 		values.put(COL_RINSETEMP, rinse.getTemp().getID());
-		values.put(COL_RINSESTEAM, rinse.getSteam());
-		values.put(COL_RINSEAG, rinse.getAgitation().getID());
 		values.put(COL_SPINLENGTH, spin.getLength());
 		values.put(COL_SPINSPEED, spin.getSpinSpeed().getID());
-		values.put(COL_SPINSTEAM, spin.getSteam());
 		
 		long insertId = database.insert(TABLE_PROGRAMS, null,
 				values);
@@ -167,39 +158,31 @@ public class ProgramDataSource {
 		else
 			return null;
 	}
-
+	
 	private Program cursorToProgram(Cursor cursor) {
 		
-		int washSteamInt = cursor.getInt(6);
-		Boolean washSteam = (washSteamInt == 1) ? true : false;
-		
-		Wash wash = new Wash(cursor.getInt(4),  //length
+		Wash wash = new Wash(cursor.getInt(3),  //length
 				Cycle.Temperature.values()[cursor.getInt(5)], //temperature
-				Cycle.Level.values()[cursor.getInt(7)],	//agitation
-				cursor.getInt(8), //presoakLength
-				washSteam);					
+				cursor.getInt(8)); //presoakLength					
 		Log.i(DEBUG_TAG, wash.toString());
-		
-		int rinseSteamInt = cursor.getInt(11);
-		Boolean rinseSteam = (rinseSteamInt == 1) ? true : false;
-		
-		Rinse rinse = new Rinse(cursor.getInt(9), //length
-				Cycle.Temperature.values()[cursor.getInt(10)], //temperature
-				Cycle.Level.values()[cursor.getInt(12)], //agitation 
-				rinseSteam); //steam
-		Log.i(DEBUG_TAG, rinse.toString());
-		
-		int spinSteamInt = cursor.getInt(15);
-		Boolean spinSteam = (spinSteamInt == 1) ? true : false;
-
-		int spin_length = cursor.getInt(13);
-		int spin_speed = cursor.getInt(14);
-		Spin spin = new Spin(spin_length, // length
-				Cycle.Level.values()[spin_speed], // spin_speed
-				spinSteam); //steam
 				
-		Program program = new Program(cursor.getLong(0), cursor.getString(1), 
-				cursor.getString(3), wash, rinse, spin);
+		Rinse rinse = new Rinse(cursor.getInt(9), //length
+				Cycle.Temperature.values()[cursor.getInt(10)]); //temperature
+				
+		Log.i(DEBUG_TAG, rinse.toString());
+
+		int spin_length = cursor.getInt(11);
+		int spin_speed = cursor.getInt(12);
+		Spin spin = new Spin(spin_length, // length
+				Cycle.Level.values()[spin_speed]); // spin_speed
+		
+		int steamInt = cursor.getInt(6);
+		Boolean steam = (steamInt == 1) ? true : false;
+		
+		Program program = new Program(cursor.getLong(0), // id
+				cursor.getString(1), /*name*/ cursor.getString(3), //description
+				steam, Cycle.Level.values()[cursor.getInt(7)], //agitation
+				wash, rinse, spin);
 		return program;
 	}
 

@@ -18,6 +18,8 @@ public class Program implements Parcelable{
 	int id;
 	private boolean custom;
 	private String description;
+	private boolean steam;
+	private Level agitation;
 	
 	Wash wash_cycle;
 	Rinse rinse_cycle;
@@ -41,6 +43,7 @@ public class Program implements Parcelable{
 	}
 	
 	public Program(String name, String description, 
+				boolean steam, Level agitation,
 				Wash wash_cycle, Rinse rinse_cycle, Spin spin_cycle, 
 				Level soil_level, Size load_size){
 		this.name = name;
@@ -50,9 +53,12 @@ public class Program implements Parcelable{
 		this.spin_cycle = spin_cycle;
 		this.soil_level = soil_level;
 		this.load_size = load_size;
+		this.steam = steam;
+		this.agitation = agitation;
 	}
 	
 	public Program(long id, String name, String description, 
+			boolean steam, Level agitation,
 			Wash wash_cycle, Rinse rinse_cycle, Spin spin_cycle){
 		this.name = name;
 		this.description = description;
@@ -239,6 +245,7 @@ public class Program implements Parcelable{
 		Spin spin_cycle = Spin.getDefaultSpin();
 		
 		Program program = new Program("Custom", "This program was customized by you!", 
+				false, Level.MEDIUM,
 				wash_cycle, rinse_cycle, spin_cycle, 
 				Level.LOW, Size.MEDIUM);
 		
@@ -266,6 +273,14 @@ public class Program implements Parcelable{
 			}
 		}
 		return false;
+	}
+
+	public Level getAgitation() {
+		return agitation;
+	}
+
+	public boolean getSteam() {
+		return steam;
 	}
 	
 }

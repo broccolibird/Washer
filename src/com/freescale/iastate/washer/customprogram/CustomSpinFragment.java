@@ -58,22 +58,7 @@ public class CustomSpinFragment extends Fragment {
         
         // Set up right panel
         LinearLayout right_pane = (LinearLayout) v.findViewById(R.id.right_pane);
-        
-        //		Add steam TextView and Switch to right pane
-        TextView steam_tv = new TextView(getActivity());
-        steam_tv.setText("Steam:");
-        right_pane.addView(steam_tv);
-        
-        steam_switch = new Switch(getActivity());
-        steam_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				act.setSpinSteam(isChecked);
-			}
-		});
-        right_pane.addView(steam_switch);
-        
+               
         // 		Add speed radio group to right pane
         TextView speed_tv = new TextView(getActivity());
         speed_tv.setText("Select Agitation Level:");
@@ -109,11 +94,6 @@ private void setSpin(){
 	            	rb.setChecked(true);
 	            }
 	        }
-		}
-		
-		boolean steam = act.getSpinSteam();
-		if(steam){
-			steam_switch.setChecked(steam);
 		}
 	}
 	

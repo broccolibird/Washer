@@ -85,6 +85,16 @@
 		            android:id="@+id/soilLevel"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"/>
+		        
+		        <TextView
+		            android:id="@+id/programSteam"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"/>
+		        
+		        <TextView
+		            android:id="@+id/programAgitation"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"/>
 		
 		        <TextView
 		            android:id="@+id/washSettings"
@@ -109,16 +119,6 @@
 		            android:layout_height="wrap_content"/>
 		
 		        <TextView
-		            android:id="@+id/washAgitation"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/washSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
 		            android:id="@+id/rinseSettings"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
@@ -137,16 +137,6 @@
 		            />
 		
 		        <TextView
-		            android:id="@+id/rinseAgitation"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
-		            android:id="@+id/rinseSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
-		
-		        <TextView
 		            android:id="@+id/spinSettings"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
@@ -163,10 +153,6 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"/>
 		
-		        <TextView
-		            android:id="@+id/spinSteam"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"/>
 		    </LinearLayout>
 		</ScrollView>
 	</FrameLayout>

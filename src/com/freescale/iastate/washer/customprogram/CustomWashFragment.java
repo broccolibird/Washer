@@ -94,43 +94,7 @@ public class CustomWashFragment extends Fragment {
         
         // Set up right panel
         LinearLayout right_pane = (LinearLayout) v.findViewById(R.id.right_pane);
-        
-        //		Add steam TextView and Switch to right pane
-        TextView steam_tv = new TextView(getActivity());
-        steam_tv.setText("Steam:");
-        right_pane.addView(steam_tv);
-        
-        steam_switch = new Switch(getActivity());
-        steam_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				act.setWashSteam(isChecked);
-			}
-		});
-        right_pane.addView(steam_switch);
-        
-        // 		Add agitation radio group to right pane
-        TextView agitation_tv = new TextView(getActivity());
-        agitation_tv.setText("Select Agitation Level:");
-        right_pane.addView(agitation_tv);
-        
-        Level[] agitation_levels = Level.values();
-        agitation_grp = new RadioGroup(getActivity());
-        OnClickListener agitation_listener = new OnClickListener() {
-            public void onClick(View v) {
-                selectAgitation(v);
-            }
-        };
-        RadioButton agitation_rb[] = new RadioButton[agitation_levels.length];
-        for(int i = 0; i < agitation_levels.length; i++){
-        	agitation_rb[i] = new RadioButton(getActivity());
-        	agitation_rb[i].setText(agitation_levels[i].getLabel());
-        	agitation_rb[i].setOnClickListener(agitation_listener);
-        	agitation_grp.addView(agitation_rb[i]);
-        }
-        right_pane.addView(agitation_grp);
-        
+                
         return v;
 	}
 	
@@ -146,23 +110,7 @@ public class CustomWashFragment extends Fragment {
 	            }
 	        }
 		}
-		
-		Level ag = act.getWashAg();
-		if(ag != null){
-			int count = agitation_grp.getChildCount();
-			for (int i=0; i<count; i++) {
-	            RadioButton rb = (RadioButton) agitation_grp.getChildAt(i);
-	            if(ag.getLabel().compareTo((String) rb.getText()) == 0){
-	            	rb.setChecked(true);
-	            }
-	        }
-		}
-		
-		boolean steam = act.getWashSteam();
-		if(steam){
-			steam_switch.setChecked(steam);
-		}
-		
+				
 		boolean presoak = act.getPresoak();
 		if(presoak){
 			presoak_switch.setChecked(presoak);
@@ -178,21 +126,6 @@ public class CustomWashFragment extends Fragment {
 	    	if(text.compareTo(temperatures[i].getLabel()) == 0){
 	    		temperature = temperatures[i];
 	    		act.setWashTemp(temperature);
-	    	}
-	    }
-	    
-	}
-	
-	private void selectAgitation(View v){
-		RadioButton button = (RadioButton) v;
-	    String text = (String) button.getText();
-	    
-	    Level levels[] = Level.values();
-	    for(int i = 0; i < levels.length; i++){
-	    	if(text.compareTo(levels[i].getLabel()) == 0){
-	    		agitation = levels[i];
-	    		act.setWashAg(agitation);
-	    		break;
 	    	}
 	    }
 	    

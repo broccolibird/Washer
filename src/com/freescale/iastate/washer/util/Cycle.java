@@ -66,12 +66,10 @@ public abstract class Cycle implements Parcelable{
 	};
 	
 	protected int length;
-	protected boolean steam;
 	
 	
-	public Cycle(int length, boolean steam){
+	public Cycle(int length){
 		this.length = length;
-		this.steam = steam;
 	}
 	
 	public Cycle() {
@@ -83,21 +81,6 @@ public abstract class Cycle implements Parcelable{
 	
 	public void setLength(int length){
 		this.length = length;
-	}
-	
-	public boolean getSteam(){
-		return steam; 
-	}
-	
-	public int getSteamInt(){
-		if(steam == true)
-			return 1;
-		else
-			return 0;
-	}
-	
-	public void setSteam(boolean steam){
-		this.steam = steam;
 	}
 
 	@Override
