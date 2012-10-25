@@ -1,6 +1,7 @@
 package com.freescale.iastate.washer;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
+import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
 import com.freescale.iastate.washer.util.Rinse;
@@ -17,9 +18,12 @@ import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class ProgressActivity extends Activity implements MenuInterface{
+public class ProgressActivity extends Activity implements MenuInterface, TimerFragment.PercentDoneListener{
 
 	private ProgramDataSource datasource;
 	private String selection;
@@ -32,6 +36,17 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		setContentView(R.layout.progress);
 		
 		ActionBar actionBar = getActionBar();
+		
+		
+		final Button cancelButton = (Button) findViewById(R.id.buttonCancelWash);
+		cancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+				
+			}
+		});
 		
 		// Unpackage intent to retrieve user selection
 		Intent intent = getIntent();
@@ -52,7 +67,10 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		}
 	
 		updateProgramView(program);
-		createCountdown();
+		
+		TimerFragment timer = (TimerFragment) getFragmentManager().findFragmentById(R.id.programTimer);
+		timer.createCountdown(program.getLength());
+		//createCountdown();
 		
 		rootIntent.setHelpText(getText(R.string.progress_help));
 	}
@@ -107,39 +125,39 @@ public class ProgressActivity extends Activity implements MenuInterface{
 		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
 	}
 	
-	private void createCountdown(){
-		int program_length = program.getLength();
-		
-		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
-		
-		new CountDownTimer(minutesToMillis(program_length), 1000) {
-
-		     @Override
-			public void onTick(long millisUntilFinished) {
-		         program_timer.setText(millisToTimeString(millisUntilFinished));
-		     }
-
-		     @Override
-			public void onFinish() {
-		         program_timer.setText("program done!");
-		     }
-		  }.start();
-	}
-	
-	private String millisToTimeString(long millis){
-		long total_seconds = millis / 1000;
-		
-		long minutes = total_seconds / 60;
-		long seconds = total_seconds % 60;
-		
-		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
-		
-		return minutes + ":" + second_string;
-	}
-	
-	private int minutesToMillis(int minutes){
-		return 1000 * (minutes * 60);
-	}
+//	private void createCountdown(){
+//		int program_length = program.getLength();
+//		
+//		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
+//		
+//		new CountDownTimer(minutesToMillis(program_length), 1000) {
+//
+//		     @Override
+//			public void onTick(long millisUntilFinished) {
+//		         program_timer.setText(millisToTimeString(millisUntilFinished));
+//		     }
+//
+//		     @Override
+//			public void onFinish() {
+//		         program_timer.setText("program done!");
+//		     }
+//		  }.start();
+//	}
+//	
+//	private String millisToTimeString(long millis){
+//		long total_seconds = millis / 1000;
+//		
+//		long minutes = total_seconds / 60;
+//		long seconds = total_seconds % 60;
+//		
+//		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
+//		
+//		return minutes + ":" + second_string;
+//	}
+//	
+//	private int minutesToMillis(int minutes){
+//		return 1000 * (minutes * 60);
+//	}
 		
 	@Override
 	protected void onDestroy() {
@@ -156,5 +174,12 @@ public class ProgressActivity extends Activity implements MenuInterface{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return rootIntent.onOptionsItemSelected(this, item);
+	}
+
+	@Override
+	public void percentDoneUpdated(int percent) {
+		ProgressBar prog_bar = (ProgressBar) findViewById(R.id.progbar);
+		prog_bar.setProgress(percent);
+		
 	}
 }
