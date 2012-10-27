@@ -1,19 +1,19 @@
 package com.freescale.iastate.washer;
 
-import com.freescale.iastate.washer.stain.StainListFragment.OnStainSelectedListener;
-import com.freescale.iastate.washer.stain.StainViewFragment;
-import com.freescale.iastate.washer.util.MenuInterface;
-import com.freescale.iastate.washer.util.Stain;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.SearchView;
+
+import com.freescale.iastate.washer.stain.StainListFragment.OnStainSelectedListener;
+import com.freescale.iastate.washer.stain.StainViewFragment;
+import com.freescale.iastate.washer.util.MenuInterface;
+import com.freescale.iastate.washer.util.Stain;
 
 public class StainViewActivity extends Activity implements OnStainSelectedListener, MenuInterface {
 
@@ -47,6 +47,12 @@ public class StainViewActivity extends Activity implements OnStainSelectedListen
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.actionbar, menu);
+		
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
+		SearchView searchView = (SearchView) searchViewMI.getActionView();
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		searchView.setIconifiedByDefault(false); //Do not iconify the widget; expand it by default
 		return true;
 	}
 }

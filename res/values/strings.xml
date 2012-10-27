@@ -3,9 +3,7 @@
 
     <string name="hello">Hello World, WasherActivity!</string>
     <string name="app_name">Washer</string>
-    <string name="search_hint">Click here to search...</string>
-   
-	<string name="center">Dial goes in this pane</string>
+    <string name="search_hint">Search Stain Database</string>
 	
 	<string name="no_selection">Please make a selection.</string>
 	

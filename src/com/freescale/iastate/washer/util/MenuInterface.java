@@ -21,10 +21,6 @@ public interface MenuInterface {
 		public Intent homeIntent;
 		public Intent testIntent;
 		
-		public RootIntent() {
-			
-		}
-		
 		public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 
 			switch (item.getItemId()) {
@@ -44,7 +40,8 @@ public interface MenuInterface {
 				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
 				return true;
 			default:
-				return act.onOptionsItemSelected(item);
+				//return act.onOptionsItemSelected(item);
+				return false;
 			}
 		}
 		
