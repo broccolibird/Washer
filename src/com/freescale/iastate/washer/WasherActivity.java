@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 	
 	TextView loadSizeText;
 	TextView soilLevelText;
+	Switch steamSwitch;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,6 +91,8 @@ public class WasherActivity  extends Activity implements MenuInterface {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+        
+        steamSwitch = (Switch) findViewById(R.id.steamSwitch);
 	}
 	
 	@Override
@@ -114,6 +118,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		
 		customWash.putExtra("load_size", loadSize);
 		customWash.putExtra("soil_level", soilLevel);
+		customWash.putExtra("steam", steamSwitch.isChecked());
 		
 		this.startActivity(customWash);
 	}
@@ -144,6 +149,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 
 			startWash.putExtra("load_size", loadSize);
 			startWash.putExtra("soil_level", soilLevel);
+			startWash.putExtra("steam", steamSwitch.isChecked());
 			this.startActivity(startWash);
 		}
 	}

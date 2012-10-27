@@ -59,6 +59,7 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 			datasource.close();
 			program.setSoilLevel(bundle.getInt("soil_level"));
 			program.setLoadSize(bundle.getInt("load_size"));
+			program.setSteam(bundle.getBoolean("steam"));
 		}else{
 			program = bundle.getParcelable("program");
 			selection = program.getName();

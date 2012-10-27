@@ -51,6 +51,10 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 			if(bundle.containsKey("load_size") ){
 				program.setLoadSize(bundle.getInt("load_size"));	
 			}
+			
+			if(bundle.containsKey("steam")) {
+				program.setSteam(bundle.getBoolean("steam"));
+			}
         }
 		
 		

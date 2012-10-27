@@ -280,5 +280,10 @@ public class Program implements Parcelable{
 	public boolean getSteam() {
 		return steam;
 	}
+
+	public void setSteam(boolean steam) {
+		this.steam = steam;
+		
+	}
 	
 }
