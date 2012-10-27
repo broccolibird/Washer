@@ -18,10 +18,6 @@ import com.freescale.iastate.washer.util.Cycle.Size;
 import com.freescale.iastate.washer.util.Cycle.Temperature;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
-import com.freescale.iastate.washer.util.Rinse;
-import com.freescale.iastate.washer.util.Spin;
-import com.freescale.iastate.washer.util.Wash;
-import com.freescale.iastate.washer.util.Wash.Dispenser;
 
 public class CustomProgramActivity extends Activity implements MenuInterface {
 	
@@ -181,14 +177,6 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		return program.getSoilLevel();
 	}
 
-	public Dispenser getDispenser() {
-		return program.getWashCycle().getDispenser();
-	}
-
-	public Level getDispenseAmount() {
-		return program.getWashCycle().getDispenseAmount();
-	}
-
 	public void setLoadSize(Size load_size) {
 		program.setLoadSize(load_size);
 		
@@ -198,17 +186,5 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		program.setSoilLevel(soil_level);
 		
 	}
-
-	public void setDispenser(Dispenser dispenser) {
-		program.getWashCycle().setDispenser(dispenser);
-		
-	}
-
-	public void setDispenseAmount(Level dispense_amt) {
-		program.getWashCycle().setDispenseAmount(dispense_amt);
-		
-	}
-
-	
 	
 }
