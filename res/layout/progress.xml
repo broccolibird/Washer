@@ -5,155 +5,46 @@
     android:orientation="horizontal" >
 
 
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            
-            android:orientation="vertical"
-            android:paddingBottom="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp" >
-
-            <fragment
-                android:id="@+id/programTimer"
-                android:name="com.freescale.iastate.washer.progress.TimerFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-
-            <ProgressBar
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/progbar"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:progressDrawable="@drawable/customprogress" >
-            </ProgressBar>
-
-            <Button
-                android:id="@+id/buttonCancelWash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Cancel Wash" />
-
-        </LinearLayout>
-    
-
-    
-    <ScrollView
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:foregroundGravity="center"
-        android:paddingLeft="20dp"
-    	android:paddingRight="20dp"
-    	android:paddingBottom="20dp"
-    	android:paddingTop="20dp">
-        <LinearLayout
-	        android:id="@+id/linearLayout2"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="vertical">
-	
-	        <TextView
-	            android:id="@+id/programName"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	        <TextView
-	            android:id="@+id/programDescription"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/programLength"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/loadSize"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/soilLevel"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	        
-	        <TextView
-	            android:id="@+id/programSteam"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	        
-	        <TextView
-	            android:id="@+id/programAgitation"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/washSettings"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/wash_settings"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <TextView
-	            android:id="@+id/presoakLength"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/washLength"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/washTemperature"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/rinseSettings"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/rinse_settings"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <TextView
-	            android:id="@+id/rinseLength"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/rinseTemperature"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            />
-	
-	        <TextView
-	            android:id="@+id/spinSettings"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/spin_settings"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <TextView
-	            android:id="@+id/spinLength"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	        <TextView
-	            android:id="@+id/spinSpeed"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	
-	    </LinearLayout>
-	</ScrollView>
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp" >
+
+
+        <fragment
+            android:id="@+id/programTimer"
+            android:name="com.freescale.iastate.washer.progress.TimerFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <ProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/progbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:progressDrawable="@drawable/customprogress" >
+        </ProgressBar>
+
+        <Button
+            android:id="@+id/buttonCancelWash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Cancel Wash" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/programProgress"
+        android:name="com.freescale.iastate.washer.progress.ProgressFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

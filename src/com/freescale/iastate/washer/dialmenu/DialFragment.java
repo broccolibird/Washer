@@ -1,3 +1,4 @@
+
 package com.freescale.iastate.washer.dialmenu;
 
 import android.app.Fragment;

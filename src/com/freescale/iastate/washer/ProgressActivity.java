@@ -1,6 +1,8 @@
+
 package com.freescale.iastate.washer;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
+import com.freescale.iastate.washer.progress.ProgressFragment;
 import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
@@ -59,15 +61,15 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 			datasource.close();
 			program.setSoilLevel(bundle.getInt("soil_level"));
 			program.setLoadSize(bundle.getInt("load_size"));
-			program.setSteam(bundle.getBoolean("steam"));
 		}else{
 			program = bundle.getParcelable("program");
 			selection = program.getName();
 		}
 	
-		updateProgramView(program);
 		
 		TimerFragment timer = (TimerFragment) getFragmentManager().findFragmentById(R.id.programTimer);
+		ProgressFragment progress = (ProgressFragment) getFragmentManager().findFragmentById(R.id.programProgress);
+		progress.updateProgramView(program);
 		timer.createCountdown(program.getLength());
 		//createCountdown();
 		
@@ -124,39 +126,6 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
 	}
 	
-//	private void createCountdown(){
-//		int program_length = program.getLength();
-//		
-//		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
-//		
-//		new CountDownTimer(minutesToMillis(program_length), 1000) {
-//
-//		     @Override
-//			public void onTick(long millisUntilFinished) {
-//		         program_timer.setText(millisToTimeString(millisUntilFinished));
-//		     }
-//
-//		     @Override
-//			public void onFinish() {
-//		         program_timer.setText("program done!");
-//		     }
-//		  }.start();
-//	}
-//	
-//	private String millisToTimeString(long millis){
-//		long total_seconds = millis / 1000;
-//		
-//		long minutes = total_seconds / 60;
-//		long seconds = total_seconds % 60;
-//		
-//		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
-//		
-//		return minutes + ":" + second_string;
-//	}
-//	
-//	private int minutesToMillis(int minutes){
-//		return 1000 * (minutes * 60);
-//	}
 		
 	@Override
 	protected void onDestroy() {
@@ -182,3 +151,5 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		
 	}
 }
+
+

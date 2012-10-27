@@ -1,3 +1,4 @@
+
 package com.freescale.iastate.washer;
 
 import android.app.Activity;
@@ -154,3 +155,4 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		}
 	}
 }
+
