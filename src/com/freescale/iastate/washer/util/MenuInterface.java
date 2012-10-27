@@ -1,6 +1,10 @@
 package com.freescale.iastate.washer.util;
 
+import com.freescale.iastate.washer.MaintenanceActivity;
 import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.StainMenuActivity;
+import com.freescale.iastate.washer.WasherActivity;
+import com.freescale.iastate.washer.WeatherActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +24,7 @@ public interface MenuInterface {
 		public Intent settingsIntent;
 		public Intent homeIntent;
 		public Intent testIntent;
+		public Intent weatherIntent;
 		
 		public RootIntent() {
 			
@@ -43,8 +48,11 @@ public interface MenuInterface {
 			case R.id.settings:		
 				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
 				return true;
+			case R.id.weather:
+				act.startActivity(rootIntent.weatherIntent);
 			default:
-				return act.onOptionsItemSelected(item);
+				//return act.onOptionsItemSelected(item);
+				return false;
 			}
 		}
 		
@@ -53,6 +61,24 @@ public interface MenuInterface {
 		public void setHelpText(CharSequence charSequence) {
 			this.helpText = (String) charSequence;
 		}
-	}
 	
+		/**
+		 * Create intents for the MenuInterface
+		 */
+		public void initIntents(Activity act) {
+			rootIntent.homeIntent = new Intent(act, WasherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			rootIntent.stainIntent = new Intent(act, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			rootIntent.maintenanceIntent = new Intent(act, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			
+			rootIntent.weatherIntent = new Intent(act, WeatherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			//rootIntent.settingsIntent =  new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			//rootIntent.testIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+		}
+		
+	}
 }

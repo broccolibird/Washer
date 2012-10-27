@@ -4,13 +4,18 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="16" 
-        android:targetSdkVersion="16"/>
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" 
-        android:debuggable="true">
+        android:label="@string/app_name" >
         <activity
             android:name="com.freescale.iastate.washer.WasherActivity"
             android:label="@string/app_name" >
@@ -20,26 +25,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name="com.freescale.iastate.washer.ProgressActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name="com.freescale.iastate.washer.CustomProgramActivity"/>
-        <activity
-            android:name="com.freescale.iastate.washer.StainMenuActivity">
-        	 <meta-data android:name="android.app.default_searchable"
-                   android:value="com.freescale.iastate.washer.StainViewActivity" />
+        <activity android:name="com.freescale.iastate.washer.CustomProgramActivity" />
+        <activity android:name="com.freescale.iastate.washer.StainMenuActivity" >
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="com.freescale.iastate.washer.StainViewActivity" />
         </activity>
-        <activity
-            android:name="com.freescale.iastate.washer.StainViewActivity">
+        <activity android:name="com.freescale.iastate.washer.StainViewActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
+
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-		</activity>
-        <activity android:name="MaintenanceActivity"/>
-        <activity android:name="SearchActivity"/>
-   </application>
-    
- </manifest>
+        </activity>
+        <activity android:name="MaintenanceActivity" />
+        <activity android:name="SearchActivity" />
+        <activity android:name="WeatherActivity" >
+        </activity>
+    </application>
+
+</manifest>

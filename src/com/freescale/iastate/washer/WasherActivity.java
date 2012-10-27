@@ -24,7 +24,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		initIntents();
+		rootIntent.initIntents(this);
         rootIntent.setHelpText(getText(R.string.main_help));
 	}
 	
@@ -50,22 +50,6 @@ public class WasherActivity  extends Activity implements MenuInterface {
 
 		}
 		this.startActivity(customWash);
-	}
-	
-	/**
-	 * Create intents for the MenuInterface
-	 */
-	public void initIntents() {
-		rootIntent.homeIntent = new Intent(this, WasherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		rootIntent.stainIntent = new Intent(this, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		rootIntent.maintenanceIntent = new Intent(this, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		//rootIntent.settingsIntent =  new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		//rootIntent.testIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 	}
 	
 	public void startWash(String selection) {
