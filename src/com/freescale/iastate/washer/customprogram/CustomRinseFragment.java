@@ -1,9 +1,8 @@
+
 package com.freescale.iastate.washer.customprogram;
 
 import com.freescale.iastate.washer.CustomProgramActivity;
 import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.dialmenu.DialView;
-import com.freescale.iastate.washer.dialmenu.DialModel.Listener;
 import com.freescale.iastate.washer.util.Cycle.*;
 
 import android.app.Fragment;
@@ -12,18 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 public class CustomRinseFragment extends Fragment {
 
-	DialView dial;
 	Temperature temperature;
 	Level agitation;
 	Switch steam_switch;
@@ -45,12 +40,6 @@ public class CustomRinseFragment extends Fragment {
     }
 	
 	private View setupLayout(View v){
-        
-        // Add Dial to View
-        RelativeLayout dial_pane = (RelativeLayout) v.findViewById(R.id.dial_pane);
-        dial = new DialView(act, 1);
-        dial.getModel().addListener((Listener) act);
-        dial_pane.addView(dial);
         
         // Set up Left Panel
         LinearLayout left_pane = (LinearLayout) v.findViewById(R.id.left_pane);

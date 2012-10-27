@@ -13,7 +13,6 @@ import android.content.Intent;
 
 import com.freescale.iastate.washer.customprogram.*;
 import com.freescale.iastate.washer.data.ProgramDataSource;
-import com.freescale.iastate.washer.dialmenu.DialModel;
 import com.freescale.iastate.washer.util.Cycle.Level;
 import com.freescale.iastate.washer.util.Cycle.Size;
 import com.freescale.iastate.washer.util.Cycle.Temperature;
@@ -24,7 +23,7 @@ import com.freescale.iastate.washer.util.Spin;
 import com.freescale.iastate.washer.util.Wash;
 import com.freescale.iastate.washer.util.Wash.Dispenser;
 
-public class CustomProgramActivity extends Activity implements DialModel.Listener, MenuInterface {
+public class CustomProgramActivity extends Activity implements MenuInterface {
 	
 	String selection;
 	private ProgramDataSource datasource;
@@ -130,23 +129,7 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 	        // User selected the already selected tab. Usually do nothing.
 	    }
 	}
-
-	@Override
-	public void onDialPositionChanged(DialModel sender, int nicksChanged) {
-		// Does nothing in this context
-		
-	}
-
-	@Override
-	public void onDialPressed(DialModel sender) {
-		// TODO Auto-generated method stub
-		
-		Intent intent = new Intent(this, ProgressActivity.class);
-		intent.putExtra("program", program);
-		 
-		startActivity(intent);
-	}
-
+	
 	public void setWashTemp(Temperature wash_temp) {
 		program.getWashCycle().setTemp(wash_temp);
 		
@@ -175,7 +158,6 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 	public Temperature getRinseTemp() {
 		return program.getRinseCycle().getTemp();
 	}
-	
 
 	public void setRinseTemp(Temperature rinse_temp) {
 		program.getRinseCycle().setTemp(rinse_temp);
@@ -190,7 +172,7 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 		program.getSpinCycle().setSpinSpeed(spin_speed);
 		
 	}
-
+	
 	public Size getLoadSize() {
 		return program.getLoadSize();
 	}
