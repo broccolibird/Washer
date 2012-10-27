@@ -1,6 +1,7 @@
 package com.freescale.iastate.washer;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
+import com.freescale.iastate.washer.progress.ProgressFragment;
 import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
@@ -64,64 +65,17 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 			selection = program.getName();
 		}
 	
-		updateProgramView(program);
 		
 		TimerFragment timer = (TimerFragment) getFragmentManager().findFragmentById(R.id.programTimer);
+		ProgressFragment progress = (ProgressFragment) getFragmentManager().findFragmentById(R.id.programProgress);
+		progress.updateProgramView(program);
 		timer.createCountdown(program.getLength());
 		//createCountdown();
 		
 		rootIntent.setHelpText(getText(R.string.progress_help));
 	}
 	
-	/**
-	 * Displays information about the program currently running
-	 * 
-	 * @param program - program to be shown
-	 */
-	public void updateProgramView(Program program){
-		TextView program_name = (TextView) findViewById(R.id.programName);
-		program_name.setText(selection);
-		
-		TextView program_desc = (TextView) findViewById(R.id.programDescription);
-		TextView program_length = (TextView) findViewById(R.id.programLength);
-		TextView load_size = (TextView) findViewById(R.id.loadSize);
-		TextView soil_level = (TextView) findViewById(R.id.soilLevel);
-		TextView program_ag = (TextView) findViewById(R.id.programAgitation);
-		TextView program_steam = (TextView) findViewById(R.id.programSteam);
-		
-		program_desc.setText(program.getDescription());
-		program_length.setText("" + program.getLength());
-		load_size.setText("Load Size: " + program.getLoadSize().getLabel());
-		soil_level.setText("Soil Level: " + program.getSoilLevel().getLabel());
-		program_ag.setText("Agitation: " + program.getAgitation());
-		program_steam.setText("Steam: " + program.getSteam());
-    
-		TextView presoak = (TextView) findViewById(R.id.presoakLength);
-		TextView wash_length = (TextView) findViewById(R.id.washLength);		
-		TextView wash_temp = (TextView) findViewById(R.id.washTemperature);
-		
-		
-		Wash wash = (Wash) program.getWashCycle();
-		presoak.setText("Presoak length: " + wash.getPresoakLength());
-		wash_length.setText("Length: " + wash.getLength());
-		wash_temp.setText("Temperature: " + wash.getTemp());
-		
-		
-		TextView rinse_length = (TextView) findViewById(R.id.rinseLength);
-		TextView rinse_temp = (TextView) findViewById(R.id.rinseTemperature);
-		
-		Rinse rinse = (Rinse) program.getRinseCycle();
-		rinse_length.setText("Length: " + rinse.getLength());
-		rinse_temp.setText("Temperature: " + rinse.getTemp().getLabel());
-		
 
-		TextView spin_length = (TextView) findViewById(R.id.spinLength);
-		TextView spin_speed = (TextView) findViewById(R.id.spinSpeed);
-		
-		Spin spin = (Spin) program.getSpinCycle();
-		spin_length.setText("Length: " + spin.getLength());
-		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
-	}
 	
 //	private void createCountdown(){
 //		int program_length = program.getLength();

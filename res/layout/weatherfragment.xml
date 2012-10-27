@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:rowCount="2" >
-
+
         <TextView
             android:id="@+id/temphigh"
             style="@style/TempFont"

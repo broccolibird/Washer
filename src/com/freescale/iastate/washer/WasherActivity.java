@@ -1,4 +1,5 @@
 
+
 package com.freescale.iastate.washer;
 
 import java.io.File;
@@ -51,6 +52,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 
 		}
 		this.startActivity(customWash);
+
 	}
 	
 	public void startWash(String selection) {
