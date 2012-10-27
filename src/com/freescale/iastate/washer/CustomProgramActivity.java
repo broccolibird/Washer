@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
@@ -343,5 +344,14 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	    }
 	    
 	}
+	
+	public void startWash(View v) {
+
+		Intent intent = new Intent(this, ProgressActivity.class);
+		intent.putExtra("program", program);
+
+		startActivity(intent);
+	}
+	
 	
 }
