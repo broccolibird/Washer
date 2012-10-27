@@ -26,14 +26,14 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:text="CONDITION" />
-
+
     <GridLayout
         android:id="@+id/hilow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:rowCount="2" >
-
+
         <TextView
             android:id="@+id/temphigh"
             style="@style/TempFont"
