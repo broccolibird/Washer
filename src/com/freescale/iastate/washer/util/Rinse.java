@@ -12,13 +12,11 @@ public class Rinse extends Cycle{
 	
 	private static final String DEBUG_TAG = "Rinse";
 
-	private Level agitation;
 	private Temperature temp;
 	
-	public Rinse(int length, Temperature temp, Level agitation, Boolean steam) {
-		super(length, steam);
+	public Rinse(int length, Temperature temp) {
+		super(length);
 		this.temp = temp;
-		this.agitation = agitation;
 	}
 	
 
@@ -28,14 +26,6 @@ public class Rinse extends Cycle{
 
 	public Rinse(Parcel parcel){
 		readFromParcel(parcel);
-	}
-
-	public Level getAgitation(){
-		return agitation;
-	}
-	
-	public void setAgitation(Level agitation){
-		this.agitation = agitation;
 	}
 	
 	public Temperature getTemp(){
@@ -50,8 +40,6 @@ public class Rinse extends Cycle{
 	public void writeToParcel(Parcel dest, int flags) {
 		Log.v(DEBUG_TAG, "writeToParcel..."+ flags);
 		dest.writeInt(temp.getID());
-		dest.writeInt(agitation.getID());
-		dest.writeByte((byte) (steam ? 1 : 0));
 		dest.writeInt(length);
 	}
 	
@@ -66,19 +54,6 @@ public class Rinse extends Cycle{
 			}
 		}
 		
-		Level levels[] = Level.values();
-		int ag = in.readInt();
-		for(int i = 0; i < levels.length; i++){
-			if(levels[i].getID() == ag){
-				agitation = levels[i];
-			}
-		}
-		
-		byte steam_byte = in.readByte();
-		if(steam_byte == 1)
-			steam = true;
-		else
-			steam = false;
 		
 		length = in.readInt();
 		
@@ -96,7 +71,7 @@ public class Rinse extends Cycle{
         };
 
 	public static Rinse getDefaultRinse() {
-		return new Rinse(8, Temperature.COLD, Level.MEDIUM, false);
+		return new Rinse(8, Temperature.COLD);
 	}
 
 }

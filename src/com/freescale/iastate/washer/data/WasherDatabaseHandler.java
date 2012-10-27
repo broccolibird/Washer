@@ -29,22 +29,6 @@ public class WasherDatabaseHandler extends SQLiteAssetHelper{
 	public WasherDatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
-	
-	public void addProgram(SQLiteDatabase db, Program program){
-    	Wash wash = (Wash) program.getWashCycle();
-    	Rinse rinse = (Rinse) program.getRinseCycle();
-    	Spin spin = (Spin) program.getSpinCycle();
-    	
-    	db.execSQL("insert into programs (name, custom, description, wash_length, wash_temperature, "
-    			+ "wash_steam, wash_agitation, presoak_length, rinse_length, rinse_temperature, "
-    			+ "rinse_steam, rinse_agitation, spin_length, spin_speed, spin_steam) values "
-    			+ "('" + program.getName() + "', '" + program.getCustom() + "', '" 
-    			+ program.getDescription() + "', '" + wash.getLength() + "', '" + wash.getTemp().getID() + "', '"
-        		+ wash.getSteamInt() + "', '" + wash.getAgitation().getID() + "', '" 
-    			+ wash.getPresoakLength() + "', '" + rinse.getLength() + "', '" + rinse.getTemp().getID() + "', '"
-    			+ rinse.getSteamInt() + "', '" + rinse.getAgitation().getID() + "', '" 
-    			+ spin.getLength() + "', '" + spin.getSpinSpeed().getID() + "', '" + spin.getSteamInt() + "');");
-    }
     
     public void addStain(SQLiteDatabase db, Stain stain) {
     	ContentValues values = new ContentValues();

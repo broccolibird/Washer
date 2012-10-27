@@ -10,8 +10,8 @@ public class Spin extends Cycle{
 
 	Level spin_speed;
 	
-	public Spin(int length, Level spin_speed, Boolean steam) {
-		super(length, steam);
+	public Spin(int length, Level spin_speed) {
+		super(length);
 		this.spin_speed = spin_speed;
 	}
 
@@ -38,7 +38,6 @@ public class Spin extends Cycle{
 	public void writeToParcel(Parcel dest, int flags) {
 		Log.v(DEBUG_TAG, "writeToParcel..."+ flags);
 		dest.writeInt(spin_speed.getID());
-		dest.writeByte((byte) (steam ? 1 : 0));
 		dest.writeInt(length);
 		
 	}
@@ -53,13 +52,7 @@ public class Spin extends Cycle{
 				spin_speed = levels[i];
 			}
 		}
-		
-		byte steam_byte = in.readByte();
-		if(steam_byte == 1)
-			steam = true;
-		else
-			steam = false;
-		
+				
 		length = in.readInt();
 	}
 	
@@ -75,6 +68,6 @@ public class Spin extends Cycle{
         };
 
 	public static Spin getDefaultSpin() {
-		return new Spin(5, Level.MEDIUM, false);
+		return new Spin(5, Level.MEDIUM);
 	}
 }

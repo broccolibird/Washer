@@ -37,7 +37,6 @@ public class Wash extends Cycle{
 		
 	// values stored in database
 	private Temperature temp;
-	private Level agitation;
 	private int presoakLength;
 	
 	public Wash() {
@@ -49,25 +48,22 @@ public class Wash extends Cycle{
 	}
 	
 	public Wash(int length, Temperature temp, Level soil_level,
-			Level agitation, Dispenser dispenser, Level dispense_amount,
-			int presoakLength, Boolean steam) {
+			Dispenser dispenser, Level dispense_amount,
+			int presoakLength) {
 		
 		//TODO - Utilize soil_level to alter cycle length
-		super(length, steam);
+		super(length);
 		
 		this.temp = temp;
-		this.agitation = agitation;
 		this.dispenser = dispenser;
 		this.dispense_amount = dispense_amount;
 		this.presoakLength = presoakLength;
 	}
 	
-	public Wash(int length, Temperature temp, Level agitation, 
-			int presoakLength, Boolean steam) {
-		super(length, steam);
+	public Wash(int length, Temperature temp, int presoakLength) {
+		super(length);
 		
 		this.temp = temp;
-		this.agitation = agitation;
 		this.dispenser = Dispenser.NONE;
 		this.dispense_amount = Cycle.Level.NONE;
 		this.presoakLength = presoakLength;
@@ -76,13 +72,7 @@ public class Wash extends Cycle{
 	public Temperature getTemp(){
 		return temp;
 	}
-	
-	
-	
-	public Level getAgitation(){
-		return agitation;
-	}
-	
+		
 	public int getPresoakLength(){
 		return presoakLength;
 	}
@@ -103,11 +93,6 @@ public class Wash extends Cycle{
 		this.presoakLength = length;
 	}
 
-	public void setAgitation(Level ag) {
-		this.agitation = ag;
-		
-	}
-
 	@Override
 	public int describeContents() {
 		return 0;
@@ -117,9 +102,7 @@ public class Wash extends Cycle{
 	public void writeToParcel(Parcel dest, int flags) {
 		Log.v(DEBUG_TAG, "writeToParcel..."+ flags);
 		dest.writeInt(temp.getID());
-		dest.writeInt(agitation.getID());
 		dest.writeInt(presoakLength);
-		dest.writeByte((byte) (steam ? 1 : 0));
 		dest.writeInt(length);
 		dest.writeInt(dispense_amount.getID());
 	}
@@ -136,17 +119,9 @@ public class Wash extends Cycle{
 		}
 		
 		Level levels[] = Level.values();
-		int ag = in.readInt();
-		for(int i = 0; i < levels.length; i++){
-			if(levels[i].getID() == ag){
-				agitation = levels[i];
-			}
-		}
 		
 		presoakLength = in.readInt();
-		
-		steam = (in.readByte() == 1) ? true : false;
-		
+				
 		length = in.readInt();
 		
 		Dispenser[] dispensers = Dispenser.values();
@@ -188,8 +163,7 @@ public class Wash extends Cycle{
 
 	public static Wash getDefaultWash() {
 		Wash wash_cycle = new Wash(12, Temperature.COLD, Level.LOW,
-				Level.MEDIUM, Dispenser.DETERGENT, Level.MEDIUM,
-				0, false);
+				Dispenser.DETERGENT, Level.MEDIUM, 0);
 		return wash_cycle;
 	}
 }

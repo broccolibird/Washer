@@ -13,8 +13,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -88,45 +86,41 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		TextView program_length = (TextView) findViewById(R.id.programLength);
 		TextView load_size = (TextView) findViewById(R.id.loadSize);
 		TextView soil_level = (TextView) findViewById(R.id.soilLevel);
+		TextView program_ag = (TextView) findViewById(R.id.programAgitation);
+		TextView program_steam = (TextView) findViewById(R.id.programSteam);
 		
 		program_desc.setText(program.getDescription());
 		program_length.setText("" + program.getLength());
 		load_size.setText("Load Size: " + program.getLoadSize().getLabel());
 		soil_level.setText("Soil Level: " + program.getSoilLevel().getLabel());
+		program_ag.setText("Agitation: " + program.getAgitation());
+		program_steam.setText("Steam: " + program.getSteam());
     
 		TextView presoak = (TextView) findViewById(R.id.presoakLength);
 		TextView wash_length = (TextView) findViewById(R.id.washLength);		
 		TextView wash_temp = (TextView) findViewById(R.id.washTemperature);
-		TextView wash_ag = (TextView) findViewById(R.id.washAgitation);
-		TextView wash_steam = (TextView) findViewById(R.id.washSteam);
+		
 		
 		Wash wash = (Wash) program.getWashCycle();
 		presoak.setText("Presoak length: " + wash.getPresoakLength());
 		wash_length.setText("Length: " + wash.getLength());
 		wash_temp.setText("Temperature: " + wash.getTemp());
-		wash_ag.setText("Agitation: " + wash.getAgitation());
-		wash_steam.setText("Steam: " + wash.getSteam());
+		
 		
 		TextView rinse_length = (TextView) findViewById(R.id.rinseLength);
 		TextView rinse_temp = (TextView) findViewById(R.id.rinseTemperature);
-		TextView rinse_ag = (TextView) findViewById(R.id.rinseAgitation);
-		TextView rinse_steam = (TextView) findViewById(R.id.rinseSteam);
 		
 		Rinse rinse = (Rinse) program.getRinseCycle();
 		rinse_length.setText("Length: " + rinse.getLength());
 		rinse_temp.setText("Temperature: " + rinse.getTemp().getLabel());
-		rinse_ag.setText("Agitation: " + rinse.getAgitation().getLabel());
-		rinse_steam.setText("Steam: " + rinse.getSteam());
 		
 
 		TextView spin_length = (TextView) findViewById(R.id.spinLength);
 		TextView spin_speed = (TextView) findViewById(R.id.spinSpeed);
-		TextView spin_steam = (TextView) findViewById(R.id.spinSteam);
 		
 		Spin spin = (Spin) program.getSpinCycle();
 		spin_length.setText("Length: " + spin.getLength());
 		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
-		spin_steam.setText("Steam: " + spin.getSteam());
 	}
 	
 //	private void createCountdown(){
