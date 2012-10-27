@@ -40,7 +40,22 @@ public class Wash extends Cycle{
 	public Temperature getTemp(){
 		return temp;
 	}
-		
+	
+	public void setPresoak(boolean presoak) {
+		if(presoak) {
+			presoakLength = 5;
+		} else {
+			presoakLength = 0;
+		}
+	}
+	
+	public boolean getPresoak() {
+		if(presoakLength > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int getPresoakLength(){
 		return presoakLength;
 	}

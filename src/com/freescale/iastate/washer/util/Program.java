@@ -285,5 +285,9 @@ public class Program implements Parcelable{
 		this.steam = steam;
 		
 	}
+
+	public void setAgitation(Level agitation) {
+		this.agitation = agitation;
+	}
 	
 }
