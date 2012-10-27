@@ -65,6 +65,8 @@ public class Program implements Parcelable{
 		this.spin_cycle = spin_cycle;
 		this.soil_level = null;
 		this.load_size = null;
+		this.agitation = agitation;
+		this.steam = steam;
 	}
 	
 	public Program(String name, String description, Level soil_level,
@@ -163,6 +165,12 @@ public class Program implements Parcelable{
 		dest.writeString(name);
 		dest.writeByte((byte) (custom ? 1 : 0));
 		dest.writeString(description);
+		dest.writeByte((byte) (steam ? 1 : 0));
+		
+		if(agitation != null)
+			dest.writeInt(agitation.getID());
+		else
+			dest.writeInt(2);
 		
 		if(soil_level != null)
 			dest.writeInt(soil_level.getID());
@@ -189,7 +197,17 @@ public class Program implements Parcelable{
 		
 		description = in.readString();
 		
+		steam = (in.readByte() == 1) ? true : false;
+		
 		Level levels[] = Level.values();
+		
+		int ag = in.readInt();
+		for(int i = 0; i < levels.length; i++) {
+			if(levels[i].getID() == ag) {
+				agitation = levels[i];
+			}
+		}
+		
 		int soil = in.readInt();
 		for(int i = 0; i < levels.length; i++){
 			if(levels[i].getID() == soil){

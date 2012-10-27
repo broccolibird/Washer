@@ -194,11 +194,10 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		agLevelText = (TextView) findViewById(R.id.agitationText);
 		
 		SeekBar agLevelSeek = (SeekBar) findViewById(R.id.agLevelSeek);
-		if(program.getAgitation() != null) {
-			int agitationSet = program.getAgitation().getID();
-			agLevelSeek.setProgress((int)(100/(agLevelEnd-agLevelStart)*agitationSet));
-			agLevelText.setText("Wash Agitation Level: "+program.getAgitation().getLabel());
-		}
+		agLevel = program.getAgitation().getID();
+		agLevelSeek.setProgress((int)(100/(agLevelEnd-agLevelStart)*agLevel));
+		agLevelText.setText("Wash Agitation Level: "+program.getAgitation().getLabel());
+		
 		
 		agLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 		
@@ -228,8 +227,8 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		spinText = (TextView) findViewById(R.id.spinSpeedText);
 		
 		SeekBar spinSeek = (SeekBar) findViewById(R.id.spinSpeedSeek);
-		int spinSet = program.getSpinCycle().getSpinSpeed().getID();
-		spinSeek.setProgress((int)(100/(spinEnd-spinStart)*spinSet));
+		spin = program.getSpinCycle().getSpinSpeed().getID();
+		spinSeek.setProgress((int)(100/(spinEnd-spinStart)*spin));
 		spinText.setText("Spin Speed: "+program.getSpinCycle().getSpinSpeed().getLabel());
 		spinSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 		
@@ -256,8 +255,8 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	    loadSizeText = (TextView) findViewById(R.id.loadSizeText);
         
         SeekBar loadSizeSeek = (SeekBar) findViewById(R.id.loadSizeSeek);
-        int loadSet = program.getLoadSize().getID();
-		loadSizeSeek.setProgress((int)(100/(spinEnd-spinStart)*loadSet));
+        loadSize = program.getLoadSize().getID();
+		loadSizeSeek.setProgress((int)(100/(spinEnd-spinStart)*loadSize));
 		loadSizeText.setText("Load Size: "+program.getLoadSize().getLabel());
         loadSizeSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 
@@ -287,8 +286,8 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	    soilLevelText = (TextView) findViewById(R.id.soilLevelText);
         
         SeekBar soilLevelSeek = (SeekBar) findViewById(R.id.soilLevelSeek);
-        int soilSet = program.getSoilLevel().getID();
-		soilLevelSeek.setProgress((int)(100/(soilLevelEnd-soilLevelStart)*soilSet));
+        soilLevel = program.getSoilLevel().getID();
+		soilLevelSeek.setProgress((int)(100/(soilLevelEnd-soilLevelStart)*soilLevel));
 		soilLevelText.setText("Soil Level: "+program.getSoilLevel().getLabel());
 		soilLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 

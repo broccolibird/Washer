@@ -44,7 +44,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
         loadSizeText.setText("Load Size: Medium");
         
         SeekBar loadSizeSeek = (SeekBar) findViewById(R.id.loadSizeSeek);
-        loadSizeSeek.setProgress(loadSize);
+        loadSizeSeek.setProgress((int)(100/(loadSizeEnd-loadSizeStart)*loadSize));
         loadSizeSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 
 			@Override
@@ -70,7 +70,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
         soilLevelText.setText("Soil Level: Medium");
         
         SeekBar soilLevelSeek = (SeekBar) findViewById(R.id.soilLevelSeek);
-        soilLevelSeek.setProgress(loadSize);
+        soilLevelSeek.setProgress((int)(100/(soilLevelEnd-soilLevelStart)*soilLevel));
         soilLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 
 			@Override
