@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" 
@@ -7,6 +7,38 @@
     <fragment android:name="com.freescale.iastate.washer.dialmenu.DialFragment"
         android:id="@+id/dialfragment"
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent"/>
-	    
-</RelativeLayout>
+        android:layout_width="fill_parent"
+        android:layout_weight="1"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="2" >
+        <TextView 
+            android:id="@+id/loadSizeText"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_above="@+id/loadSizeSeek"/>
+	    <SeekBar android:id="@+id/loadSizeSeek"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:layout_above="@+id/soilLevelText"/>
+	    <TextView 
+            android:id="@+id/soilLevelText"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_above="@+id/soilLevelSeek"/>
+	    <SeekBar android:id="@+id/soilLevelSeek"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:layout_centerInParent="true"/> 
+	   	<Button 
+	   	    android:id="@+id/customizebutton"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_alignParentBottom="true"
+	   	    android:layout_alignParentRight="true"
+	   	    android:text="@string/customize"
+	   	    android:onClick="customizeProgram"/>   
+    </RelativeLayout>
+</LinearLayout>

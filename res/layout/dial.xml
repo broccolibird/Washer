@@ -67,15 +67,5 @@
    	    android:layout_below="@+id/radiobutton5"
    	    android:layout_toLeftOf="@+id/testdial"
    	    android:text="option 4"/>
-
-   	<Button 
-   	    android:id="@+id/customizebutton"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="wrap_content"
-   	    android:layout_alignParentBottom="true"
-   	    android:layout_alignParentRight="true"
-   	    android:text="@string/customize"
-   	    android:onClick="customizeProgram"/>
-
 	    
 </RelativeLayout>

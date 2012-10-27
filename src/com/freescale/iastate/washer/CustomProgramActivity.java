@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.RadioButton;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -32,16 +31,29 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
         
         //unpack intent
         Intent intent = getIntent();
-		selection = intent.getStringExtra("selection");
+        Bundle bundle = intent.getExtras();
 		
-		if(selection != null){
-			datasource = new ProgramDataSource(this);
-			datasource.open();
-			program = datasource.nameToProgram(selection);
-			datasource.close();
-		}else{
-			program = Program.getDefaultProgram();
-		}
+        program = Program.getDefaultProgram();
+        
+        if(bundle != null) {
+			if(bundle.containsKey("selection")){
+				selection = bundle.getString("selection");
+				datasource = new ProgramDataSource(this);
+				datasource.open();
+				program = datasource.nameToProgram(selection);
+				datasource.close();
+			}
+			
+			if(bundle.containsKey("soil_level")) {
+				program.setSoilLevel(bundle.getInt("soil_level"));
+			}
+			
+			if(bundle.containsKey("load_size") ){
+				program.setLoadSize(bundle.getInt("load_size"));	
+			}
+        }
+		
+		
 		
         final ActionBar bar = getActionBar();
 		bar.setDisplayHomeAsUpEnabled(true);

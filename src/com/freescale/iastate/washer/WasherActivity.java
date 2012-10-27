@@ -1,24 +1,35 @@
 package com.freescale.iastate.washer;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.FloatMath;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.freescale.iastate.washer.data.WasherDatabaseHandler;
 import com.freescale.iastate.washer.dialmenu.DialFragment;
+import com.freescale.iastate.washer.util.Cycle;
 import com.freescale.iastate.washer.util.MenuInterface;
 
 
 public class WasherActivity  extends Activity implements MenuInterface {
 
+	float loadSizeStart = 0;
+	float loadSizeEnd = 4;
+	int loadSize = 2;
+	
+	float soilLevelStart = 0;
+	float soilLevelEnd = 4;
+	int soilLevel = 2;
+	
+	TextView loadSizeText;
+	TextView soilLevelText;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +37,58 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		
 		initIntents();
         rootIntent.setHelpText(getText(R.string.main_help));
+        
+        loadSizeText = (TextView) findViewById(R.id.loadSizeText);
+        loadSizeText.setText("Load Size: Medium");
+        
+        SeekBar loadSizeSeek = (SeekBar) findViewById(R.id.loadSizeSeek);
+        loadSizeSeek.setProgress(loadSize);
+        loadSizeSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = loadSizeEnd-loadSizeStart;
+				loadSize = (int) FloatMath.ceil((loadSizeStart + ((temp/100)*dis)));
+				
+				String size = (String) Cycle.Size.values()[loadSize].getLabel();
+				loadSizeText.setText("Load Size: " + size);
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        
+        soilLevelText = (TextView) findViewById(R.id.soilLevelText);
+        soilLevelText.setText("Soil Level: Medium");
+        
+        SeekBar soilLevelSeek = (SeekBar) findViewById(R.id.soilLevelSeek);
+        soilLevelSeek.setProgress(loadSize);
+        soilLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = soilLevelEnd-soilLevelStart;
+				soilLevel = (int) FloatMath.ceil((soilLevelStart + ((temp/100)*dis)));
+				
+				String level = (String) Cycle.Level.values()[soilLevel].getLabel();
+				soilLevelText.setText("Soil Level: " + level);
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
 	}
 	
 	@Override
@@ -47,8 +110,11 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		Intent customWash= new Intent(this, CustomProgramActivity.class);
 		if(selection != null){
 			customWash.putExtra("selection", selection);
-
 		}
+		
+		customWash.putExtra("load_size", loadSize);
+		customWash.putExtra("soil_level", soilLevel);
+		
 		this.startActivity(customWash);
 	}
 	
@@ -76,9 +142,8 @@ public class WasherActivity  extends Activity implements MenuInterface {
 			Intent startWash= new Intent(this, ProgressActivity.class);
 			startWash.putExtra("selection", selection);
 
-			// TODO : Set values on this menu
-			startWash.putExtra("load_size", 3);
-			startWash.putExtra("soil_level", 2);
+			startWash.putExtra("load_size", loadSize);
+			startWash.putExtra("soil_level", soilLevel);
 			this.startActivity(startWash);
 		}
 	}

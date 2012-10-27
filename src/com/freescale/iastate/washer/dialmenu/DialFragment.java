@@ -1,8 +1,5 @@
 package com.freescale.iastate.washer.dialmenu;
 
-import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.WasherActivity;
-
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,13 +8,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+
+import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.WasherActivity;
 
 public class DialFragment extends Fragment {
 	
@@ -213,7 +214,11 @@ public class DialFragment extends Fragment {
 	}
 	
 	public String getSelectedButton() {
-		return (String) rg.getCheckedRadioButton().getText();
+		RadioButton checked = (RadioButton) rg.getCheckedRadioButton();
+		if(checked != null)
+			return (String) checked.getText();
+		else
+			return null;
 	}
 	
 	private double getAngle(double xTouch, double yTouch) {
@@ -269,8 +274,14 @@ public class DialFragment extends Fragment {
 					
 				case MotionEvent.ACTION_UP:
 					if(startInCenter && isInCenter(event.getX(), event.getY())) {
-						((WasherActivity) getActivity())
-							.startWash((String)rg.getCheckedRadioButton().getText());
+						CompoundButton checked = rg.getCheckedRadioButton();
+						if(checked == null) {
+							Toast.makeText(getActivity(), "Please select a Wash Program", Toast.LENGTH_SHORT).show();
+						} else {
+							((WasherActivity) getActivity())
+								.startWash((String)checked.getText());
+						}
+						
 					}
 					break;
 			}
