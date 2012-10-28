@@ -1,9 +1,5 @@
 package com.freescale.iastate.washer.util;
 
-import com.freescale.iastate.washer.util.Cycle.Level;
-import com.freescale.iastate.washer.util.Cycle.Temperature;
-import com.freescale.iastate.washer.util.Wash.Dispenser;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;

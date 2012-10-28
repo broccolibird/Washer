@@ -68,4 +68,5 @@
 	        android:textOn="@string/button_upholstery"
             android:textOff="@string/button_upholstery" />
 	</LinearLayout>
+
 </LinearLayout>

@@ -1,3 +1,4 @@
+
 package com.freescale.iastate.washer;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
@@ -75,41 +76,56 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		rootIntent.setHelpText(getText(R.string.progress_help));
 	}
 	
+	/**
+	 * Displays information about the program currently running
+	 * 
+	 * @param program - program to be shown
+	 */
+	public void updateProgramView(Program program){
+		TextView program_name = (TextView) findViewById(R.id.programName);
+		program_name.setText(selection);
+		
+		TextView program_desc = (TextView) findViewById(R.id.programDescription);
+		TextView program_length = (TextView) findViewById(R.id.programLength);
+		TextView load_size = (TextView) findViewById(R.id.loadSize);
+		TextView soil_level = (TextView) findViewById(R.id.soilLevel);
+		TextView program_ag = (TextView) findViewById(R.id.programAgitation);
+		TextView program_steam = (TextView) findViewById(R.id.programSteam);
+		
+		program_desc.setText(program.getDescription());
+		program_length.setText("" + program.getLength());
+		load_size.setText("Load Size: " + program.getLoadSize().getLabel());
+		soil_level.setText("Soil Level: " + program.getSoilLevel().getLabel());
+		program_ag.setText("Agitation: " + program.getAgitation());
+		program_steam.setText("Steam: " + program.getSteam());
+    
+		TextView presoak = (TextView) findViewById(R.id.presoakLength);
+		TextView wash_length = (TextView) findViewById(R.id.washLength);		
+		TextView wash_temp = (TextView) findViewById(R.id.washTemperature);
+		
+		
+		Wash wash = (Wash) program.getWashCycle();
+		presoak.setText("Presoak length: " + wash.getPresoakLength());
+		wash_length.setText("Length: " + wash.getLength());
+		wash_temp.setText("Temperature: " + wash.getTemp());
+		
+		
+		TextView rinse_length = (TextView) findViewById(R.id.rinseLength);
+		TextView rinse_temp = (TextView) findViewById(R.id.rinseTemperature);
+		
+		Rinse rinse = (Rinse) program.getRinseCycle();
+		rinse_length.setText("Length: " + rinse.getLength());
+		rinse_temp.setText("Temperature: " + rinse.getTemp().getLabel());
+		
 
+		TextView spin_length = (TextView) findViewById(R.id.spinLength);
+		TextView spin_speed = (TextView) findViewById(R.id.spinSpeed);
+		
+		Spin spin = (Spin) program.getSpinCycle();
+		spin_length.setText("Length: " + spin.getLength());
+		spin_speed.setText("Spin speed: " + spin.getSpinSpeed().getLabel());
+	}
 	
-//	private void createCountdown(){
-//		int program_length = program.getLength();
-//		
-//		final TextView program_timer = (TextView) findViewById(R.id.programTimer);
-//		
-//		new CountDownTimer(minutesToMillis(program_length), 1000) {
-//
-//		     @Override
-//			public void onTick(long millisUntilFinished) {
-//		         program_timer.setText(millisToTimeString(millisUntilFinished));
-//		     }
-//
-//		     @Override
-//			public void onFinish() {
-//		         program_timer.setText("program done!");
-//		     }
-//		  }.start();
-//	}
-//	
-//	private String millisToTimeString(long millis){
-//		long total_seconds = millis / 1000;
-//		
-//		long minutes = total_seconds / 60;
-//		long seconds = total_seconds % 60;
-//		
-//		String second_string = (seconds < 10) ? "0" + seconds : "" + seconds;
-//		
-//		return minutes + ":" + second_string;
-//	}
-//	
-//	private int minutesToMillis(int minutes){
-//		return 1000 * (minutes * 60);
-//	}
 		
 	@Override
 	protected void onDestroy() {
@@ -135,3 +151,5 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		
 	}
 }
+
+

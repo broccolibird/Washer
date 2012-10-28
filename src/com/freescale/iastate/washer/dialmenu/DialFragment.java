@@ -1,7 +1,5 @@
-package com.freescale.iastate.washer.dialmenu;
 
-import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.WasherActivity;
+package com.freescale.iastate.washer.dialmenu;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -11,13 +9,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+
+import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.WasherActivity;
+import com.freescale.iastate.washer.util.CustomRadioGroup;
 
 public class DialFragment extends Fragment {
 	
@@ -28,7 +31,7 @@ public class DialFragment extends Fragment {
 	private int dialHeight = 0, dialWidth = 0;
 	private int rbHeight = 0;
 	
-	DialRadioGroup rg;
+	CustomRadioGroup rg;
 	int numButtons = 8;
 	RadioButton button[];
 	int startAngle[];
@@ -106,7 +109,7 @@ public class DialFragment extends Fragment {
 				        rbHeight = button[0].getHeight();
 				        
 				        // add buttons to radio group
-				        rg = new DialRadioGroup();
+				        rg = new CustomRadioGroup();
 				        for(int i = 0; i < numButtons; i++) {
 				        	rg.addRadioButton(button[i]);
 				        }
@@ -213,7 +216,11 @@ public class DialFragment extends Fragment {
 	}
 	
 	public String getSelectedButton() {
-		return (String) rg.getCheckedRadioButton().getText();
+		RadioButton checked = (RadioButton) rg.getCheckedRadioButton();
+		if(checked != null)
+			return (String) checked.getText();
+		else
+			return null;
 	}
 	
 	private double getAngle(double xTouch, double yTouch) {
@@ -269,8 +276,14 @@ public class DialFragment extends Fragment {
 					
 				case MotionEvent.ACTION_UP:
 					if(startInCenter && isInCenter(event.getX(), event.getY())) {
-						((WasherActivity) getActivity())
-							.startWash((String)rg.getCheckedRadioButton().getText());
+						CompoundButton checked = rg.getCheckedRadioButton();
+						if(checked == null) {
+							Toast.makeText(getActivity(), "Please select a Wash Program", Toast.LENGTH_SHORT).show();
+						} else {
+							((WasherActivity) getActivity())
+								.startWash((String)checked.getText());
+						}
+						
 					}
 					break;
 			}

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" 
+    android:baselineAligned="false">
+	<LinearLayout
+    	android:id="@+id/left_pane"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:layout_weight="1"
+    	android:orientation="vertical">
+    	<LinearLayout
+	    	android:id="@+id/left_pane"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	android:orientation="horizontal">
+	    	<TextView 
+	    	    android:id="@+id/presoakText"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Presoak: "/>
+	    	<Switch
+	    	    android:id="@+id/presoakSwitch"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    <LinearLayout
+	    	android:id="@+id/left_pane"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	android:orientation="horizontal">
+	    	<TextView 
+	    	    android:id="@+id/steamText"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Steam: "/>
+	    	<Switch
+	    	    android:id="@+id/steamSwitch"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"/>
+	    </LinearLayout>
+	    <LinearLayout
+	    	android:id="@+id/left_pane"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	android:orientation="vertical">
+	    	<TextView
+	    	    android:id="@+id/washTempText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Select Wash Temperature: "/>
+	    	<LinearLayout 
+	    	    android:id="@+id/washTempGrp"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"
+		    	android:layout_below="@+id/washTempText"/>
+	    </LinearLayout>
+	    <LinearLayout
+	    	android:id="@+id/left_pane"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	android:orientation="vertical">
+	    	<TextView
+	    	    android:id="@+id/rinseTempText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Select Rinse Temperature: "/>
+	    	<LinearLayout 
+	    	    android:id="@+id/rinseTempGrp"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"/>
+	    </LinearLayout>
+	</LinearLayout>
+	<LinearLayout
+    	android:id="@+id/right_pane"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:orientation="vertical"
+    	android:layout_weight="1">
+    	<LinearLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:orientation="vertical"
+	    	android:layout_weight="1">
+	    	<TextView
+	    	    android:id="@+id/agitationText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Wash Agitation Level: "/>
+	    	<SeekBar android:id="@+id/agLevelSeek"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"/>
+	    </LinearLayout>
+    	
+    	<LinearLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:orientation="vertical"
+	    	android:layout_weight="1">
+	    	<TextView
+	    	    android:id="@+id/spinSpeedText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Spin Speed: "/>
+	    	<SeekBar android:id="@+id/spinSpeedSeek"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"/>
+	    </LinearLayout>
+    	
+    	<LinearLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:orientation="vertical"
+	    	android:layout_weight="1">
+	    	<TextView
+	    	    android:id="@+id/loadSizeText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Select Load Size: "/>
+	    	<SeekBar android:id="@+id/loadSizeSeek"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"/>
+	    </LinearLayout>
+    	
+    	<LinearLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:orientation="vertical"
+	    	android:layout_weight="1">
+	    	<TextView
+	    	    android:id="@+id/soilLevelText"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="Select Soil Level: "/>
+	    	<SeekBar android:id="@+id/soilLevelSeek"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"/>
+	    </LinearLayout>
+	    
+    	<Button
+    	    android:id="@+id/startWashButton"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="fill_parent"
+    	    android:text="Start Wash"
+    	    android:onClick="startWash"
+    	    android:layout_weight="1" />
+    	
+	</LinearLayout>
+	    
+</LinearLayout>
