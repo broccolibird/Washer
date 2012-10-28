@@ -2,7 +2,6 @@ package com.freescale.iastate.washer.util;
 
 import com.freescale.iastate.washer.MaintenanceActivity;
 import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.StainMenuActivity;
 import com.freescale.iastate.washer.WasherActivity;
 import com.freescale.iastate.washer.WeatherActivity;
 
@@ -25,10 +24,6 @@ public interface MenuInterface {
 		public Intent homeIntent;
 		public Intent testIntent;
 		public Intent weatherIntent;
-		
-		public RootIntent() {
-			
-		}
 		
 		public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 
@@ -67,8 +62,6 @@ public interface MenuInterface {
 		 */
 		public void initIntents(Activity act) {
 			rootIntent.homeIntent = new Intent(act, WasherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-			rootIntent.stainIntent = new Intent(act, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 			rootIntent.maintenanceIntent = new Intent(act, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			
