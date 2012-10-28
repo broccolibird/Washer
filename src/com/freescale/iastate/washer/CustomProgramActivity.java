@@ -101,7 +101,7 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		bar.setDisplayHomeAsUpEnabled(true);
         bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
         
-        rootIntent.setHelpText(getText(R.string.customize_help));
+        rootIntent.setHelpText("Customize Wash Program", getText(R.string.customize_help));
      
         createLayout();
 	}

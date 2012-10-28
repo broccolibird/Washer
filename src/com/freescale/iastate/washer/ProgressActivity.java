@@ -73,7 +73,7 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		timer.createCountdown(program.getLength());
 		//createCountdown();
 		
-		rootIntent.setHelpText(getText(R.string.progress_help));
+		rootIntent.setHelpText("Wash Progress Screen", getText(R.string.progress_help));
 	}
 	
 	/**

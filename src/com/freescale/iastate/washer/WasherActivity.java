@@ -40,7 +40,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		setContentView(R.layout.main);
 		
 		initIntents();
-        rootIntent.setHelpText(getText(R.string.main_help));
+        rootIntent.setHelpText("Wash Menu", getText(R.string.main_help));
         
         loadSizeText = (TextView) findViewById(R.id.loadSizeText);
         loadSizeText.setText("Load Size: Medium");

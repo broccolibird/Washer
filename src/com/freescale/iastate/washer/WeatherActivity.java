@@ -48,7 +48,7 @@ public class WeatherActivity extends Activity implements MenuInterface, DisplayI
 
 		// this sets the help string for the current activity.
 		// copy paste
-		rootIntent.setHelpText("weather help");
+		rootIntent.setHelpText("Weather Information", "weather help");
 
 		ForecastWeatherTask task = new ForecastWeatherTask();
 		task.execute();

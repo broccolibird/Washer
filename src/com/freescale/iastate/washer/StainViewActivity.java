@@ -29,6 +29,8 @@ public class StainViewActivity extends Activity implements OnStainSelectedListen
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+        rootIntent.setHelpText("Stain Guide", getText(R.string.stain_help));
 		
 		stainView = ((StainViewFragment)getFragmentManager().findFragmentById(R.id.stainviewfrag));
 		stainView.setNoStainSelected();
