@@ -3,19 +3,72 @@
     android:baselineAligned="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <fragment android:name="com.freescale.iastate.washer.stain.StainListFragment"
-		android:id="@+id/stainlist"
+    <LinearLayout
+   		android:layout_width="fill_parent"
+   		android:layout_height="fill_parent"
+   		android:orientation="horizontal"
+   		android:layout_weight="1" >
+	    <fragment android:name="com.freescale.iastate.washer.stain.StainListFragment"
+			android:id="@+id/stainlist"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"/>
+	
+		<fragment android:name="com.freescale.iastate.washer.stain.StainViewFragment"
+			android:id="@+id/stainviewfrag"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"/>
+	</LinearLayout>
+	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_weight="1"/>
-
-	<fragment android:name="com.freescale.iastate.washer.stain.StainViewFragment"
-		android:id="@+id/stainviewfrag"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_weight="1"/>
+		android:orientation="horizontal"
+		android:layout_weight="2" >
+		
+        <ToggleButton
+            android:id="@+id/buttonViewAll"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+			android:layout_margin="10dp"
+			android:layout_weight="1"            
+			android:onClick="viewAllStains"
+            android:text="@string/button_all"
+            android:textOn="@string/button_all"
+            android:textOff="@string/button_all" />
+        <ToggleButton
+	        android:id="@+id/buttonWashable"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_margin="10dp"
+	        android:layout_weight="1"
+	        android:onClick="viewByFabric"
+	        android:text="@string/button_washable"
+	        android:textOn="@string/button_washable"
+            android:textOff="@string/button_washable" />
+        <ToggleButton
+	        android:id="@+id/buttonCarpet"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_margin="10dp"
+	        android:layout_weight="1"
+	        android:onClick="viewByFabric"
+	        android:text="@string/button_carpet"
+	        android:textOn="@string/button_carpet"
+            android:textOff="@string/button_carpet" />
+        <ToggleButton
+	        android:id="@+id/buttonUpholstery"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_margin="10dp"
+	        android:layout_weight="1"
+	        android:onClick="viewByFabric"
+	        android:text="@string/button_upholstery"
+	        android:textOn="@string/button_upholstery"
+            android:textOff="@string/button_upholstery" />
+	</LinearLayout>
 					    
 
 </LinearLayout>

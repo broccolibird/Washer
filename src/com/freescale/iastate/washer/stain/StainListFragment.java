@@ -39,6 +39,8 @@ public class StainListFragment extends ListFragment
 	private Cursor cursor;
 	
 	private String currentQuery = null;
+	private boolean allStains = true;
+	private String fabric;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -146,11 +148,27 @@ public class StainListFragment extends ListFragment
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		String whereClause = StainDataSource.COL_TYPE + " LIKE ?";
 		
-		if (!TextUtils.isEmpty(currentQuery)) {
+		String whereClause = "";
+		String[] selectionArgs = null;
+		if(!TextUtils.isEmpty(currentQuery)){
+			whereClause += StainDataSource.COL_TYPE + " LIKE ?";
+			if(!allStains) {
+				whereClause += " AND " + StainDataSource.COL_FABRIC + " LIKE ?";
+				selectionArgs  = new String[] {"%" + currentQuery + "%", "%" + fabric + "%" };
+			} else {
+				selectionArgs  = new String[] {"%" + currentQuery + "%"};
+			}
+		} else {
+			if(!allStains) {
+				whereClause += StainDataSource.COL_FABRIC + " LIKE ?";
+				selectionArgs  = new String[] {"%" + fabric + "%" };
+			}
+		}
+		
+		if (!TextUtils.isEmpty(currentQuery) || !allStains) {
 			return new CursorLoader(getActivity(), WasherContentProvider.CONTENT_URI, 
-					StainDataSource.allColumns, whereClause, new String[] {"%" + currentQuery + "%" }, null);
+					StainDataSource.allColumns, whereClause, selectionArgs, null);
 			
 		}
 		return new CursorLoader(getActivity(),
@@ -165,6 +183,18 @@ public class StainListFragment extends ListFragment
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		adapter.swapCursor(null);
+		
+	}
+
+	public void setAllStains(boolean allStains) {
+		this.allStains = allStains;
+		getLoaderManager().restartLoader(0, null, StainListFragment.this); 
+		
+	}
+
+	public void setFabric(String fabric) {
+		this.fabric = fabric;
+		getLoaderManager().restartLoader(0, null, StainListFragment.this); 
 		
 	}
 	

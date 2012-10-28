@@ -58,7 +58,7 @@ public class WasherActivity  extends Activity implements MenuInterface {
 	public void initIntents() {
 		rootIntent.homeIntent = new Intent(this, WasherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-		rootIntent.stainIntent = new Intent(this, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		rootIntent.stainIntent = new Intent(this, StainViewActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 		rootIntent.maintenanceIntent = new Intent(this, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
