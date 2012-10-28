@@ -47,12 +47,13 @@ public class StainViewActivity extends Activity implements OnStainSelectedListen
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.actionbar, menu);
-		
-		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
-		SearchView searchView = (SearchView) searchViewMI.getActionView();
-		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-		searchView.setIconifiedByDefault(false); //Do not iconify the widget; expand it by default
+//		
+//		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
+//		SearchView searchView = (SearchView) searchViewMI.getActionView();
+//		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//		searchView.setIconifiedByDefault(false); //Do not iconify the widget; expand it by default
+//		
 		return true;
 	}
 }

@@ -2,8 +2,11 @@ package com.freescale.iastate.washer.stain;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.app.LoaderManager;
 import android.app.SearchManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,9 +25,11 @@ import android.widget.Toast;
 
 import com.freescale.iastate.washer.R;
 import com.freescale.iastate.washer.data.StainDataSource;
+import com.freescale.iastate.washer.data.WasherContentProvider;
 import com.freescale.iastate.washer.util.Stain;
 
-public class StainListFragment extends ListFragment{
+public class StainListFragment extends ListFragment 
+				implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	private CursorAdapter adapter;
 	private String columns[] = {StainDataSource.COL_TYPE, 
@@ -45,16 +50,17 @@ public class StainListFragment extends ListFragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		setHasOptionsMenu(true);
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.actionbar, menu);
 		
 		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
-		searchViewMI.setVisible(true);
 		SearchView searchView = (SearchView) searchViewMI.getActionView();
 		searchView.setOnQueryTextListener(queryListener);
+		searchViewMI.setVisible(true);
 	}
 	
 	@Override
@@ -76,10 +82,9 @@ public class StainListFragment extends ListFragment{
 			cursor = source.getAllStains();
 		}
 		
-		getActivity().startManagingCursor(cursor);
 		int textLocations[] = {R.id.text1, R.id.text2 };
-		adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),
-				R.layout.stainlistitem, cursor, columns, textLocations);
+		adapter = new SimpleCursorAdapter(getActivity(),
+				R.layout.stainlistitem, cursor, columns, textLocations, 0);
 		setListAdapter(adapter);
 	
 	}
@@ -122,12 +127,12 @@ public class StainListFragment extends ListFragment{
 	            getActivity().getActionBar().setSubtitle("List");               
 	            currentQuery = null;
 	        } else {
-	            getActivity().getActionBar().setSubtitle("List - Searching for: " + newText);
+	            getActivity().getActionBar().setSubtitle("Searching for: " + newText);
 	            currentQuery = newText;
 
 	        }   
 	        
-	        //getLoaderManager().restartLoader(0, null, StainListFragment.this); 
+	        getLoaderManager().restartLoader(0, null, StainListFragment.this); 
 	        
 	        return false;
 	    }
@@ -138,5 +143,29 @@ public class StainListFragment extends ListFragment{
 	        return false;
 	    }
 	};
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		String whereClause = StainDataSource.COL_TYPE + " LIKE ?";
+		
+		if (!TextUtils.isEmpty(currentQuery)) {
+			return new CursorLoader(getActivity(), WasherContentProvider.CONTENT_URI, 
+					StainDataSource.allColumns, whereClause, new String[] {"%" + currentQuery + "%" }, null);
+			
+		}
+		return new CursorLoader(getActivity(),
+				WasherContentProvider.CONTENT_URI, StainDataSource.allColumns, null, null, null);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		adapter.swapCursor(data);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		adapter.swapCursor(null);
+		
+	}
 	
 }

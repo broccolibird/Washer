@@ -12,8 +12,9 @@
         android:label="@string/app_name" 
         android:debuggable="true">
         
-        <provider android:authorities="com.freescale.iastate.washer.contenprovider"
-	        android:name=".contentprovider.WasherContentProvider" >
+        <provider android:authorities="com.freescale.iastate.washer.contentprovider"
+	        android:name=".data.WasherContentProvider" 
+	        android:exported="false">
 	    </provider>
     
         <activity
