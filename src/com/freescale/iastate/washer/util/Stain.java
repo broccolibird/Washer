@@ -68,7 +68,7 @@ public class Stain {
 		return supplies;
 	}
 	
-	public String getSuppliesString() {
+	public String getSuppliesListString() {
 		if(supplies == null)
 			return null;
 		
@@ -84,6 +84,22 @@ public class Stain {
 		return toReturn;
 	}
 
+	public String getSuppliesString() {
+		if(supplies == null)
+			return null;
+		
+		int numSupplies = supplies.length;
+		
+		String toReturn = "";
+		for(int i = 0; i < numSupplies; i++) {
+			if(i != 0)
+				toReturn += "\n";
+			toReturn += supplies[i];
+		}
+		
+		return toReturn;
+	}
+	
 	public void setSupplies(String[] supplies) {
 		this.supplies = supplies;
 	}
@@ -92,7 +108,7 @@ public class Stain {
 		return steps;
 	}
 	
-	public String getStepsString() {
+	public String getStepsListString() {
 		if(steps == null)
 			return null;
 		
@@ -105,6 +121,22 @@ public class Stain {
 		
 		int lastIndex = toReturn.lastIndexOf(',');
 		toReturn = toReturn.substring(0, (lastIndex > 0)?lastIndex:0);
+		
+		return toReturn;
+	}
+	
+	public String getStepsString() {
+		if(steps == null)
+			return null;
+		
+		int numSteps = steps.length;
+		
+		String toReturn = "";
+		for(int i = 0; i < numSteps; i++) {
+			if(i != 0)
+				toReturn += "\n";
+			toReturn += steps[i];
+		}
 		
 		return toReturn;
 	}

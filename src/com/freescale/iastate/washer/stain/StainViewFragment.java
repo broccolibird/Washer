@@ -40,7 +40,7 @@ public class StainViewFragment extends Fragment {
 				((TextView)getView().findViewById(R.id.fabric)).setText("");
 			}
 			
-			if(stain.getSuppliesString() != null) {
+			if(stain.getSuppliesString() != null && !stain.getSuppliesString().equals("")) {
 				getView().findViewById(R.id.supplies_label).setVisibility(View.VISIBLE);
 				getView().findViewById(R.id.supplies).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.supplies)).setText(stain.getSuppliesString());
@@ -50,7 +50,7 @@ public class StainViewFragment extends Fragment {
 				((TextView)getView().findViewById(R.id.supplies)).setText("");
 			}
 			
-			if(stain.getStepsString() != null) {
+			if(stain.getStepsString() != null && !stain.getStepsString().equals("")) {
 				getView().findViewById(R.id.steps_label).setVisibility(View.VISIBLE);
 				getView().findViewById(R.id.steps).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.steps)).setText(stain.getStepsString());
