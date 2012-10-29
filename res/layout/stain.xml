@@ -13,77 +13,63 @@
 
            <TextView
                android:id="@+id/type_label"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               style="@style/titleFont"
                android:text="@string/stain_type" />
            <TextView
                android:id="@+id/type"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+               style="@style/paragraphFont"/>
            
            
            <TextView
                android:id="@+id/fabric_label"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               style="@style/titleFont"
                android:text="@string/stain_fabric" />
            <TextView
                android:id="@+id/fabric"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+               style="@style/paragraphFont"/>
 
 
            <TextView
                android:id="@+id/supplies_label"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               style="@style/titleFont"
                android:text="@string/stain_supplies" />
            <TextView
                android:id="@+id/supplies"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+               style="@style/paragraphFont"/>
 
           <TextView
               android:id="@+id/steps_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              style="@style/titleFont"
               android:text="@string/stain_steps" />
           <TextView
               android:id="@+id/steps"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
+              style="@style/paragraphFont"/>
 
 
           <TextView
               android:id="@+id/notes_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+			  style="@style/titleFont"
               android:text="@string/stain_notes" />
           <TextView
               android:id="@+id/notes"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
+              style="@style/paragraphFont"/>
 
           <TextView
               android:id="@+id/disclaimer_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+			  style="@style/titleFont"
               android:text="@string/stain_disclaimer" />
           <TextView
               android:id="@+id/disclaimer"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
+              style="@style/paragraphFont" />
 
 
            <TextView
                android:id="@+id/source_label"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               style="@style/titleFont"
                android:text="@string/stain_source" />
            <TextView
                android:id="@+id/source"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+               style="@style/paragraphFont" />
        </LinearLayout>
 
 

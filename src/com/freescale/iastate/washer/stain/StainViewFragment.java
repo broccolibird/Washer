@@ -21,6 +21,7 @@ public class StainViewFragment extends Fragment {
 		if(stain != null) {
 			if(stain.getType() != null) {
 				getView().findViewById(R.id.type_label).setVisibility(View.VISIBLE);
+				((TextView)getView().findViewById(R.id.type_label)).setText("Stain Type:");
 				getView().findViewById(R.id.type).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.type)).setText(stain.getType());
 			} else {
@@ -88,12 +89,31 @@ public class StainViewFragment extends Fragment {
 				getView().findViewById(R.id.source).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.source)).setText("");
 			}
+		} else {
+			getView().findViewById(R.id.type_label).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.type_label)).setText("Stain Guide");
+			getView().findViewById(R.id.type).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.type)).setText(R.string.stain_help);
+			
+			getView().findViewById(R.id.fabric_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.fabric).setVisibility(View.GONE);
+			getView().findViewById(R.id.supplies_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.supplies).setVisibility(View.GONE);
+			getView().findViewById(R.id.steps_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.steps).setVisibility(View.GONE);
+			getView().findViewById(R.id.notes_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.notes).setVisibility(View.GONE);
+			getView().findViewById(R.id.disclaimer_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.disclaimer).setVisibility(View.GONE);
+			getView().findViewById(R.id.source_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.source).setVisibility(View.GONE);
+			
 		}
 		
 	}
 	
 	public void setNoStainSelected() {
-		Stain noStain = new Stain("Please select a stain", null, (String[])null, null,
-				null, null, null, null);
+		updateStain(null);
+		
 	}
 }
