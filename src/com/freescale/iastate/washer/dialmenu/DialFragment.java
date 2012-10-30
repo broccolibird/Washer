@@ -270,8 +270,10 @@ public class DialFragment extends Fragment {
 					// sets the current angle of the user's finger press
 					// (not the angle of the dial)
 					double currentAngle = getAngle(event.getX(), event.getY());
-					rotateDial((float)(startAngle - currentAngle));
-					startAngle = currentAngle;
+					if(!startInCenter) {
+						rotateDial((float)(startAngle - currentAngle));
+						startAngle = currentAngle;
+					}
 					break;
 					
 				case MotionEvent.ACTION_UP:
