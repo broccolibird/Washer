@@ -76,7 +76,7 @@ public class MaintenanceListFragment extends ListFragment
 			cursor = source.getAllMaintenanceItems();
 		}
 		
-		int textLocations[] = {R.id.text1, R.id.text2 };
+		int textLocations[] = {R.id.text2, R.id.text1 };
 		adapter = new SimpleCursorAdapter(getActivity(),
 				R.layout.stainlistitem, cursor, columns, textLocations, 0);
 		setListAdapter(adapter);

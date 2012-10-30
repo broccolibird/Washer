@@ -33,7 +33,7 @@ public class MaintenanceItem {
 		this.source_url = source_url;
 	}
 	
-	public String getDescriptionString() {
+	public String getDescriptionListString() {
 		if(description == null)
 			return null;
 		
@@ -47,6 +47,21 @@ public class MaintenanceItem {
 		int lastIndex = toReturn.lastIndexOf(',');
 		toReturn = toReturn.substring(0, (lastIndex > 0)?lastIndex:0);
 		
+		return toReturn;
+	}
+	
+	public String getDescriptionString() {
+		if(description == null)
+			return null;
+		
+		int numItems = description.length;
+		
+		String toReturn = "";
+		for(int i = 0; i < numItems; i++) {
+			toReturn += description[i];
+			if(i != numItems - 1)
+				toReturn += "\n";
+		}
 		return toReturn;
 	}
 	

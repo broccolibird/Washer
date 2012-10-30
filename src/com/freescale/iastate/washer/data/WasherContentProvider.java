@@ -227,8 +227,6 @@ public class WasherContentProvider extends ContentProvider {
 				break;
 			}
 			
-			System.out.println(availableColumns.toString());
-			System.out.println(requestedColumns.toString());
 			if(!availableColumns.containsAll(requestedColumns)) {
 				throw new IllegalArgumentException("Unknown columns in projection");
 			}

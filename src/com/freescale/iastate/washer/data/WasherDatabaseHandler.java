@@ -50,7 +50,7 @@ public class WasherDatabaseHandler extends SQLiteAssetHelper{
     	ContentValues values = new ContentValues();
     	values.put(MaintenanceDataSource.COL_TYPE, mi.type);
     	values.put(MaintenanceDataSource.COL_TITLE, mi.title);
-    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionString());
+    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionListString());
     	values.put(MaintenanceDataSource.COL_SOURCE, mi.source);
     	values.put(MaintenanceDataSource.COL_SOURCEURL, mi.source_url);
 

@@ -27,7 +27,6 @@ public class StainViewFragment extends Fragment {
 			} else {
 				getView().findViewById(R.id.type_label).setVisibility(View.GONE);
 				getView().findViewById(R.id.type).setVisibility(View.GONE);
-				((TextView)getView().findViewById(R.id.type)).setText("Unknown Type");
 			}
 			
 			if(stain.getFabric() != null) {

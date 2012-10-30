@@ -14,23 +14,22 @@
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/type"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                style="@style/paragraphFont"/>
             <TextView
                 android:id="@+id/title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                style="@style/titleFont"/>"
             
-            <LinearLayout
-	             android:id="@+id/descriplist"
-	             android:layout_width="fill_parent"
-	             android:layout_height="wrap_content"
-	             android:orientation="vertical"/>
+            <TextView
+	             android:id="@+id/descrip"
+	             style="@style/paragraphFont"/>
 
            <TextView
+               android:id="@+id/source_label"
+               style="@style/titleFont"
+               android:text="@string/mi_source" />
+           <TextView
                android:id="@+id/source"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content" />
+               style="@style/paragraphFont"/>
         </LinearLayout>
 
 
