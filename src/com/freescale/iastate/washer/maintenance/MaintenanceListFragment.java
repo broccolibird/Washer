@@ -58,6 +58,7 @@ public class MaintenanceListFragment extends ListFragment
 		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
 		SearchView searchView = (SearchView) searchViewMI.getActionView();
 		searchView.setOnQueryTextListener(queryListener);
+		searchView.setIconifiedByDefault(false);
 		searchViewMI.setVisible(true);
 	}
 	

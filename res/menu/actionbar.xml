@@ -6,8 +6,11 @@
           android:showAsAction="always"
           android:visible="false"
           android:actionViewClass="android.widget.SearchView" />
-    <item android:id="@+id/help" android:icon="@drawable/ic_action_help" android:title="Help" android:showAsAction="always"></item>
-    <item android:id="@+id/stain" android:title="Stain Guide" android:showAsAction="always"></item>
+    <item android:id="@+id/help" 
+        android:icon="@drawable/menu_help" 
+        android:title="Help" 
+        android:showAsAction="always"></item>
+    <item android:id="@+id/stain" android:title="Stain Guide" android:showAsAction="always" style="@style/paragraphFont"></item>
     <item android:id="@+id/maintenance" android:title="Maintenance" android:showAsAction="always"></item>
     <item android:id="@+id/settings" android:title="Settings" android:showAsAction="always"></item>
     <item android:id="@+id/weather" android:title="Weather" android:showAsAction="always"></item>
