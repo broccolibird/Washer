@@ -252,14 +252,14 @@ public class DialFragment extends Fragment {
 		
 		public boolean onTouch(View v, MotionEvent event) {
 
+			double x = event.getX();
+			double y = event.getY();
+			
 			switch (event.getAction()) {
 			
 				case MotionEvent.ACTION_DOWN:
 					// sets the start angle of the user's finger press
 					// (not the angle of the dial)
-					double x = event.getX();
-					double y = event.getY();
-					
 					startInCenter = isInCenter(x, y);
 					
 					startAngle = getAngle(x, y);
@@ -268,15 +268,15 @@ public class DialFragment extends Fragment {
 				case MotionEvent.ACTION_MOVE:
 					// sets the current angle of the user's finger press
 					// (not the angle of the dial)
-					double currentAngle = getAngle(event.getX(), event.getY());
-					if(!startInCenter) {
+					double currentAngle = getAngle(x, y);
+					if(!isInCenter(x, y)) {
 						rotateDial((float)(startAngle - currentAngle));
-						startAngle = currentAngle;
 					}
+					startAngle = currentAngle;
 					break;
 					
 				case MotionEvent.ACTION_UP:
-					if(startInCenter && isInCenter(event.getX(), event.getY())) {
+					if(startInCenter && isInCenter(x, y)) {
 						CompoundButton checked = rg.getCheckedRadioButton();
 						if(checked == null) {
 							Toast.makeText(getActivity(), "Please select a Wash Program", Toast.LENGTH_SHORT).show();
