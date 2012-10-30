@@ -167,12 +167,12 @@ public class StainListFragment extends ListFragment
 		}
 		
 		if (!TextUtils.isEmpty(currentQuery) || !allStains) {
-			return new CursorLoader(getActivity(), WasherContentProvider.CONTENT_URI, 
+			return new CursorLoader(getActivity(), WasherContentProvider.STAIN_CONTENT_URI, 
 					StainDataSource.allColumns, whereClause, selectionArgs, null);
 			
 		}
 		return new CursorLoader(getActivity(),
-				WasherContentProvider.CONTENT_URI, StainDataSource.allColumns, null, null, null);
+				WasherContentProvider.STAIN_CONTENT_URI, StainDataSource.allColumns, null, null, null);
 	}
 
 	@Override
