@@ -121,7 +121,6 @@ public class DialFragment extends Fragment {
 				        
 				        // place buttons
 				        // right side, going counter-clockwise
-						int i;
 						LayoutParams params;
 						params = (LayoutParams) button[0].getLayoutParams();
 						params.setMargins(xMargin, 0, 0, yMargin); //left, top, right, bottom
@@ -162,15 +161,15 @@ public class DialFragment extends Fragment {
 				        endAngle = new int[numButtons];
 				        
 				        startAngle[0] = 20;
-				        endAngle[0] = 35;
+				        endAngle[0] = 40;
 				        
-				        startAngle[1] = 75;
+				        startAngle[1] = 65;
 				        endAngle[1] = 80;
 				        
-				        startAngle[2] = 110;
+				        startAngle[2] = 100;
 				        endAngle[2] = 125;
 				        
-				        startAngle[3] = 145;
+				        startAngle[3] = 135;
 				        endAngle[3] = 160;
 				        
 				        startAngle[7] = -endAngle[0];
