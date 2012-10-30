@@ -29,9 +29,7 @@
 		
         <ToggleButton
             android:id="@+id/buttonViewAll"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-			android:layout_margin="10dp"
+            style="@style/toggleButton"
 			android:layout_weight="1"            
 			android:onClick="viewAllStains"
             android:text="@string/button_all"
@@ -39,9 +37,7 @@
             android:textOff="@string/button_all" />
         <ToggleButton
 	        android:id="@+id/buttonWashable"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_margin="10dp"
+	        style="@style/toggleButton"
 	        android:layout_weight="1"
 	        android:onClick="viewByFabric"
 	        android:text="@string/button_washable"
@@ -49,9 +45,7 @@
             android:textOff="@string/button_washable" />
         <ToggleButton
 	        android:id="@+id/buttonCarpet"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_margin="10dp"
+	        style="@style/toggleButton"
 	        android:layout_weight="1"
 	        android:onClick="viewByFabric"
 	        android:text="@string/button_carpet"
@@ -59,9 +53,7 @@
             android:textOff="@string/button_carpet" />
         <ToggleButton
 	        android:id="@+id/buttonUpholstery"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_margin="10dp"
+	        style="@style/toggleButton"
 	        android:layout_weight="1"
 	        android:onClick="viewByFabric"
 	        android:text="@string/button_upholstery"

@@ -16,8 +16,7 @@
         android:layout_weight="2" >
         <TextView 
             android:id="@+id/loadSizeText"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+            style="@style/labelFont"
             android:layout_marginTop="30dp"
             android:layout_above="@+id/loadSizeSeek"/>
 	    <SeekBar android:id="@+id/loadSizeSeek"
@@ -26,8 +25,7 @@
 	        android:layout_above="@+id/soilLevelText"/>
 	    <TextView 
             android:id="@+id/soilLevelText"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+            style="@style/labelFont"
             android:layout_marginTop="30dp"
             android:layout_above="@+id/soilLevelSeek"/>
 	    <SeekBar android:id="@+id/soilLevelSeek"
@@ -35,16 +33,15 @@
 	        android:layout_width="fill_parent"
 	        android:layout_above="@+id/steamText"/>
 	    <TextView android:id="@+id/steamText"
-	        android:layout_height="wrap_content"
-	        android:layout_width="wrap_content"
+	        style="@style/labelFont"
 	        android:layout_marginTop="30dp"
 	        android:text="Steam: "
 	        android:layout_centerVertical="true"/> 
 	    <Switch android:id="@+id/steamSwitch"
 	        android:layout_height="wrap_content"
-	        android:layout_width="wrap_content"
-	        android:layout_toRightOf="@+id/steamText"
-	        android:layout_centerVertical="true"/>
+	        android:layout_width="fill_parent"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@+id/steamText"/>
 	    <Button 
 	   	    android:id="@+id/customizebutton"
 	   	    android:layout_height="wrap_content"
