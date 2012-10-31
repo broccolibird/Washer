@@ -47,9 +47,9 @@ public interface MenuInterface {
 			case R.id.maintenance:
 				act.startActivity(rootIntent.maintenanceIntent);
 				return true;
-			case R.id.settings:		
-				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
-				return true;
+//			case R.id.settings:		
+//				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
+//				return true;
 			case R.id.weather:
 				act.startActivity(rootIntent.weatherIntent);
 			default:
