@@ -13,57 +13,49 @@
 		android:layout_centerInParent="true"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton0"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_alignTop="@+id/testdial"
    	    android:layout_toRightOf="@+id/testdial"
    	    android:text="option 0"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton1"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton0"
    	    android:layout_toRightOf="@+id/testdial"
    	    android:text="option 1"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton2"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton1"
    	    android:layout_toRightOf="@+id/testdial"
    	    android:text="option 2"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton3"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton2"
    	    android:layout_toRightOf="@+id/testdial"
    	    android:text="option 3"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton7"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_alignTop="@+id/testdial"
    	    android:layout_toLeftOf="@+id/testdial"
    	    android:text="option 7"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton6"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton7"
    	    android:layout_toLeftOf="@+id/testdial"
    	    android:text="option 6"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton5"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton6"
    	    android:layout_toLeftOf="@+id/testdial"
    	    android:text="option 5"/>
    	<RadioButton 
    	    android:id="@+id/radiobutton4"
-   	    android:layout_height="wrap_content"
-   	    android:layout_width="170dp"
+   	    style="@style/labelFont"
    	    android:layout_below="@+id/radiobutton5"
    	    android:layout_toLeftOf="@+id/testdial"
    	    android:text="option 4"/>
