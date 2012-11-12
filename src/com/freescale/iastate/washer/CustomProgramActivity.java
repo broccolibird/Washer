@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.FloatMath;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -16,7 +17,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.freescale.iastate.washer.data.ProgramDataSource;
@@ -66,7 +66,10 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
         super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.custom);
-		
+
+		final ActionBar bar = getActionBar();
+		bar.setDisplayHomeAsUpEnabled(true);
+        
         //unpack intent
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -95,11 +98,6 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 			}
         }
 		
-		
-		
-        final ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(true);
-        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
         
         rootIntent.setHelpText("Customize Wash Program", getText(R.string.customize_help));
      
@@ -111,6 +109,11 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.actionbar, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return rootIntent.onOptionsItemSelected(this, item);
 	}
 
 	private void createLayout() {
