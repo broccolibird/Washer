@@ -16,9 +16,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freescale.iastate.washer.data.ProgramDataSource;
 import com.freescale.iastate.washer.dialmenu.DialFragment;
 import com.freescale.iastate.washer.util.Cycle;
 import com.freescale.iastate.washer.util.MenuInterface;
+import com.freescale.iastate.washer.util.Program;
 
 
 public class WasherActivity  extends Activity implements MenuInterface {
@@ -113,15 +115,23 @@ public class WasherActivity  extends Activity implements MenuInterface {
 	public void customizeProgram(View v){
 		DialFragment dialFrag = (DialFragment) getFragmentManager().findFragmentById(R.id.dialfragment);
 		String selection = dialFrag.getSelectedButton();
+		
+		// Retrieve wash program from database
+		ProgramDataSource datasource = new ProgramDataSource(this);
+		datasource.open();
+		Program program = datasource.nameToProgram(selection);
+		datasource.close();
+		
+		// customize the wash to user selections
+		program.setLoadSize(loadSize);
+		program.setSoilLevel(soilLevel);
+		program.setSteam(steamSwitch.isChecked());
+				
+		// start the CustomProgramActivity
 		Intent customWash= new Intent(this, CustomProgramActivity.class);
-		if(selection != null){
-			customWash.putExtra("selection", selection);
+		if(program != null){
+			customWash.putExtra("program", program);
 		}
-		
-		customWash.putExtra("load_size", loadSize);
-		customWash.putExtra("soil_level", soilLevel);
-		customWash.putExtra("steam", steamSwitch.isChecked());
-		
 		this.startActivity(customWash);
 	}
 	
@@ -148,12 +158,22 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		if( selection == null ) {
 			Toast.makeText(this, R.string.no_selection, Toast.LENGTH_SHORT).show();
 		} else {
+			
+			// Retrieve wash program from database
+			ProgramDataSource datasource = new ProgramDataSource(this);
+			datasource.open();
+			Program program = datasource.nameToProgram(selection);
+			datasource.close();
+			
+			// customize the wash to user selections
+			program.setLoadSize(loadSize);
+			program.setSoilLevel(soilLevel);
+			program.setSteam(steamSwitch.isChecked());
+			
+			// start the progress activity
 			Intent startWash= new Intent(this, ProgressActivity.class);
-			startWash.putExtra("selection", selection);
+			startWash.putExtra("program", program);
 
-			startWash.putExtra("load_size", loadSize);
-			startWash.putExtra("soil_level", soilLevel);
-			startWash.putExtra("steam", steamSwitch.isChecked());
 			this.startActivity(startWash);
 		}
 	}

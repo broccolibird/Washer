@@ -19,7 +19,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.freescale.iastate.washer.data.ProgramDataSource;
 import com.freescale.iastate.washer.util.CustomRadioGroup;
 import com.freescale.iastate.washer.util.Cycle;
 import com.freescale.iastate.washer.util.Cycle.Level;
@@ -31,7 +30,6 @@ import com.freescale.iastate.washer.util.Program;
 public class CustomProgramActivity extends Activity implements MenuInterface {
 	
 	String selection;
-	private ProgramDataSource datasource;
 	private Program program;
 	
 	Switch presoakSwitch;
@@ -77,26 +75,14 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
         program = Program.getDefaultProgram();
         
         if(bundle != null) {
-			if(bundle.containsKey("selection")){
-				selection = bundle.getString("selection");
-				datasource = new ProgramDataSource(this);
-				datasource.open();
-				program = datasource.nameToProgram(selection);
-				datasource.close();
+			if(bundle.containsKey("program")){
+				program = bundle.getParcelable("program");
+			}else{
+				program = Program.getDefaultProgram();
 			}
-			
-			if(bundle.containsKey("soil_level")) {
-				program.setSoilLevel(bundle.getInt("soil_level"));
-			}
-			
-			if(bundle.containsKey("load_size") ){
-				program.setLoadSize(bundle.getInt("load_size"));	
-			}
-			
-			if(bundle.containsKey("steam")) {
-				program.setSteam(bundle.getBoolean("steam"));
-			}
-        }
+        }else{
+			program = Program.getDefaultProgram();
+		}
 		
         
         rootIntent.setHelpText("Customize Wash Program", getText(R.string.customize_help));

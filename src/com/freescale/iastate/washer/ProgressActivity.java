@@ -1,7 +1,6 @@
 
 package com.freescale.iastate.washer;
 
-import com.freescale.iastate.washer.data.ProgramDataSource;
 import com.freescale.iastate.washer.progress.ProgressFragment;
 import com.freescale.iastate.washer.progress.TimerFragment;
 import com.freescale.iastate.washer.util.MenuInterface;
@@ -11,7 +10,6 @@ import com.freescale.iastate.washer.util.Spin;
 import com.freescale.iastate.washer.util.Wash;
 import com.freescale.iastate.washer.R;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,18 +23,12 @@ import android.widget.TextView;
 
 public class ProgressActivity extends Activity implements MenuInterface, TimerFragment.PercentDoneListener{
 
-	private ProgramDataSource datasource;
-	private String selection;
-	private int index;
 	private Program program = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.progress);
-		
-		ActionBar actionBar = getActionBar();
-		
+		setContentView(R.layout.progress);		
 		
 		final Button cancelButton = (Button) findViewById(R.id.buttonCancelWash);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -51,21 +43,8 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 		// Unpackage intent to retrieve user selection
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		selection = bundle.getString("selection");
-		if(selection != null){
-			datasource = new ProgramDataSource(this);
-			datasource.open();
-			
-			// Retrieve selected program from database
-			program = datasource.nameToProgram(selection);
-			datasource.close();
-			program.setSoilLevel(bundle.getInt("soil_level"));
-			program.setLoadSize(bundle.getInt("load_size"));
-		}else{
-			program = bundle.getParcelable("program");
-			selection = program.getName();
-		}
-	
+		
+		program = bundle.getParcelable("program");	
 		
 		TimerFragment timer = (TimerFragment) getFragmentManager().findFragmentById(R.id.programTimer);
 		ProgressFragment progress = (ProgressFragment) getFragmentManager().findFragmentById(R.id.programProgress);
@@ -83,7 +62,7 @@ public class ProgressActivity extends Activity implements MenuInterface, TimerFr
 	 */
 	public void updateProgramView(Program program){
 		TextView program_name = (TextView) findViewById(R.id.programName);
-		program_name.setText(selection);
+		program_name.setText(program.getName());
 		
 		TextView program_desc = (TextView) findViewById(R.id.programDescription);
 		TextView program_length = (TextView) findViewById(R.id.programLength);
