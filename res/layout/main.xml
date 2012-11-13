@@ -50,8 +50,7 @@
 		</LinearLayout>
 	    <Button 
 	   	    android:id="@+id/customizebutton"
-	   	    android:layout_height="wrap_content"
-	   	    android:layout_width="wrap_content"
+			style="@style/labelFont"
 	   	    android:layout_alignParentBottom="true"
 	   	    android:layout_alignParentRight="true"
 	   	    android:text="@string/customize"
