@@ -15,6 +15,7 @@
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="fill_parent"
 	    	android:layout_weight="1"
+	    	android:gravity="center_horizontal"
 	    	android:orientation="horizontal">
 	    	<TextView 
 	    	    android:id="@+id/presoakText"
@@ -32,6 +33,7 @@
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="fill_parent"
 	    	android:layout_weight="1"
+	    	android:gravity="center_horizontal"
 	    	android:orientation="horizontal">
 	    	<TextView 
 	    	    android:id="@+id/steamText"
@@ -53,13 +55,13 @@
 	    	<TextView
 	    	    android:id="@+id/washTempText"
 	    	    style="@style/labelFont"
-	    	    android:gravity="left"
 	    	    android:text="Select Wash Temperature: "/>
 	    	<LinearLayout 
 	    	    android:id="@+id/washTempGrp"
 		    	android:layout_width="fill_parent"
 		    	android:layout_height="wrap_content"
 		    	android:orientation="horizontal"
+		    	android:gravity="center_horizontal"
 		    	android:layout_below="@+id/washTempText"/>
 	    </LinearLayout>
 	    <LinearLayout
@@ -71,13 +73,12 @@
 	    	<TextView
 	    	    android:id="@+id/rinseTempText"
 	    	    style="@style/labelFont"
-	    	    android:gravity="left"
 	    	    android:text="Select Rinse Temperature: "/>
 	    	<LinearLayout 
 	    	    android:id="@+id/rinseTempGrp"
 		    	android:layout_width="fill_parent"
 		    	android:layout_height="wrap_content"
-		    	android:layout_gravity="center_horizontal"
+		    	android:gravity="center_horizontal"
 		    	android:orientation="horizontal"/>
 	    </LinearLayout>
 	</LinearLayout>
