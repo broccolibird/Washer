@@ -31,17 +31,23 @@
 	    <SeekBar android:id="@+id/soilLevelSeek"
 	        android:layout_height="wrap_content"
 	        android:layout_width="fill_parent"
-	        android:layout_above="@+id/steamText"/>
-	    <TextView android:id="@+id/steamText"
-	        style="@style/labelFont"
-	        android:layout_marginTop="30dp"
-	        android:text="Steam: "
-	        android:layout_centerVertical="true"/> 
-	    <Switch android:id="@+id/steamSwitch"
-	        android:layout_height="wrap_content"
-	        android:layout_width="fill_parent"
-	        android:layout_centerHorizontal="true"
-	        android:layout_below="@+id/steamText"/>
+	        android:layout_above="@+id/steamPane"/>
+	    <LinearLayout
+	    	android:id="@+id/steamPane"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:gravity="center_horizontal"
+	    	android:orientation="horizontal"
+	    	android:layout_centerVertical="true"
+	    	android:layout_marginTop="30dp">
+	    	<TextView android:id="@+id/steamText"
+		        style="@style/labelFont"
+		        android:layout_width="wrap_content"
+		        android:text="Steam: "/> 
+		    <Switch android:id="@+id/steamSwitch"
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"/>
+		</LinearLayout>
 	    <Button 
 	   	    android:id="@+id/customizebutton"
 	   	    android:layout_height="wrap_content"
