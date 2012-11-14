@@ -15,7 +15,8 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" 
-        android:debuggable="true">
+        android:debuggable="true"
+        android:screenOrientation="sensorLandscape">
         
         <provider android:authorities="com.freescale.iastate.washer.contentprovider"
 	        android:name=".data.WasherContentProvider" 

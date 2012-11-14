@@ -2,9 +2,12 @@
 package com.freescale.iastate.washer.dialmenu;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,8 +18,8 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 
 import com.freescale.iastate.washer.R;
 import com.freescale.iastate.washer.WasherActivity;
@@ -39,6 +42,18 @@ public class DialFragment extends Fragment {
 	
 	String menuOptions[];
 	
+	private static SoundPool soundPool;
+	private static int clickSoundId;
+	private static int selectSoundId;
+	
+	private static void initSoundPoolIfNecessary(Context context) {
+		if (soundPool == null) {
+			soundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);
+			clickSoundId = soundPool.load(context, R.raw.click_sound, 1);
+			selectSoundId = soundPool.load(context, R.raw.keypress_standard, 1);
+		}
+	}
+	
 	public View onCreateView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		
@@ -49,6 +64,8 @@ public class DialFragment extends Fragment {
 			imageOriginal = BitmapFactory.decodeResource(getResources(),
 					R.drawable.dial);
 		}
+	
+		initSoundPoolIfNecessary(getActivity());
 		
 		// initialize image matrix
 		if (matrix == null) {
@@ -209,7 +226,10 @@ public class DialFragment extends Fragment {
 	private void selectButton(double angle1, double angle2) {
 		for(int i=0; i < numButtons; i++) {
 			if(angle2 > startAngle[i] && angle2 < endAngle[i]) {
-				button[i].setChecked(true);
+				if(!button[i].isChecked()) {
+					button[i].setChecked(true);
+					soundPool.play(clickSoundId, 0.2f, 0.2f, 0, 0, 1.0f);
+				}
 			} 
 		}
 	}
@@ -281,6 +301,7 @@ public class DialFragment extends Fragment {
 						if(checked == null) {
 							Toast.makeText(getActivity(), "Please select a Wash Program", Toast.LENGTH_SHORT).show();
 						} else {
+							soundPool.play(selectSoundId, 0.1f, 0.1f, 0, 0, 1.0f);
 							((WasherActivity) getActivity())
 								.startWash((String)checked.getText());
 						}
