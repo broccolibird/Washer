@@ -1,16 +1,17 @@
 package com.freescale.iastate.washer.util;
 
-import com.freescale.iastate.washer.MaintenanceActivity;
-import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.StainMenuActivity;
-import com.freescale.iastate.washer.WasherActivity;
-import com.freescale.iastate.washer.WeatherActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.freescale.iastate.washer.MaintenanceActivity;
+import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.WasherActivity;
+import com.freescale.iastate.washer.WeatherActivity;
 
 public interface MenuInterface {
 	RootIntent rootIntent = new RootIntent();
@@ -26,10 +27,6 @@ public interface MenuInterface {
 		public Intent testIntent;
 		public Intent weatherIntent;
 		
-		public RootIntent() {
-			
-		}
-		
 		public boolean onOptionsItemSelected(Activity act, MenuItem item) {
 
 			switch (item.getItemId()) {
@@ -37,7 +34,12 @@ public interface MenuInterface {
 				act.startActivity(rootIntent.homeIntent);
 				return true;
 			case R.id.help:
-				Toast.makeText(act, helpText, Toast.LENGTH_LONG).show();
+				AlertDialog dialog = new AlertDialog.Builder(act).create();
+				dialog.setTitle(helpTitle);
+				dialog.setMessage(helpText);
+								
+				dialog.show();
+				//Toast.makeText(act, helpText, Toast.LENGTH_LONG).show();
 				return true;
 			case R.id.stain:
 				act.startActivity(stainIntent);
@@ -45,9 +47,9 @@ public interface MenuInterface {
 			case R.id.maintenance:
 				act.startActivity(rootIntent.maintenanceIntent);
 				return true;
-			case R.id.settings:		
-				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
-				return true;
+//			case R.id.settings:		
+//				Toast.makeText(act, item.getTitle(), Toast.LENGTH_SHORT).show();
+//				return true;
 			case R.id.weather:
 				act.startActivity(rootIntent.weatherIntent);
 			default:
@@ -57,9 +59,11 @@ public interface MenuInterface {
 		}
 		
 		private String helpText;
+		private String helpTitle;
 		
-		public void setHelpText(CharSequence charSequence) {
-			this.helpText = (String) charSequence;
+		public void setHelpText(CharSequence title, CharSequence text) {
+			this.helpTitle = (String) title;
+			this.helpText = (String) text;
 		}
 	
 		/**
@@ -67,8 +71,6 @@ public interface MenuInterface {
 		 */
 		public void initIntents(Activity act) {
 			rootIntent.homeIntent = new Intent(act, WasherActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-			rootIntent.stainIntent = new Intent(act, StainMenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 			rootIntent.maintenanceIntent = new Intent(act, MaintenanceActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			

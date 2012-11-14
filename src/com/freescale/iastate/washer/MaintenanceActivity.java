@@ -29,6 +29,8 @@ public class MaintenanceActivity extends Activity implements MenuInterface, OnMa
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+        rootIntent.setHelpText("Maintenance Guide", getText(R.string.maintenance_help));
 
 		maintView = ((MaintenanceViewFragment)getFragmentManager().findFragmentById(R.id.maintviewfrag));
 		maintView.setNoMaintenanceItemSelected();

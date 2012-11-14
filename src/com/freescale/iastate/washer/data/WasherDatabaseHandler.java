@@ -34,8 +34,8 @@ public class WasherDatabaseHandler extends SQLiteAssetHelper{
     	ContentValues values = new ContentValues();
     	values.put(StainDataSource.COL_TYPE, stain.getType());
     	values.put(StainDataSource.COL_FABRIC, stain.getFabric());
-    	values.put(StainDataSource.COL_SUPPLIES, stain.getSuppliesString());
-    	values.put(StainDataSource.COL_STEPS, stain.getStepsString());
+    	values.put(StainDataSource.COL_SUPPLIES, stain.getSuppliesListString());
+    	values.put(StainDataSource.COL_STEPS, stain.getStepsListString());
     	values.put(StainDataSource.COL_NOTES, stain.getNotes());
     	values.put(StainDataSource.COL_DISCLAIMER, stain.getDisclaimer());
     	values.put(StainDataSource.COL_SOURCE, stain.getSource());
@@ -50,7 +50,7 @@ public class WasherDatabaseHandler extends SQLiteAssetHelper{
     	ContentValues values = new ContentValues();
     	values.put(MaintenanceDataSource.COL_TYPE, mi.type);
     	values.put(MaintenanceDataSource.COL_TITLE, mi.title);
-    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionString());
+    	values.put(MaintenanceDataSource.COL_DESCRIPTION, mi.getDescriptionListString());
     	values.put(MaintenanceDataSource.COL_SOURCE, mi.source);
     	values.put(MaintenanceDataSource.COL_SOURCEURL, mi.source_url);
 

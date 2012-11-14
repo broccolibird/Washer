@@ -52,7 +52,7 @@ public class MaintenanceDataSource {
     	ContentValues values = new ContentValues();
     	values.put(COL_TYPE, mi.type);
     	values.put(COL_TITLE, mi.title);
-    	values.put(COL_DESCRIPTION, mi.getDescriptionString());
+    	values.put(COL_DESCRIPTION, mi.getDescriptionListString());
     	values.put(COL_SOURCE, mi.source);
     	values.put(COL_SOURCEURL, mi.source_url);
 

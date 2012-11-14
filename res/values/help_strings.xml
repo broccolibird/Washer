@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_help">&quot;Select your prefered Wash Program using the dial or selecting the button. Press the center of the dial to start the program.\n\nCreate a custom wash program by selecting the 'Customize Program' button or customize a default program by selecting the program and then pressing the 'Customize Program' button.</string>
-    <string name="stain_help">&quot;Stain Menu\n\nSelect the stain type on the left to begin.</string>
+    <string name="stain_help">&quot;Select a stain from the left to view stain removal instructions.\n\nSelect the magnifying glass at the top of the screen to search the stain database.\n\nNarrow your search by selecting fabric type at the bottom of the screen.</string>
     <string name="progress_help">Adjust your HVAC application settings here.</string>
-    <string name="maintenance_help">&quot;Maintenance Menu\n\nSelect a maintenance area on the left to begin.</string>
+    <string name="maintenance_help">&quot;Select a maintenance item from the left to view maintenance instructions.\n\nSelect the magnifying glass at the top of the screen to search the maintenance database.</string>
     <string name="customize_help">Please fill me in!</string>
 	    
 </resources>

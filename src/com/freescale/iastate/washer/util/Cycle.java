@@ -1,9 +1,6 @@
 package com.freescale.iastate.washer.util;
 
-import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.freescale.iastate.washer.util.Cycle.Level;
 
 public abstract class Cycle implements Parcelable{
 	
@@ -27,11 +24,11 @@ public abstract class Cycle implements Parcelable{
 	};
 	
 	public enum Level{
-		MAX (4, "Max"), 
-		HIGH (3, "High"), 
+		NONE (0, "None"),
+		LOW (1, "Low"),
 		MEDIUM (2, "Medium"), 
-		LOW (1, "Low"), 
-		NONE (0, "None");
+		HIGH (3, "High"), 
+		MAX (4, "Max");
 		
 		private int id;
 		private String label;
@@ -46,11 +43,11 @@ public abstract class Cycle implements Parcelable{
 	};
 	
 	public enum Size{
-		XL (4, "XLarge"), 
-		LARGE (3, "Large"), 
+		XS (0, "XSmall"), 
+		SMALL (1, "Small"),  
 		MEDIUM (2, "Medium"), 
-		SMALL (1, "Small"), 
-		XS (0, "XSmall");
+		LARGE (3, "Large"),
+		XL (4, "XLarge");
 		
 		private int id;
 		private String label;

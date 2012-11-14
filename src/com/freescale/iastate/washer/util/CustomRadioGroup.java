@@ -1,9 +1,9 @@
-package com.freescale.iastate.washer.dialmenu;
+package com.freescale.iastate.washer.util;
 
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
-public class DialRadioGroup implements RadioButton.OnCheckedChangeListener {  
+public class CustomRadioGroup implements RadioButton.OnCheckedChangeListener {  
 	 
 	private CompoundButton checkedButton = null;
 	
@@ -11,10 +11,10 @@ public class DialRadioGroup implements RadioButton.OnCheckedChangeListener {
 	/**
 	 * Add radio button to group
 	 * 
-	 * @param rb - new RadioButton
+	 * @param compoundButton - new RadioButton
 	 */
-	public void addRadioButton(RadioButton rb) {    
-		rb.setOnCheckedChangeListener(this);   
+	public void addRadioButton(CompoundButton compoundButton) {    
+		compoundButton.setOnCheckedChangeListener(this);   
 	}  
 	  
 	

@@ -1,84 +1,93 @@
 package com.freescale.iastate.washer;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.FloatMath;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.RadioButton;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
-import com.freescale.iastate.washer.customprogram.*;
-import com.freescale.iastate.washer.data.ProgramDataSource;
-import com.freescale.iastate.washer.dialmenu.DialModel;
+import com.freescale.iastate.washer.util.CustomRadioGroup;
+import com.freescale.iastate.washer.util.Cycle;
 import com.freescale.iastate.washer.util.Cycle.Level;
 import com.freescale.iastate.washer.util.Cycle.Size;
 import com.freescale.iastate.washer.util.Cycle.Temperature;
 import com.freescale.iastate.washer.util.MenuInterface;
 import com.freescale.iastate.washer.util.Program;
-import com.freescale.iastate.washer.util.Rinse;
-import com.freescale.iastate.washer.util.Spin;
-import com.freescale.iastate.washer.util.Wash;
-import com.freescale.iastate.washer.util.Wash.Dispenser;
 
-public class CustomProgramActivity extends Activity implements DialModel.Listener, MenuInterface {
+public class CustomProgramActivity extends Activity implements MenuInterface {
 	
 	String selection;
-	private ProgramDataSource datasource;
 	private Program program;
 	
+	Switch presoakSwitch;
+	Switch steamSwitch;
+	
+	// Agitation Level 
+	TextView agLevelText;
+	float agLevelStart = 0;
+	float agLevelEnd = 4;
+	int agLevel = 2;
+	
+	// Spin Speed 
+	TextView spinText;
+	float spinStart = 0;
+	float spinEnd = 4;
+	int spin = 2;
+	
+	// Spin Speed 
+	TextView loadSizeText;
+	float loadSizeStart = 0;
+	float loadSizeEnd = 4;
+	int loadSize = 2;
+		
+	// Soil Level 
+	TextView soilLevelText;
+	float soilLevelStart = 0;
+	float soilLevelEnd = 4;
+	int soilLevel = 2;
 		
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.custom);
+
+		final ActionBar bar = getActionBar();
+		bar.setDisplayHomeAsUpEnabled(true);
         
         //unpack intent
         Intent intent = getIntent();
-		selection = intent.getStringExtra("selection");
+        Bundle bundle = intent.getExtras();
 		
-		if(selection != null){
-			datasource = new ProgramDataSource(this);
-			datasource.open();
-			program = datasource.nameToProgram(selection);
-			datasource.close();
-		}else{
+        program = Program.getDefaultProgram();
+        
+        if(bundle != null) {
+			if(bundle.containsKey("program")){
+				program = bundle.getParcelable("program");
+			}else{
+				program = Program.getDefaultProgram();
+			}
+        }else{
 			program = Program.getDefaultProgram();
 		}
 		
-        final ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(true);
-        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-
-        Tab program_tab = bar.newTab()
-        		.setText("Program")
-        		.setTabListener(new TabListener<ProgramSettingsFragment>(
-        				this, "simple", ProgramSettingsFragment.class));
-        bar.addTab(program_tab);
         
-        Tab wash_tab = bar.newTab()
-                .setText("Wash Cycle")
-                .setTabListener(new TabListener<CustomWashFragment>(
-                        this, "simple", CustomWashFragment.class));
-        bar.addTab(wash_tab);
-        
-        Tab rinse_tab = bar.newTab()
-                .setText("Rinse Cycle")
-                .setTabListener(new TabListener<CustomRinseFragment>(
-                        this, "simple", CustomRinseFragment.class));
-        bar.addTab(rinse_tab);
-        
-        Tab spin_tab = bar.newTab()
-                .setText("Spin Cycle")
-                .setTabListener(new TabListener<CustomSpinFragment>(
-                        this, "simple", CustomSpinFragment.class));
-        bar.addTab(spin_tab);
-        
-        rootIntent.setHelpText(getText(R.string.customize_help));
-        
+        rootIntent.setHelpText("Customize Wash Program", getText(R.string.customize_help));
+     
+        createLayout();
 	}
 	
 	@Override
@@ -88,145 +97,250 @@ public class CustomProgramActivity extends Activity implements DialModel.Listene
 		return true;
 	}
 	
-	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
-	    private Fragment mFragment;
-	    private final Activity mActivity;
-	    private final String mTag;
-	    private final Class<T> mClass;
-
-	    /** Constructor used each time a new tab is created.
-	      * @param activity  The host Activity, used to instantiate the fragment
-	      * @param tag  The identifier tag for the fragment
-	      * @param clz  The fragment's Class, used to instantiate the fragment
-	      */
-	    public TabListener(Activity activity, String tag, Class<T> clz) {
-	        mActivity = activity;
-	        mTag = tag;
-	        mClass = clz;
-	    }
-
-	    /* The following are each of the ActionBar.TabListener callbacks */
-
-	    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-	        // Check if the fragment is already initialized
-	        if (mFragment == null) {
-	            // If not, instantiate and add it to the activity
-	            mFragment = Fragment.instantiate(mActivity, mClass.getName());
-	            ft.add(android.R.id.content, mFragment, mTag);
-	        } else {
-	            // If it exists, simply attach it in order to show it
-	            ft.attach(mFragment);
-	        }
-	    }
-
-	    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	        if (mFragment != null) {
-	            // Detach the fragment, because another one is being attached
-	            ft.detach(mFragment);
-	        }
-	    }
-
-	    public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	        // User selected the already selected tab. Usually do nothing.
-	    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return rootIntent.onOptionsItemSelected(this, item);
 	}
 
-	@Override
-	public void onDialPositionChanged(DialModel sender, int nicksChanged) {
-		// Does nothing in this context
+	private void createLayout() {
+		// Add components to left pane	
 		
-	}
+		// Add presoak switch
+		presoakSwitch = (Switch) findViewById(R.id.presoakSwitch);
+		presoakSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				program.getWashCycle().setPresoak(isChecked);
+			}
+		});
+		presoakSwitch.setChecked(program.getWashCycle().getPresoak());
+		
+		
+		// Add steam switch
+		steamSwitch = (Switch) findViewById(R.id.steamSwitch);
+		steamSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				program.setSteam(isChecked);
+			}
+		});
+		steamSwitch.setChecked(program.getSteam());
+		
+		// Create Wash Temperature Toggle Buttons
+		LinearLayout washTempPanel = (LinearLayout) findViewById(R.id.washTempGrp);
+        Temperature[] water_temps = Temperature.values();
+        CustomRadioGroup washTempGrp = new CustomRadioGroup();
+        OnClickListener washTempListener = new OnClickListener() {
+            public void onClick(View v) {
+                selectWashTemperature(v);
+            }
+        };
+        
+        Temperature washTemp = program.getWashCycle().getTemp();
+        ToggleButton temperature_rb[] = new ToggleButton[water_temps.length];
+        for(int i = 0; i < water_temps.length; i++){
+        	temperature_rb[i] = new ToggleButton(this);
+        	temperature_rb[i].setText(water_temps[i].getLabel());
+	     	temperature_rb[i].setTextOn(water_temps[i].getLabel());
+	     	temperature_rb[i].setTextOff(water_temps[i].getLabel());
+        	temperature_rb[i].setOnClickListener(washTempListener);
+        	washTempGrp.addRadioButton(temperature_rb[i]);
+        	washTempPanel.addView(temperature_rb[i]);
+        	
+        	if(washTemp.getLabel().equals(temperature_rb[i].getText())) {
+        		temperature_rb[i].setChecked(true);
+        	}
+        }
+        
+        // Create Rinse Temperature Toggle Buttons
+		 LinearLayout rinseTempPanel = (LinearLayout) findViewById(R.id.rinseTempGrp);
+	     CustomRadioGroup temperature_grp = new CustomRadioGroup();
+	     OnClickListener rinseTempListener = new OnClickListener() {
+	         public void onClick(View v) {
+	             selectRinseTemperature(v);
+	         }
+	     };
+	     
+	     Temperature rinseTemp = program.getRinseCycle().getTemp();
+	     temperature_rb = new ToggleButton[water_temps.length];
+	     for(int i = 0; i < water_temps.length; i++){
+	     	temperature_rb[i] = new ToggleButton(this);
+	     	temperature_rb[i].setText(water_temps[i].getLabel());
+	     	temperature_rb[i].setTextOn(water_temps[i].getLabel());
+	     	temperature_rb[i].setTextOff(water_temps[i].getLabel());
+	     	temperature_rb[i].setOnClickListener(rinseTempListener);
+	     	temperature_grp.addRadioButton(temperature_rb[i]);
+	     	rinseTempPanel.addView(temperature_rb[i]);
+	     	
+	     	if(rinseTemp.getLabel().equals(temperature_rb[i].getText())) {
+        		temperature_rb[i].setChecked(true);
+        	}
+	     }
+	    
+	    
+	     //Add Wash Agitation Seek bar
+		agLevelText = (TextView) findViewById(R.id.agitationText);
+		
+		SeekBar agLevelSeek = (SeekBar) findViewById(R.id.agLevelSeek);
+		agLevel = program.getAgitation().getID();
+		agLevelSeek.setProgress((int)(100/(agLevelEnd-agLevelStart)*agLevel));
+		agLevelText.setText("Wash Agitation Level: "+program.getAgitation().getLabel());
+		
+		
+		agLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
+		
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = agLevelEnd-agLevelStart;
+				agLevel = (int) FloatMath.ceil((agLevelStart + ((temp/100)*dis)));
+				
+				Level agitationLevel = Cycle.Level.values()[agLevel];
+				String level = (String) agitationLevel.getLabel();
+				agLevelText.setText("Wash Agitation Level: " + level);
+				program.setAgitation(agitationLevel);
+				
+			}
+		
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+		
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+		});
+		
+		
+		// Add Spin Speed seek bar
+		spinText = (TextView) findViewById(R.id.spinSpeedText);
+		
+		SeekBar spinSeek = (SeekBar) findViewById(R.id.spinSpeedSeek);
+		spin = program.getSpinCycle().getSpinSpeed().getID();
+		spinSeek.setProgress((int)(100/(spinEnd-spinStart)*spin));
+		spinText.setText("Spin Speed: "+program.getSpinCycle().getSpinSpeed().getLabel());
+		spinSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
+		
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = spinEnd-spinStart;
+				spin = (int) FloatMath.ceil((spinStart + ((temp/100)*dis)));
+				Level spinSpeed = Cycle.Level.values()[spin];
+				String level = (String) spinSpeed.getLabel();
+				spinText.setText("Spin Speed: " + level);
+				program.getSpinCycle().setSpinSpeed(spinSpeed);
+			}
+		
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+		
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+		});
+	    
+		// Add load size seek bar
+	    loadSizeText = (TextView) findViewById(R.id.loadSizeText);
+        
+        SeekBar loadSizeSeek = (SeekBar) findViewById(R.id.loadSizeSeek);
+        loadSize = program.getLoadSize().getID();
+		loadSizeSeek.setProgress((int)(100/(spinEnd-spinStart)*loadSize));
+		loadSizeText.setText("Load Size: "+program.getLoadSize().getLabel());
+        loadSizeSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 
-	@Override
-	public void onDialPressed(DialModel sender) {
-		// TODO Auto-generated method stub
-		
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = loadSizeEnd-loadSizeStart;
+				loadSize = (int) FloatMath.ceil((loadSizeStart + ((temp/100)*dis)));
+				
+				Size load_size = Cycle.Size.values()[loadSize];
+				program.setLoadSize(load_size);
+				
+				String level = (String) load_size.getLabel();
+				loadSizeText.setText("Load Size: " + level);
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        
+		// Add soil level seek bar
+	    soilLevelText = (TextView) findViewById(R.id.soilLevelText);
+        
+        SeekBar soilLevelSeek = (SeekBar) findViewById(R.id.soilLevelSeek);
+        soilLevel = program.getSoilLevel().getID();
+		soilLevelSeek.setProgress((int)(100/(soilLevelEnd-soilLevelStart)*soilLevel));
+		soilLevelText.setText("Soil Level: "+program.getSoilLevel().getLabel());
+		soilLevelSeek.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				float temp = progress;
+				float dis = soilLevelEnd-soilLevelStart;
+				soilLevel = (int) FloatMath.ceil((soilLevelStart + ((temp/100)*dis)));
+				
+				Level soil_level = Cycle.Level.values()[soilLevel];
+				program.setSoilLevel(soil_level);
+				
+				String level = (String) soil_level.getLabel();
+				soilLevelText.setText("Soil Level: " + level);
+				
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {	}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+	        
+	        
+	}
+	
+	private void selectWashTemperature(View v){
+		ToggleButton button = (ToggleButton) v;
+	    String text = (String) button.getText();
+	    
+	    Temperature temperatures[] = Temperature.values();
+	    for(int i = 0; i < temperatures.length; i++){
+	    	if(text.compareTo(temperatures[i].getLabel()) == 0){
+	    		Temperature temperature = temperatures[i];
+	    		program.getWashCycle().setTemp(temperature);
+	    	}
+	    }
+	    
+	}
+	
+	private void selectRinseTemperature(View v){
+		ToggleButton button = (ToggleButton) v;
+	    String text = (String) button.getText();
+	    
+	    Temperature temperatures[] = Temperature.values();
+	    for(int i = 0; i < temperatures.length; i++){
+	    	if(text.compareTo(temperatures[i].getLabel()) == 0){
+	    		Temperature temperature = temperatures[i];
+	    		program.getRinseCycle().setTemp(temperature);
+	    	}
+	    }
+	    
+	}
+	
+	public void startWash(View v) {
+
 		Intent intent = new Intent(this, ProgressActivity.class);
 		intent.putExtra("program", program);
-		 
+
 		startActivity(intent);
 	}
-
-	public void setWashTemp(Temperature wash_temp) {
-		program.getWashCycle().setTemp(wash_temp);
-		
-	}
-
-	public void setPresoak(boolean presoak) {
-		if(presoak)
-			program.getWashCycle().setPresoakLength(5);
-		else
-			program.getWashCycle().setPresoakLength(0);
-	}
-	
-	public Temperature getWashTemp() {
-		return program.getWashCycle().getTemp();
-	}
-	
-	public boolean getPresoak() {
-		int presoak_time = program.getWashCycle().getPresoakLength();
-		
-		if(presoak_time > 0)
-			return true;
-		else
-			return false;
-	}
-
-	public Temperature getRinseTemp() {
-		return program.getRinseCycle().getTemp();
-	}
-	
-
-	public void setRinseTemp(Temperature rinse_temp) {
-		program.getRinseCycle().setTemp(rinse_temp);
-		
-	}
-
-	public Level getSpinSpeed() {
-		return program.getSpinCycle().getSpinSpeed();
-	}
-
-	public void setSpinSpeed(Level spin_speed) {
-		program.getSpinCycle().setSpinSpeed(spin_speed);
-		
-	}
-
-	public Size getLoadSize() {
-		return program.getLoadSize();
-	}
-
-	public Level getSoilLevel() {
-		return program.getSoilLevel();
-	}
-
-	public Dispenser getDispenser() {
-		return program.getWashCycle().getDispenser();
-	}
-
-	public Level getDispenseAmount() {
-		return program.getWashCycle().getDispenseAmount();
-	}
-
-	public void setLoadSize(Size load_size) {
-		program.setLoadSize(load_size);
-		
-	}
-
-	public void setSoilLevel(Level soil_level) {
-		program.setSoilLevel(soil_level);
-		
-	}
-
-	public void setDispenser(Dispenser dispenser) {
-		program.getWashCycle().setDispenser(dispenser);
-		
-	}
-
-	public void setDispenseAmount(Level dispense_amt) {
-		program.getWashCycle().setDispenseAmount(dispense_amt);
-		
-	}
-
 	
 	
 }

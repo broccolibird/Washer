@@ -1,23 +1,29 @@
+
 package com.freescale.iastate.washer.dialmenu;
 
-import com.freescale.iastate.washer.R;
-import com.freescale.iastate.washer.WasherActivity;
-
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
+
+import com.freescale.iastate.washer.R;
+import com.freescale.iastate.washer.WasherActivity;
+import com.freescale.iastate.washer.util.CustomRadioGroup;
 
 public class DialFragment extends Fragment {
 	
@@ -28,13 +34,25 @@ public class DialFragment extends Fragment {
 	private int dialHeight = 0, dialWidth = 0;
 	private int rbHeight = 0;
 	
-	DialRadioGroup rg;
+	CustomRadioGroup rg;
 	int numButtons = 8;
 	RadioButton button[];
 	int startAngle[];
 	int endAngle[];
 	
 	String menuOptions[];
+	
+	private static SoundPool soundPool;
+	private static int clickSoundId;
+	private static int selectSoundId;
+	
+	private static void initSoundPoolIfNecessary(Context context) {
+		if (soundPool == null) {
+			soundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);
+			clickSoundId = soundPool.load(context, R.raw.click_sound, 1);
+			selectSoundId = soundPool.load(context, R.raw.keypress_standard, 1);
+		}
+	}
 	
 	public View onCreateView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +64,8 @@ public class DialFragment extends Fragment {
 			imageOriginal = BitmapFactory.decodeResource(getResources(),
 					R.drawable.dial);
 		}
+	
+		initSoundPoolIfNecessary(getActivity());
 		
 		// initialize image matrix
 		if (matrix == null) {
@@ -106,7 +126,7 @@ public class DialFragment extends Fragment {
 				        rbHeight = button[0].getHeight();
 				        
 				        // add buttons to radio group
-				        rg = new DialRadioGroup();
+				        rg = new CustomRadioGroup();
 				        for(int i = 0; i < numButtons; i++) {
 				        	rg.addRadioButton(button[i]);
 				        }
@@ -118,7 +138,6 @@ public class DialFragment extends Fragment {
 				        
 				        // place buttons
 				        // right side, going counter-clockwise
-						int i;
 						LayoutParams params;
 						params = (LayoutParams) button[0].getLayoutParams();
 						params.setMargins(xMargin, 0, 0, yMargin); //left, top, right, bottom
@@ -159,15 +178,15 @@ public class DialFragment extends Fragment {
 				        endAngle = new int[numButtons];
 				        
 				        startAngle[0] = 20;
-				        endAngle[0] = 35;
+				        endAngle[0] = 40;
 				        
-				        startAngle[1] = 75;
+				        startAngle[1] = 65;
 				        endAngle[1] = 80;
 				        
-				        startAngle[2] = 110;
+				        startAngle[2] = 100;
 				        endAngle[2] = 125;
 				        
-				        startAngle[3] = 145;
+				        startAngle[3] = 135;
 				        endAngle[3] = 160;
 				        
 				        startAngle[7] = -endAngle[0];
@@ -207,13 +226,20 @@ public class DialFragment extends Fragment {
 	private void selectButton(double angle1, double angle2) {
 		for(int i=0; i < numButtons; i++) {
 			if(angle2 > startAngle[i] && angle2 < endAngle[i]) {
-				button[i].setChecked(true);
+				if(!button[i].isChecked()) {
+					button[i].setChecked(true);
+					soundPool.play(clickSoundId, 0.2f, 0.2f, 0, 0, 1.0f);
+				}
 			} 
 		}
 	}
 	
 	public String getSelectedButton() {
-		return (String) rg.getCheckedRadioButton().getText();
+		RadioButton checked = (RadioButton) rg.getCheckedRadioButton();
+		if(checked != null)
+			return (String) checked.getText();
+		else
+			return null;
 	}
 	
 	private double getAngle(double xTouch, double yTouch) {
@@ -246,14 +272,14 @@ public class DialFragment extends Fragment {
 		
 		public boolean onTouch(View v, MotionEvent event) {
 
+			double x = event.getX();
+			double y = event.getY();
+			
 			switch (event.getAction()) {
 			
 				case MotionEvent.ACTION_DOWN:
 					// sets the start angle of the user's finger press
 					// (not the angle of the dial)
-					double x = event.getX();
-					double y = event.getY();
-					
 					startInCenter = isInCenter(x, y);
 					
 					startAngle = getAngle(x, y);
@@ -262,15 +288,24 @@ public class DialFragment extends Fragment {
 				case MotionEvent.ACTION_MOVE:
 					// sets the current angle of the user's finger press
 					// (not the angle of the dial)
-					double currentAngle = getAngle(event.getX(), event.getY());
-					rotateDial((float)(startAngle - currentAngle));
+					double currentAngle = getAngle(x, y);
+					if(!isInCenter(x, y)) {
+						rotateDial((float)(startAngle - currentAngle));
+					}
 					startAngle = currentAngle;
 					break;
 					
 				case MotionEvent.ACTION_UP:
-					if(startInCenter && isInCenter(event.getX(), event.getY())) {
-						((WasherActivity) getActivity())
-							.startWash((String)rg.getCheckedRadioButton().getText());
+					if(startInCenter && isInCenter(x, y)) {
+						CompoundButton checked = rg.getCheckedRadioButton();
+						if(checked == null) {
+							Toast.makeText(getActivity(), "Please select a Wash Program", Toast.LENGTH_SHORT).show();
+						} else {
+							soundPool.play(selectSoundId, 0.1f, 0.1f, 0, 0, 1.0f);
+							((WasherActivity) getActivity())
+								.startWash((String)checked.getText());
+						}
+						
 					}
 					break;
 			}

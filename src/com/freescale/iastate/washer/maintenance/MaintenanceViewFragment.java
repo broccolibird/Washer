@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freescale.iastate.washer.R;
@@ -22,42 +21,48 @@ public class MaintenanceViewFragment extends Fragment{
 		if(mi != null) {
 			if(mi.type != null) {
 				((TextView)getView().findViewById(R.id.type)).setText(mi.type);
+				((TextView)getView().findViewById(R.id.type)).setVisibility(View.VISIBLE);
 			} else {
-				((TextView)getView().findViewById(R.id.type)).setText("Unknown Type");
+				((TextView)getView().findViewById(R.id.type)).setVisibility(View.GONE);
 			}
 			
 			if(mi.title != null) {
 				((TextView)getView().findViewById(R.id.title)).setText(mi.title);
+				((TextView)getView().findViewById(R.id.title)).setVisibility(View.VISIBLE);
 			} else {
-				((TextView)getView().findViewById(R.id.title)).setText("");
+				((TextView)getView().findViewById(R.id.title)).setVisibility(View.GONE);
 			}
-			
-			LinearLayout descriptionList = (LinearLayout) getView().findViewById(R.id.descriplist);
-			descriptionList.removeAllViews();
-			descriptionList.invalidate();
-			
-			if(mi.description != null) {
-				int descripLength = mi.description.length;
-				
-				for(int i = 0; i < descripLength; i++) {
-					TextView newTV = new TextView(getActivity());
-					newTV.setText(mi.description[i]);
-					((LinearLayout)getView().findViewById(R.id.descriplist)).addView(newTV);
-					
-				}
-			} 
+						
+			if(mi.getDescriptionString() != null && !mi.getDescriptionString().equals("")) {
+				((TextView)getView().findViewById(R.id.descrip)).setText(mi.getDescriptionString());
+				((TextView)getView().findViewById(R.id.descrip)).setVisibility(View.VISIBLE);
+			} else {
+				((TextView)getView().findViewById(R.id.descrip)).setVisibility(View.GONE);
+			}
 			
 			
 			if(mi.source != null) {
 				((TextView)getView().findViewById(R.id.source)).setText(mi.source);
+				((TextView)getView().findViewById(R.id.source)).setVisibility(View.VISIBLE);
+				((TextView)getView().findViewById(R.id.source_label)).setVisibility(View.VISIBLE);
 			} else {
-				((TextView)getView().findViewById(R.id.source)).setText("");
+				((TextView)getView().findViewById(R.id.source)).setVisibility(View.GONE);
+				((TextView)getView().findViewById(R.id.source_label)).setVisibility(View.VISIBLE);
 			}
+		} else {
+			getView().findViewById(R.id.title).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.title)).setText("Maintenance Guide");
+			getView().findViewById(R.id.descrip).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.descrip)).setText(R.string.maintenance_help);
+			
+			getView().findViewById(R.id.type).setVisibility(View.GONE);
+			getView().findViewById(R.id.source_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.source).setVisibility(View.GONE);
 		}
 		
 	}
 	public void setNoMaintenanceItemSelected() {
-		// TODO Auto-generated method stub
+		updateMaintenanceItem(null);
 		
 	}
 

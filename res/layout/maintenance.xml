@@ -1,53 +1,37 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
         android:paddingLeft="20dp"
 	    android:paddingRight="20dp"
 	    android:paddingBottom="20dp"
-	    android:paddingTop="20dp"
-	    android:background="#000000">
-		<FrameLayout
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" 
-			android:gravity="center_horizontal"
-			android:paddingLeft="2dp"
-			android:paddingRight="2dp"
-			android:paddingBottom="2dp"
-			android:paddingTop="2dp"
-			android:background="#33B5E5">
-            <ScrollView
-            		android:id="@+id/scrollView1"
-            		android:layout_width="fill_parent"
-                	android:layout_height="fill_parent"
-                	android:background="#000000" >
-		            <LinearLayout
-		                android:id="@+id/itemlayout"
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content"
-		                android:background="#000000"
-		                android:orientation="vertical" >
-		                <TextView
-		                    android:id="@+id/type"
-		                    android:layout_width="fill_parent"
-		                    android:layout_height="wrap_content" />
-		                <TextView
-		                    android:id="@+id/title"
-		                    android:layout_width="fill_parent"
-		                    android:layout_height="wrap_content"/>
-		                
-		                <LinearLayout
-			                android:id="@+id/descriplist"
-			                android:layout_width="fill_parent"
-			                android:layout_height="wrap_content"
-			                android:orientation="vertical"/>
-						
-		               <TextView
-		                   android:id="@+id/source"
-		                   android:layout_width="fill_parent"
-		                   android:layout_height="wrap_content" />
-		            </LinearLayout>
-			</ScrollView>
+	    android:paddingTop="20dp">
+            
+        <LinearLayout
+            android:id="@+id/itemlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/type"
+                style="@style/paragraphFont"/>
+            <TextView
+                android:id="@+id/title"
+                style="@style/titleFont"/>"
+            
+            <TextView
+	             android:id="@+id/descrip"
+	             style="@style/paragraphFont"/>
 
-    </FrameLayout>
+           <TextView
+               android:id="@+id/source_label"
+               style="@style/titleFont"
+               android:text="@string/mi_source" />
+           <TextView
+               android:id="@+id/source"
+               style="@style/paragraphFont"/>
+        </LinearLayout>
 
-</FrameLayout>
+
+
+</ScrollView>

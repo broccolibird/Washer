@@ -55,17 +55,19 @@ public class ProgressFragment extends Fragment {
 		TextView program_length = (TextView) getView().findViewById(R.id.programLength);
 		TextView load_size = (TextView) getView().findViewById(R.id.loadSize);
 		TextView soil_level = (TextView) getView().findViewById(R.id.soilLevel);
+		TextView program_ag = (TextView) getView().findViewById(R.id.programAgitation);
+		TextView program_steam = (TextView) getView().findViewById(R.id.programSteam);
 		
 		program_desc.setText(program.getDescription());
 		program_length.setText("" + program.getLength());
 		load_size.setText("Load Size: " + program.getLoadSize().getLabel());
 		soil_level.setText("Soil Level: " + program.getSoilLevel().getLabel());
-    
+		program_ag.setText("Agitation: " + program.getAgitation());
+		program_steam.setText("Steam: " + program.getSteam());
+		
 		TextView presoak = (TextView) getView().findViewById(R.id.presoakLength);
 		TextView wash_length = (TextView) getView().findViewById(R.id.washLength);		
 		TextView wash_temp = (TextView) getView().findViewById(R.id.washTemperature);
-		TextView wash_ag = (TextView) getView().findViewById(R.id.washAgitation);
-		TextView wash_steam = (TextView) getView().findViewById(R.id.washSteam);
 		
 		Wash wash = (Wash) program.getWashCycle();
 		presoak.setText("Presoak length: " + wash.getPresoakLength());
@@ -75,8 +77,6 @@ public class ProgressFragment extends Fragment {
 		
 		TextView rinse_length = (TextView) getView().findViewById(R.id.rinseLength);
 		TextView rinse_temp = (TextView) getView().findViewById(R.id.rinseTemperature);
-		TextView rinse_ag = (TextView) getView().findViewById(R.id.rinseAgitation);
-		TextView rinse_steam = (TextView) getView().findViewById(R.id.rinseSteam);
 		
 		Rinse rinse = (Rinse) program.getRinseCycle();
 		rinse_length.setText("Length: " + rinse.getLength());
@@ -86,7 +86,6 @@ public class ProgressFragment extends Fragment {
 
 		TextView spin_length = (TextView) getView().findViewById(R.id.spinLength);
 		TextView spin_speed = (TextView) getView().findViewById(R.id.spinSpeed);
-		TextView spin_steam = (TextView) getView().findViewById(R.id.spinSteam);
 		
 		Spin spin = (Spin) program.getSpinCycle();
 		spin_length.setText("Length: " + spin.getLength());

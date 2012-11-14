@@ -44,7 +44,8 @@
     <fragment
         android:id="@+id/programProgress"
         android:name="com.freescale.iastate.washer.progress.ProgressFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:layout_weight="2"/>
 
 </LinearLayout>

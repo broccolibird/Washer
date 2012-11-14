@@ -20,52 +20,99 @@ public class StainViewFragment extends Fragment {
 	public void updateStain(Stain stain) {
 		if(stain != null) {
 			if(stain.getType() != null) {
+				getView().findViewById(R.id.type_label).setVisibility(View.VISIBLE);
+				((TextView)getView().findViewById(R.id.type_label)).setText("Stain Type:");
+				getView().findViewById(R.id.type).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.type)).setText(stain.getType());
 			} else {
-				((TextView)getView().findViewById(R.id.type)).setText("Unknown Type");
+				getView().findViewById(R.id.type_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.type).setVisibility(View.GONE);
 			}
 			
 			if(stain.getFabric() != null) {
+				getView().findViewById(R.id.fabric_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.fabric).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.fabric)).setText(stain.getFabric());
 			} else {
+				getView().findViewById(R.id.fabric_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.fabric).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.fabric)).setText("");
 			}
 			
-			if(stain.getSuppliesString() != null) {
+			if(stain.getSuppliesString() != null && !stain.getSuppliesString().equals("")) {
+				getView().findViewById(R.id.supplies_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.supplies).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.supplies)).setText(stain.getSuppliesString());
 			} else {
+				getView().findViewById(R.id.supplies_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.supplies).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.supplies)).setText("");
 			}
 			
-			if(stain.getStepsString() != null) {
+			if(stain.getStepsString() != null && !stain.getStepsString().equals("")) {
+				getView().findViewById(R.id.steps_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.steps).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.steps)).setText(stain.getStepsString());
 			} else {
+				getView().findViewById(R.id.steps_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.steps).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.steps)).setText("");
 			}
 			
-			if(stain.getNotes() != null) {
+			if(stain.getNotes() != null && !stain.getNotes().equals("") ) {
+				getView().findViewById(R.id.notes_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.notes).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.notes)).setText(stain.getNotes());
 			} else {
+				getView().findViewById(R.id.notes_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.notes).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.notes)).setText("");
 			}
 			
-			if(stain.getDisclaimer() != null) {
+			if(stain.getDisclaimer() != null && !stain.getDisclaimer().equals("")) {
+				getView().findViewById(R.id.disclaimer_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.disclaimer).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.disclaimer)).setText(stain.getDisclaimer());
 			} else {
+				getView().findViewById(R.id.disclaimer_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.disclaimer).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.disclaimer)).setText("");
 			}
 			
 			if(stain.getSource() != null) {
+				getView().findViewById(R.id.source_label).setVisibility(View.VISIBLE);
+				getView().findViewById(R.id.source).setVisibility(View.VISIBLE);
 				((TextView)getView().findViewById(R.id.source)).setText(stain.getSource());
 			} else {
+				getView().findViewById(R.id.source_label).setVisibility(View.GONE);
+				getView().findViewById(R.id.source).setVisibility(View.GONE);
 				((TextView)getView().findViewById(R.id.source)).setText("");
 			}
+		} else {
+			getView().findViewById(R.id.type_label).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.type_label)).setText("Stain Guide");
+			getView().findViewById(R.id.type).setVisibility(View.VISIBLE);
+			((TextView)getView().findViewById(R.id.type)).setText(R.string.stain_help);
+			
+			getView().findViewById(R.id.fabric_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.fabric).setVisibility(View.GONE);
+			getView().findViewById(R.id.supplies_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.supplies).setVisibility(View.GONE);
+			getView().findViewById(R.id.steps_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.steps).setVisibility(View.GONE);
+			getView().findViewById(R.id.notes_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.notes).setVisibility(View.GONE);
+			getView().findViewById(R.id.disclaimer_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.disclaimer).setVisibility(View.GONE);
+			getView().findViewById(R.id.source_label).setVisibility(View.GONE);
+			getView().findViewById(R.id.source).setVisibility(View.GONE);
+			
 		}
 		
 	}
 	
 	public void setNoStainSelected() {
-		Stain noStain = new Stain("Please select a stain", null, (String[])null, null,
-				null, null, null, null);
+		updateStain(null);
+		
 	}
 }

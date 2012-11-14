@@ -59,8 +59,8 @@ public class StainDataSource {
     	ContentValues values = new ContentValues();
     	values.put(COL_TYPE, stain.getType());
     	values.put(COL_FABRIC, stain.getFabric());
-    	values.put(COL_SUPPLIES, stain.getSuppliesString());
-    	values.put(COL_STEPS, stain.getStepsString());
+    	values.put(COL_SUPPLIES, stain.getSuppliesListString());
+    	values.put(COL_STEPS, stain.getStepsListString());
     	values.put(COL_NOTES, stain.getNotes());
     	values.put(COL_DISCLAIMER, stain.getDisclaimer());
     	values.put(COL_SOURCE, stain.getSource());
