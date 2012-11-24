@@ -18,7 +18,9 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freescale.iastate.washer.R;
@@ -30,6 +32,8 @@ public class DialFragment extends Fragment {
 	private ImageView dial;
 	private static Bitmap imageOriginal, imageScaled;
 	private static Matrix matrix;
+	
+	private TextView dialText;
 	
 	private int dialHeight = 0, dialWidth = 0;
 	private int rbHeight = 0;
@@ -74,6 +78,9 @@ public class DialFragment extends Fragment {
 			matrix.reset();
 		}
 		
+		dialText = (TextView) v.findViewById(R.id.startText);
+		
+		
 		dial = (ImageView) v.findViewById(R.id.testdial);
 		dial.setOnTouchListener(new DialTouchListener());
 		dial.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -104,6 +111,14 @@ public class DialFragment extends Fragment {
 						
 						dial.setImageBitmap(imageScaled);
 						dial.setImageMatrix(matrix);
+						
+						LayoutParams layoutParams = (LayoutParams) dialText.getLayoutParams();
+						layoutParams.addRule(RelativeLayout.ALIGN_TOP, R.id.testdial);
+						layoutParams.addRule(RelativeLayout.ALIGN_RIGHT, R.id.testdial);
+						layoutParams.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.testdial);
+						layoutParams.addRule(RelativeLayout.ALIGN_LEFT, R.id.testdial);
+						dialText.setLayoutParams(layoutParams);
+						
 						
 						
 						// create buttons
