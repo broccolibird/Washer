@@ -7,7 +7,7 @@
 	
 	<string name="no_selection">Please make a selection.</string>
 	
-	<string name="customize">Customize Program</string>
+	<string name="customize">More Wash Settings...</string>
 	
 	<string-array name="cycle_types">
         <item>Delicate</item>

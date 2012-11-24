@@ -116,22 +116,29 @@ public class WasherActivity  extends Activity implements MenuInterface {
 		DialFragment dialFrag = (DialFragment) getFragmentManager().findFragmentById(R.id.dialfragment);
 		String selection = dialFrag.getSelectedButton();
 		
-		// Retrieve wash program from database
-		ProgramDataSource datasource = new ProgramDataSource(this);
-		datasource.open();
-		Program program = datasource.nameToProgram(selection);
-		datasource.close();
-		
-		// customize the wash to user selections
-		program.setLoadSize(loadSize);
-		program.setSoilLevel(soilLevel);
-		program.setSteam(steamSwitch.isChecked());
-				
-		// start the CustomProgramActivity
 		Intent customWash= new Intent(this, CustomProgramActivity.class);
-		if(program != null){
-			customWash.putExtra("program", program);
+		
+		if(selection != null){
+			
+			// Retrieve wash program from database
+			ProgramDataSource datasource = new ProgramDataSource(this);
+			datasource.open();
+			Program program = datasource.nameToProgram(selection);
+			datasource.close();
+			
+			// customize the wash to user selections
+			program.setLoadSize(loadSize);
+			program.setSoilLevel(soilLevel);
+			program.setSteam(steamSwitch.isChecked());
+					
+			if(program != null){
+				customWash.putExtra("program", program);
+			}
 		}
+		
+
+		// start the CustomProgramActivity
+				
 		this.startActivity(customWash);
 	}
 	
