@@ -54,12 +54,8 @@ public class MaintenanceListFragment extends ListFragment
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		
-		MenuItem searchViewMI = menu.findItem(R.id.menu_search);
-		SearchView searchView = (SearchView) searchViewMI.getActionView();
+		SearchView searchView = (SearchView) (getActivity().findViewById(R.id.searchfield));
 		searchView.setOnQueryTextListener(queryListener);
-		searchView.setIconifiedByDefault(false);
-		searchViewMI.setVisible(true);
 	}
 	
 	@Override

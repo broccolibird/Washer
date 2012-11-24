@@ -4,11 +4,27 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <fragment android:name="com.freescale.iastate.washer.maintenance.MaintenanceListFragment"
-		android:id="@+id/maintlist"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_weight="1"/>
+    <LinearLayout
+   		    android:layout_width="fill_parent"
+   		    android:layout_height="fill_parent"
+   		    android:orientation="vertical"
+   		    android:layout_weight="1">
+   		    
+		    <SearchView 
+		        android:id="@+id/searchfield"
+		        android:title="@string/search_hint"
+		        android:iconifiedByDefault="false"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="7"
+		        ></SearchView>
+		    
+		    <fragment android:name="com.freescale.iastate.washer.maintenance.MaintenanceListFragment"
+				android:id="@+id/maintlist"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_weight="2"/>
+	</LinearLayout>
 
 	<fragment android:name="com.freescale.iastate.washer.maintenance.MaintenanceViewFragment"
 		android:id="@+id/maintviewfrag"
