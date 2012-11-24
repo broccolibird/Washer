@@ -3,8 +3,10 @@ package com.freescale.iastate.washer;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.FloatMath;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +15,8 @@ import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Switch;
@@ -139,15 +143,24 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
         };
         
         Temperature washTemp = program.getWashCycle().getTemp();
-        ToggleButton temperature_rb[] = new ToggleButton[water_temps.length];
-        for(int i = 0; i < water_temps.length; i++){
-        	temperature_rb[i] = new ToggleButton(this);
+        RadioButton temperature_rb[] = new RadioButton[water_temps.length - 1];
+        for(int i = 0; i < water_temps.length - 1; i++){
+        	temperature_rb[i] = new RadioButton(this);
         	temperature_rb[i].setText(water_temps[i].getLabel());
-	     	temperature_rb[i].setTextOn(water_temps[i].getLabel());
-	     	temperature_rb[i].setTextOff(water_temps[i].getLabel());
         	temperature_rb[i].setOnClickListener(washTempListener);
         	washTempGrp.addRadioButton(temperature_rb[i]);
         	washTempPanel.addView(temperature_rb[i]);
+        	
+        	temperature_rb[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.togglebutton));
+        	temperature_rb[i].setButtonDrawable(getResources().getDrawable(R.drawable.togglebutton));
+        	
+        	LayoutParams layoutParams = (LayoutParams) temperature_rb[i].getLayoutParams();
+        	layoutParams.weight = 1;
+        	layoutParams.width = LayoutParams.MATCH_PARENT;
+        	layoutParams.height = layoutParams.MATCH_PARENT;
+        	layoutParams.gravity = 17; //center
+        	layoutParams.setMargins(10, 10, 10, 10);
+        	temperature_rb[i].setLayoutParams(layoutParams);
         	
         	if(washTemp.getLabel().equals(temperature_rb[i].getText())) {
         		temperature_rb[i].setChecked(true);
@@ -164,15 +177,24 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	     };
 	     
 	     Temperature rinseTemp = program.getRinseCycle().getTemp();
-	     temperature_rb = new ToggleButton[water_temps.length];
-	     for(int i = 0; i < water_temps.length; i++){
-	     	temperature_rb[i] = new ToggleButton(this);
+	     temperature_rb = new RadioButton[water_temps.length - 1];
+	     for(int i = 0; i < water_temps.length -1; i++){
+	     	temperature_rb[i] = new RadioButton(this);
 	     	temperature_rb[i].setText(water_temps[i].getLabel());
-	     	temperature_rb[i].setTextOn(water_temps[i].getLabel());
-	     	temperature_rb[i].setTextOff(water_temps[i].getLabel());
 	     	temperature_rb[i].setOnClickListener(rinseTempListener);
 	     	temperature_grp.addRadioButton(temperature_rb[i]);
 	     	rinseTempPanel.addView(temperature_rb[i]);
+	     	
+	     	temperature_rb[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.togglebutton));
+        	temperature_rb[i].setButtonDrawable(getResources().getDrawable(R.drawable.togglebutton));
+        	
+        	LayoutParams layoutParams = (LayoutParams) temperature_rb[i].getLayoutParams();
+        	layoutParams.weight = 1;
+        	layoutParams.width = LayoutParams.MATCH_PARENT;
+        	layoutParams.height = layoutParams.MATCH_PARENT;
+        	layoutParams.gravity = 17; //center
+        	layoutParams.setMargins(10, 10, 10, 10);
+        	temperature_rb[i].setLayoutParams(layoutParams);
 	     	
 	     	if(rinseTemp.getLabel().equals(temperature_rb[i].getText())) {
         		temperature_rb[i].setChecked(true);
@@ -307,7 +329,7 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	}
 	
 	private void selectWashTemperature(View v){
-		ToggleButton button = (ToggleButton) v;
+		RadioButton button = (RadioButton) v;
 	    String text = (String) button.getText();
 	    
 	    Temperature temperatures[] = Temperature.values();
@@ -321,7 +343,7 @@ public class CustomProgramActivity extends Activity implements MenuInterface {
 	}
 	
 	private void selectRinseTemperature(View v){
-		ToggleButton button = (ToggleButton) v;
+		RadioButton button = (RadioButton) v;
 	    String text = (String) button.getText();
 	    
 	    Temperature temperatures[] = Temperature.values();
