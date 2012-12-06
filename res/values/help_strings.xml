@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_help">&quot;Select your prefered Wash Program using the dial or selecting the button. Press the center of the dial to start the program.\n\nCreate a custom wash program by selecting the 'Customize Program' button or customize a default program by selecting the program and then pressing the 'Customize Program' button.</string>
-    <string name="stain_help">&quot;Select a stain from the left to view stain removal instructions.\n\nSelect the magnifying glass at the top of the screen to search the stain database.\n\nNarrow your search by selecting fabric type at the bottom of the screen.</string>
-    <string name="progress_help">Adjust your HVAC application settings here.</string>
-    <string name="maintenance_help">&quot;Select a maintenance item from the left to view maintenance instructions.\n\nSelect the magnifying glass at the top of the screen to search the maintenance database.</string>
-    <string name="customize_help">Please fill me in!</string>
-	    
+    <string name="main_help">&quot;Select your prefered Wash Program using the dial or selecting a program button. Press the center of the dial, where it says \'Start\', to start the program.\n\nCreate a custom wash program by selecting the \'More Wash Settings\' button or customize a default program by selecting the program and then pressing the \'More Wash Settings\' button.</string>
+    <string name="stain_help">&quot;Select a stain from the left to view stain removal instructions.\n\nSelect the space next to the magnifying glass at the top left of the screen to search the stain database.\n\nNarrow your search by selecting fabric type at the bottom of the screen.</string>
+    <string name="progress_help">&quot;The countdown shows the time left before the end of the current Wash Program.\n\nThe progress bar displays the entire wash program, how much time has passed and how much time is left.\n\nDetails about the Wash Program are viewed on the right. The current program can be cancelled by selecting the \'Cancel Wash\' button.</string>
+    <string name="maintenance_help">&quot;Select a maintenance item from the left to view maintenance instructions.\n\nSelect the space next to the magnifying glass at the top left of the screen to search the maintenance database.</string>
+    <string name="customize_help">&quot;Use the switches in the top left to turn Presoak and Steam on and off.\n\nUse the buttons in the lower left to select water temperatures for the Wash and Rinse cycles.\n\nUse the sliders on the right to select agitation levels, load size, and soil level.\n\nStart the customized program by selecting \'Start Wash\' in the lower right.</string>
+	<string name="weather_help">&quot;Displays ten day forecast. Drag the view right and left to view the whole forecast.\n\nSelect a day's weather image to view a detailed forecast.\n\nAdjust your current location in the Settings menu.</string>  
 </resources>

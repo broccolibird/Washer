@@ -38,15 +38,13 @@ public class WeatherActivity extends Activity implements MenuInterface,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		
+		rootIntent.setHelpText("Weather Forecast", getText(R.string.weather_help));
+		
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		if (networkInfo != null && networkInfo.isConnected()) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.weather);
-
-			// Finds view, then uses DisplayInterface to change background color
-			// View view = findViewById(R.id.day1Layout);
-			// ColorDisplay background_color = new ColorDisplay();
-			// background_color.setBackgroundColor(view, getBaseContext());
 
 			ForecastWeatherTask task = new ForecastWeatherTask();
 			task.execute();
